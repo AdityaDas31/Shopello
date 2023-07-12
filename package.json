@@ -1,0 +1,27 @@
+{
+  "name": "shopello",
+  "version": "1.0.0",
+  "description": "college project of Aditya Das & Kaustav Ghosh",
+  "main": "backend/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "dev":"nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdityaDas31/Shopello.git"
+  },
+  "author": "Aditya Das & Kaustav Ghosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdityaDas31/Shopello/issues"
+  },
+  "homepage": "https://github.com/AdityaDas31/Shopello#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.3.3",
+    "nodemon": "^3.0.1"
+  }
+}
