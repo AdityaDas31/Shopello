@@ -3,6 +3,7 @@ const sendToken = require('../utils/jwtToken');
 const { request } = require('express');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const ErrorHandler = require('../utils/errorhandler');
+const crypto = require('crypto');
 
 
 
@@ -16,11 +17,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
             url:'url'
         }
     });
-    // sendToken(user, 201, res);
-    res.status(201).json({
-        success: true,
-        user
-    })
+    sendToken(user, 201, res);
 })
 
 // Login
@@ -38,11 +35,7 @@ exports.loginUser = catchAsyncError(async(req,res,next)=>{
     if(!isPasswordMatched){
         return next(new ErrorHandler("Invalid Email or Password",401));
     }
-    //sendToken(user, 200, res);
-    res.status(200).json({
-        success: true,
-        user
-    })
+    sendToken(user, 200, res);
 })
 
 //Logout
@@ -55,4 +48,30 @@ exports.logout = catchAsyncError(async(req,res,next)=>{
         success: true,
         message:"Logged out successfully",
     });
+});
+
+// User Profile 
+exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
+// Update Password
+exports.updatePassword = catchAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldpassword);
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("Old Password is incorrect",400));
+    }
+    if(req.body.newpassword !== req.body.confirmPassword){
+        return next(new ErrorHandler('New passwords do not match',400))
+    }
+    user.password = req.body.newpassword;
+    await user.save();
+    sendToken(user, 200, res);
 });

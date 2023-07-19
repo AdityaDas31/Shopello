@@ -8,7 +8,8 @@ const bodyParser = require('body-parser');
 dotenv.config({path:"backend/config/config.env"});
 
 app.use(express.json());
-//app.use(cookieParser)
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import Route
 const user = require("./routes/userRoutes");
