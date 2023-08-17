@@ -1,10 +1,11 @@
-import React from 'react'
+import React,{Fragment} from 'react';
+import Navbar from './miscellaneous/navbar';
 
 const Home = () => {
   return (
-    <div>
-      Home
-    </div>
+    <Fragment>
+      <Navbar/>
+    </Fragment>
   )
 }
 

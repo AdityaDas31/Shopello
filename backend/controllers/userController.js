@@ -41,7 +41,7 @@ The Team Shopello`;
 
 // Login
 exports.loginUser = catchAsyncError(async (req, res, next) => {
-    const {email,password} = req.body;
+    const { email, password } = req.body;
     // checking if user given password and email both
     if (!email || !password) {
         return next(new ErrorHandler("Please Enter Email and Password", 400));
@@ -64,6 +64,7 @@ The Team Shopello`
     try {
         await sendEmail({
             email: user.email,
+            to: user.name,
             subject: "Welcome back to Shopello! 👏",
             message,
         })
@@ -73,8 +74,8 @@ The Team Shopello`
         return next(new ErrorHandler(error.message, 500));
     }
 
-    //sendToken(user, 200, res);
-    
+
+
 })
 
 //Logout
@@ -112,5 +113,23 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
     }
     user.password = req.body.newpassword;
     await user.save();
-    sendToken(user, 200, res);
+    const message = `Hello ${user.name},
+    
+Your password is now updated. Keep it safe and secure. If you have any questions or need further assistance, feel free to reach out to us.
+
+Best regards,
+    
+The Team Shopello`
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "Password Update Successful! 🔑",
+            message,
+        })
+        sendToken(user, 200, res);
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+    }
+    //sendToken(user, 200, res);
 });

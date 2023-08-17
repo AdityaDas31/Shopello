@@ -12,7 +12,7 @@ const sendEmail = async(option)=>{
     });
 
     const mailOPtions ={
-        from: process.env.SMTP_MAIL,
+        from: '"Shopello" <process.env.SMTP_MAIL>',
         to: option.email,
         subject: option.subject,
         text: option.message,
