@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navbar.css';
 import Dropdown from 'react-bootstrap/Dropdown';
-import logo from '../../images/logo.png'
+import logo from '../../../images/logo.png'
 
 const header = () => {
     return (
@@ -36,15 +36,15 @@ const header = () => {
                         Categories
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu className='dropdown-menu'>
                         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <a>About Us</a>
-                <a>Contact Us</a>
+                <a href='#/action-1' className='other-a'>About Us</a>
+                <a href='#/action-2' className='other-a'>Contact Us</a>
             </div>
         </nav>
     )

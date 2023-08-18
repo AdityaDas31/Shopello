@@ -4,6 +4,7 @@ nav{
     padding: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     background-color: #2874F0;
+    color: black;
 }
 nav svg{
     width: 25px;
@@ -12,7 +13,9 @@ nav svg{
     cursor: pointer;
 }
 nav svg:hover{
-    color: var(--col1);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 50%;
 }
 
 nav .s1{
@@ -82,15 +85,22 @@ nav .s2{
     color: white;
 }
 
-nav .s2 a{
+nav .s2 .other-a{
     text-decoration: none;
-    /* color: black; */
+    color: white;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+}
+nav .s2 .other-a:hover{
+    text-decoration: underline;
 }
 
 nav .s2 .dropdown{
     color: white;
     border: none;
 }
+nav .s2 .dropdown:hover{
+    text-decoration: underline;
+}
+
