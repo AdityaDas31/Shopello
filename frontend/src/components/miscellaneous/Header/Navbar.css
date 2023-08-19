@@ -1,0 +1,106 @@
+nav{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    background-color: #2874F0;
+    color: black;
+}
+nav svg{
+    width: 25px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+}
+nav svg:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+nav .s1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center ;
+}
+
+nav img{
+    width: 150px;
+}
+
+nav .searchbar{
+    display: flex;
+    border: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 5px;
+    justify-content: space-between;
+    width: 50%;
+    background-color: white;
+}
+
+nav .searchbar input{
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+nav .searchbar svg{
+    color: var(--col1);
+}
+nav .searchbar svg:hover{
+    background-color: var(--col1);
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+nav .searchbar button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+nav .s1 .right{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    padding-right: 5px;
+}
+
+nav .cart{
+    position: relative;
+    margin: 0 20px;
+}
+
+nav .s2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 3%;
+    color: white;
+}
+
+nav .s2 .other-a{
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+nav .s2 .other-a:hover{
+    text-decoration: underline;
+}
+
+nav .s2 .dropdown{
+    color: white;
+    border: none;
+}
+nav .s2 .dropdown:hover{
+    text-decoration: underline;
+}
+
