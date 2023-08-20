@@ -1,0 +1,55 @@
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 5vmax;
+    justify-content: flex-end;
+    min-height: 30vh;
+}
+
+.filterBox {
+    padding: 10px;
+    width: 15vmax;
+    position: absolute;
+    top: 10vmax;
+    left: 4vmax;
+    border: 2px solid rgba(0, 0, 0, 0.329);
+    border-radius: 5px;
+}
+
+.categoryBox {
+    padding: 0%;
+}
+
+.category-link {
+    list-style: none;
+    color: rgba(0, 0, 0, 0.61);
+    font: 400 0.8vmax "Roboto";
+    margin: 0.4vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.category-link:hover {
+    color: #0007ff;
+}
+
+.filterBox>fieldset {
+    border: 1px solid rgba(0, 0, 0, 0.329);
+}
+
+
+@media screen and (max-width: 600px) {
+    .products{
+        justify-content: center;
+    }
+    .filterBox {
+        display: none;
+        width: 30vmax;
+        position: static;
+        margin: auto;
+    }
+
+    .category-link {
+        font: 400 1.8vmax "Roboto";
+    }
+}
