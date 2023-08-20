@@ -2,7 +2,8 @@ import React, { Fragment, useState } from 'react';
 import './Products.css';
 import Navbar from '../miscellaneous/Header/header';
 import Footer from '../miscellaneous/Footer/Footer';
-import Product from '../Home/ProductCard';
+// import Product from '../Home/ProductCard';
+import Product from '../Home/ProductsCard';
 import Typography from '@material-ui/core/Typography';
 import Slider from "@material-ui/core/Slider";
 import MetaData from "../Layout/MetaData"
@@ -27,6 +28,7 @@ const Products = () => {
         images: [{ url: "https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/n/a/l-half-latter-one-nb-nicky-boy-original-imagk2gr6ngwxgft.jpeg?q=70" }],
         price: "₹1200",
         _id: "sdfasfasfas",
+        rating:2.5,
     };
 
     const [price, setPrice] = useState([0, 25000]);
@@ -38,6 +40,7 @@ const Products = () => {
         <Fragment>
              <MetaData title="Shopello--Products"/>
             <Navbar />
+            <h2 className="productsHeading">Products</h2>
             <div className='products' >
                 <Product product={product} />
                 <Product product={product} />
