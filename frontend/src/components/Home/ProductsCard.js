@@ -13,8 +13,8 @@ const ProductsCard = ({ product }) => {
             <img src={product.images[0].url} alt={product.name} />
             <div className='divTwo'>
                 <p>{product.name}</p>
-                <div>
-                    <Rating {...options} /> <span className='productCards-span'>(100 Reviews)</span>
+                <div className='rating'>
+                    <Rating {...options} /> <span className='productsCards-span'>(100 Reviews)</span>
                 </div>
             </div>
             <span>{product.price}</span>

@@ -8,6 +8,15 @@
     text-align: center;
 }
 
+.products {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 20vmax;
+    justify-content: center;
+    min-height: 30vh;
+}
+
 .productsCard {
     width: 120%;
     display: flex;
@@ -22,7 +31,7 @@
     width: 14vmax;
 }
 
-.divTwo{
+.divTwo {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
@@ -51,15 +60,6 @@
 .productsCard:hover {
     box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
 
-}
-
-.products {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 0 20vmax;
-    justify-content: flex-end;
-    min-height: 30vh;
 }
 
 .filterBox {
@@ -95,20 +95,30 @@
 
 
 @media screen and (max-width: 600px) {
-    .products {
-        justify-content: flex-start;
+    .productsHeading {
+        padding-right: 45px;
     }
-    .productsCard{
-        display: flex;
+
+    .products {
+        flex-direction: row;
+    }
+
+    .productsCard {
         flex-direction: column;
         width: 14vmax;
     }
-    .productCard>span {
+
+    .productsCard>span {
         margin: 0.5vmax 0.5vmax;
-        color: black;
-        font-size: 1vmax;
     }
 
+    .divTwo {
+        padding-left: 0%;
+    }
+
+    .rating>span {
+        width: 10vmax;
+    }
 
     .filterBox {
         display: none;
