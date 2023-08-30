@@ -5,6 +5,7 @@ const catchAsyncError = require('../middleware/catchAsyncError');
 const ErrorHandler = require('../utils/errorhandler');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
+const userOTP = require('../models/userOtp');
 
 
 
@@ -77,6 +78,129 @@ The Team Shopello`
 
 
 })
+
+//send otp
+exports.userOtpSend = catchAsyncError(async (req, res, next) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return next(new ErrorHandler('please enter your valid email', 400));
+    };
+
+    try {
+        const user = await User.findOne({ email: email });
+        if (user) {
+            const OTP = Math.floor(100000 + Math.random() * 900000);
+            const existEmail = await userOTP.findOne({ email: email });
+
+            if (existEmail) {
+                const updateOtp = await userOTP.findByIdAndUpdate({ _id: existEmail._id }, {
+                    otp: OTP,
+                },
+                    {
+                        new: true,
+                    }
+                );
+                await updateOtp.save();
+                const message = `Hello ${user.name},
+
+This is your OTP:- ${OTP}
+
+Happy shopping,
+The Team Shopello
+                `;
+                try {
+                    await sendEmail({
+                        email: user.email,
+                        to: user.name,
+                        subject: `Shopello - Login OTP :- ${OTP} `,
+                        message,
+                    });
+                    res.status(200).json({
+                        success: true,
+                        message: "Email sent Successfully",
+                    });
+                } catch (error) {
+                    return next(new ErrorHandler(error.message, 500));
+                };
+            } else {
+                const seveOtpData = new userOTP({
+                    email,
+                    otp: OTP,
+                });
+                await seveOtpData.save();
+            };
+            const message = `Hello ${user.name},
+
+This is your OTP:- ${OTP}
+
+Happy shopping,
+The Team Shopello
+                `;
+            try {
+                await sendEmail({
+                    email: user.email,
+                    to: user.name,
+                    subject: `Shopello - Login OTP :- ${OTP} `,
+                    message,
+                });
+                res.status(200).json({
+                    success: true,
+                    message: "Email sent Successfully",
+                });
+            } catch (error) {
+                return next(new ErrorHandler("error", 500));
+            };
+        } else {
+            return next(new ErrorHandler('this user not exist', 200));
+        }
+    } catch (error) {
+        return next(new ErrorHandler('Invalid Details', 400));
+    }
+})
+
+//login with otp
+
+exports.userOtpLogin = catchAsyncError (async(req,res,next)=>{
+    const{ email, otp} = req.body;
+
+    if(!email || !otp){
+        return next(new ErrorHandler("Please Enter Email and OTP", 400));
+    };
+   
+    try {
+        const otpverification = await userOTP.findOne({email:email});
+        if(otpverification.otp === otp){
+            const user = await User.findOne({email:email});
+            const message = `Hello ${user.name},
+    
+We're delighted to see you again! Your shopping journey continues, and we're here to make it exceptional. Let's dive in and explore what's new.
+
+Happy shopping!
+    
+The Team Shopello`;
+const deleteOtp = await userOTP.findOneAndDelete({ otp});
+    try {
+        await sendEmail({
+            email: user.email,
+            to: user.name,
+            subject: "Welcome back to Shopello! 👏",
+            message,
+        })
+        sendToken(user, 200, res);
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+    }
+        }else{
+            return next(new ErrorHandler("Invalid Email or OTP", 401)); 
+        }
+    } catch (error) {
+        return next(new ErrorHandler("Invalid Email or Password", 401));
+    }
+})
+
+
+
 
 //Logout
 exports.logout = catchAsyncError(async (req, res, next) => {

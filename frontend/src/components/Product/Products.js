@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import './Products.css';
 import Navbar from '../miscellaneous/Header/header';
-import Footer from '../miscellaneous/footer/Footer';
+import Footer from '../miscellaneous/Footer/Footer';
 // import Product from '../Home/ProductCard';
 import Product from '../Home/ProductsCard';
 import Typography from '@material-ui/core/Typography';
