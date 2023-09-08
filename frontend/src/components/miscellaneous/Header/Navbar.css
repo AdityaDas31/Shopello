@@ -1,4 +1,4 @@
-nav{
+nav {
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -6,30 +6,32 @@ nav{
     background-color: #2874F0;
     color: black;
 }
-nav svg{
+
+nav svg {
     width: 25px;
     height: 25px;
     color: white;
     cursor: pointer;
 }
-nav svg:hover{
+
+nav svg:hover {
     background-color: rgba(0, 0, 0, 0.2);
     padding: 5px;
     border-radius: 50%;
 }
 
-nav .s1{
+nav .s1 {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center ;
+    align-items: center;
 }
 
-nav img{
+nav img {
     width: 150px;
 }
 
-nav .searchbar{
+nav .searchbar {
     display: flex;
     border: none;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -41,29 +43,30 @@ nav .searchbar{
     background-color: white;
 }
 
-nav .searchbar input{
+nav .searchbar input {
     border: none;
     outline: none;
     width: 100%;
 }
 
-nav .searchbar svg{
+nav .searchbar svg {
     color: var(--col1);
 }
-nav .searchbar svg:hover{
+
+nav .searchbar svg:hover {
     background-color: var(--col1);
     color: white;
     border-radius: 50%;
     padding: 5px;
 }
 
-nav .searchbar button{
+nav .searchbar button {
     border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
-nav .s1 .right{
+nav .s1 .right {
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -71,12 +74,18 @@ nav .s1 .right{
     padding-right: 5px;
 }
 
-nav .cart{
+nav .cart {
     position: relative;
     margin: 0 20px;
 }
 
-nav .s2{
+/* nav .lower{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} */
+
+.s2 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,22 +94,121 @@ nav .s2{
     color: white;
 }
 
-nav .s2 .other-a{
+/* nav .s2{
+    display: flex;
+    gap: 2rem;
+} */
+
+.s2 .other-a {
     text-decoration: none;
-    color: white;
+    color: #fff;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
 }
-nav .s2 .other-a:hover{
+
+.s2 .other-a:hover {
     text-decoration: underline;
 }
 
-nav .s2 .dropdown{
-    color: white;
+.s2 .dropdown {
+    color: #fff;
     border: none;
 }
-nav .s2 .dropdown:hover{
+
+.s2 .dropdown:hover {
     text-decoration: underline;
 }
 
+.toggle_btn {
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.searchbar_toggle {
+    display: none;
+    border: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 5px;
+    justify-content: space-between;
+    width: 75%;
+    background-color: white;
+}
+
+.searchbar_toggle input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.searchbar_toggle svg {
+    color: var(--col1);
+    cursor: none;
+}
+
+.searchbar_toggle button {
+    border: none;
+    background-color: transparent;
+}
+
+
+/*  Responsive */
+
+@media (max-width: 992px) {
+
+    .lower {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: left;
+        margin-top: 10px;
+        /* justify-content: space-between; */
+    }
+
+    nav .searchbar {
+        display: none;
+    }
+
+    .searchbar_toggle {
+        display: flex !important;
+        margin-left: 26px;
+    }
+
+    .s2 {
+        display: none;
+    }
+
+    .toggle_btn {
+        display: block;
+    }
+
+    .toggle_menu {
+        display: block;
+        align-items: start;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        background: #2874F0;
+        padding-bottom: 10px;
+        height: auto;
+        top: 115px;
+        left: 0;
+        width: 200px;
+        border-radius: 0 0 10px;
+        border-top: 1px solid;
+        overflow: hidden;
+        transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toggle_menu_other-a {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        padding-left: 13px;
+        color: #fff;
+    }
+
+}

@@ -12,10 +12,15 @@ const userOtpSchema = new monsgoose.Schema({
         type : String,
         require: true,
     },
-    createdAt:{
-        type: Date,
-        default: Date.now,
-    },
-});
+    // createdAt:{
+    //     type: Date,
+    //     default: Date.now,
+    // },
+},
+{
+    timestamps: true,
+}
+);
+
 
 module.exports = monsgoose.model("userOTP", userOtpSchema);
