@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import logo from '../../../images/logo.png';
 //import Products from '../../Product/Products';
 import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 
 
