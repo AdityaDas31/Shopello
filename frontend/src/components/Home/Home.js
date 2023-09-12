@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import Navbar from '../miscellaneous/Header/header';
+// import Navbar from '../miscellaneous/Header/Header';
+import Navbar from '../miscellaneous/Header/Header';
 import Footer from '../miscellaneous/Footer/Footer';
 import './Home.css';
 import Product from './ProductCard';
