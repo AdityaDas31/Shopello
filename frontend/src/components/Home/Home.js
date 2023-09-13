@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import Navbar from '../miscellaneous/Header/header';
-import Footer from '../miscellaneous/footer/Footer';
+// import Navbar from '../miscellaneous/Header/Header';
+import Navbar from '../miscellaneous/Header/Header';
+import Footer from '../miscellaneous/Footer/Footer';
 import './Home.css';
 import Product from './ProductCard';
 import MetaData from '../Layout/MetaData'

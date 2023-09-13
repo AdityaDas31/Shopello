@@ -41,6 +41,7 @@
 .productsCard>div>span {
     margin: 0.5vmax;
     font: 300 0.7vmax "Roboto";
+    
 }
 
 .productsCard>p {
@@ -93,8 +94,12 @@
     border: 1px solid rgba(0, 0, 0, 0.329);
 }
 
+.filter_btn{
+    display: none;
+}
 
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 992px) {
     .productsHeading {
         padding-right: 45px;
     }
@@ -120,14 +125,38 @@
         width: 10vmax;
     }
 
-    .filterBox {
+    .filterBox{
         display: none;
-        width: 30vmax;
-        position: static;
-        margin: auto;
+    }
+    .filterBox p{
+        color: #fff;
+    }
+    .filterBox fieldset{
+        color: #fff;
+    }
+    /* .filterBox span{
+        color: #000;
+    } */
+
+    .filterBox_toggle {
+        display: block;
+        width: 300px;
+        /* background-color: rgba(7, 17, 127, 0.9); */
+        background-color: gray;
+        overflow: hidden;
     }
 
     .category-link {
+        color: #fff;
         font: 400 1.8vmax "Roboto";
+    }
+    .filter_btn{
+        display: block;
+    }
+    .filter_btn svg{
+        color: black;
+        margin: 10px;
+        height: 25px;
+        width: 25px;
     }
 }
