@@ -75,7 +75,7 @@ const LoginSingup = () => {
         }
         //const path = location.pathname;
         if(isAuthenticated){
-            navigate("/");
+            navigate("/profile");
         }
     }, [dispatch, error, alert,isAuthenticated,navigate]);
 
