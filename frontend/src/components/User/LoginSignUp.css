@@ -92,7 +92,7 @@
     text-decoration: none;
     align-self: flex-end;
     transition: all 0.5s;
-    font: 500 0.8vmax "Gill Sans";
+    font: 500 0.8vmax;
 }
 
 .loginForm>a:hover {
@@ -103,7 +103,7 @@
     border: none;
     background-color: #0007ff;
     color: white;
-    font: 300 0.9vmax "Roboto";
+    font: 300 0.9vmax ;
     width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
@@ -121,7 +121,7 @@
     border: none;
     background-color: red;
     color: white;
-    font: 300 0.9vmax "Roboto";
+    font: 300 0.9vmax;
     width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
@@ -202,7 +202,7 @@
     border: none;
     background-color: #0007ff;
     color: white;
-    font: 300 0.9vmax "Roboto";
+    font: 300 0.9vmax;
     width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
@@ -245,7 +245,7 @@
     }
 
     .login_signUp_toggle>p {
-        font: 300 1.5vmax "Roboto";
+        font: 300 1.5vmax ;
     }
 
     /* login */
@@ -292,7 +292,7 @@
     }
 
     .signUpBtn {
-        font: 300 1.9vmax "Roboto";
+        font: 300 1.9vmax;
         padding: 1.8vmax;
       }
 
