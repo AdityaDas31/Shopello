@@ -20,6 +20,7 @@
 .img_container img {
     height: 20vh;
     width: 20vh;
+    border: 15px solid rgb(232, 201, 173);
     border-radius: 100%;
     transition: all 0.5s;
 }
