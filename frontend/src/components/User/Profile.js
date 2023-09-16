@@ -39,17 +39,17 @@ const Profile = () => {
                             <table>
                                 <tr>
                                     <th>Name</th>
-                                    <td>:</td>
+                                    {/* <td>:</td> */}
                                     <td>{user.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td>:</td>
+                                    {/* <td>:</td> */}
                                     <td>{user.email}</td>
                                 </tr>
                                 <tr>
                                     <th>Joined On</th>
-                                    <td>:</td>
+                                    {/* <td>:</td> */}
                                     <td>{String(user.createdAt).substr(0, 10)}</td>
                                 </tr>
                             </table>
