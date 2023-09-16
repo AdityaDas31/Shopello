@@ -1,4 +1,5 @@
 import './App.css';
+import 'react-tooltip/dist/react-tooltip.css' 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from './components/Home/Home';
 import Products from './components/Product/Products';
