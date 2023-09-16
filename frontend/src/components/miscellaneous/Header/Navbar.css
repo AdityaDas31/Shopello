@@ -15,10 +15,24 @@ nav svg {
 }
 
 nav svg:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    /* background-color: rgba(0, 0, 0, 0.2);
     padding: 5px;
-    border-radius: 50%;
+    border-radius: 50%; */
+    /* visibility: visible; */
 }
+/* .tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    
+    position: absolute;
+    z-index: 1;
+} */
 
 nav .s1 {
     width: 100%;
@@ -115,15 +129,18 @@ nav .cart {
     color: #fff;
     border: none;
 }
-.s2 .dropdown .dropdown-menu{
+
+.s2 .dropdown .dropdown-menu {
     background-color: #2874F0;
     border: 1px solid black;
 
 }
-.s2 .dropdown .dropdown-menu a{
+
+.s2 .dropdown .dropdown-menu a {
     color: #fff;
 }
-.s2 .dropdown .dropdown-menu a:hover{
+
+.s2 .dropdown .dropdown-menu a:hover {
     color: black;
 }
 
@@ -192,11 +209,12 @@ nav .cart {
     .s2 {
         display: none;
     }
-    .s2 .dropdown .dropdown-menu{
-    position: sticky;
-    border: 1px solid black;
-    margin-left: 10px;
-}
+
+    .s2 .dropdown .dropdown-menu {
+        position: sticky;
+        border: 1px solid black;
+        margin-left: 10px;
+    }
 
 
 
@@ -218,7 +236,7 @@ nav .cart {
         left: 0;
         width: 200px;
         border-radius: 0 0 10px;
-        border-top:  1px dotted ;
+        border-top: 1px dotted;
         overflow: visible;
         /* transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
     }

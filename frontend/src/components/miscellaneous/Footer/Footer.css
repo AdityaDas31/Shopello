@@ -74,6 +74,41 @@
   margin: 0
 }
 
+.about{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.about p{
+  padding: 15px;
+}
+
+.footer_lower {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.categories {
+  margin-left: 50px;
+}
+
+.quick {
+  margin-right: 50px;
+}
+
+.copyright {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.social{
+  margin-right: 40px;
+}
+
 @media (max-width:991px) {
   .site-footer [class^=col-] {
     margin-bottom: 30px

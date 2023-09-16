@@ -1,17 +1,25 @@
 import './App.css';
+import 'react-tooltip/dist/react-tooltip.css' 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from './components/Home/Home';
 import Products from './components/Product/Products';
 import  LoginSignUp from './components/User/LoginSingup'
 import Profile from './components/User/Profile';
-// import { useSelector } from 'react-redux';
+import { loadUser } from './actions/userAction';
+import { useEffect } from 'react';
+import store from './store';
+import { useSelector } from 'react-redux';
 
 
 
 
 
 function App() {
-  // const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    store.dispatch(loadUser());
+  },[])
   return (
     <div className="App">
       <Router>
@@ -27,10 +35,10 @@ function App() {
 
 
 
-        <Route extact path='/profile' element={<Profile/>}/>
+        {/* <Route extact path='/profile' element={<Profile/>}/> */}
 
 
-        {/* <Route extact path='/profile' element={isAuthenticated ? <Profile/> : <LoginSignUp/>}/> */}
+        <Route extact path='/profile' element={isAuthenticated ? <Profile/> : <LoginSignUp/>}/>
         </Routes>
       </Router>
     </div>
