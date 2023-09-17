@@ -5,13 +5,24 @@ import './Profile.css';
 import ProfileImg from '../../images/Profile.png';
 import { Link, useNavigate } from 'react-router-dom';
 import MetaData from '../Layout/MetaData';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Layout/Loader/Loader';
+import {logout} from '../../actions/userAction';
+import { useAlert } from 'react-alert';
 
 
 const Profile = () => {
     const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const alert = useAlert();
+
+
+    function logoutUser(){
+        dispatch(logout());
+        alert.success("Logout Successfully");
+        navigate('/login');
+    }
 
     useEffect(()=>{
         if(isAuthenticated === false){
@@ -28,14 +39,11 @@ const Profile = () => {
                         <img src={user.avatar.url} alt={ProfileImg} />
                         <Link className='edit_profile'>Edit Profile</Link>
                         <Link className='change_password'>Change Password</Link>
-                        <Link className='logout'>Logout</Link>
+                        <Link className='logout' onClick={logoutUser}>Logout</Link>
                     </div>
                     <div className='other'>
                         <h2>Profile Information</h2>
                         <div className='other_info'>
-                            {/* <p>Name: <span>{user.name}</span></p>
-                        <p>Email: <span>{user.email}</span></p>
-                        <p>Joined On: <span>{String(user.createdAt).substr(0, 10)}</span></p> */}
                             <table>
                                 <tr>
                                     <th>Name</th>
