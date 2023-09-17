@@ -44,9 +44,6 @@ const Profile = () => {
                     <div className='other'>
                         <h2>Profile Information</h2>
                         <div className='other_info'>
-                            {/* <p>Name: <span>{user.name}</span></p>
-                        <p>Email: <span>{user.email}</span></p>
-                        <p>Joined On: <span>{String(user.createdAt).substr(0, 10)}</span></p> */}
                             <table>
                                 <tr>
                                     <th>Name</th>
