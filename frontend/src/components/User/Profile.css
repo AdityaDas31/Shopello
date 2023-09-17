@@ -20,10 +20,27 @@
 .img_container img {
     height: 20vh;
     width: 20vh;
-    border: 15px solid rgb(232, 201, 173);
-    border-radius: 100%;
-    transition: all 0.5s;
+    /* border: 15px solid rgb(232, 201, 173); */
+    border-radius: 50%;
+    /* transition: all 0.5s; */
+    /* padding: 30px; */
 }
+
+.img_container img:hover {
+    position: relative;
+    width: 20vh;
+    height: 20vh;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 50px #fff,
+      inset 20px 0 80px #f0f,
+      inset -20px 0 80px #0ff,
+      inset 20px 0 300px #f0f,
+      inset -20px 0 300px #0ff,
+      0 0 50px #fff,
+      -10px 0 80px #f0f,
+      10px 0 80px #0ff;
+  }
 
 .img_container a {
     border: none;
@@ -95,9 +112,10 @@
 }
 
 .other table {
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     margin: 15px;
     margin-bottom: 15px;
+    border: 2px solid;
 }
 
 .other td,
@@ -106,6 +124,8 @@ th {
     padding: 5px;
     border: 1px solid #dee2e6;
     font-size: 29px;
+    border: 2px solid;
+    text-align: center;
 }
 /* .other td{
     width: 30%;
@@ -135,9 +155,9 @@ th {
         width: 320px;
         margin-left: 50px;
     }
-    .other table{
-        /* width: 50%; */
-    }
+    /* .other table{
+        width: 50%;
+    } */
     .other td, th{
         font-size: 15px;
     }

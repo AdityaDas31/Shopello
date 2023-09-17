@@ -14,12 +14,12 @@ nav svg {
     cursor: pointer;
 }
 
-nav svg:hover {
-    /* background-color: rgba(0, 0, 0, 0.2);
+/* nav svg:hover {
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 5px;
-    border-radius: 50%; */
-    /* visibility: visible; */
-}
+    border-radius: 50%;
+    visibility: visible;
+} */
 /* .tooltip {
     visibility: hidden;
     width: 120px;
