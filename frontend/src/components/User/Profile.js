@@ -39,7 +39,7 @@ const Profile = () => {
                         <img src={user.avatar.url} alt={ProfileImg} />
                         <Link className='edit_profile'>Edit Profile</Link>
                         <Link className='change_password'>Change Password</Link>
-                        <button className='logout' onClick={logoutUser}>Logout</button>
+                        <Link className='logout' onClick={logoutUser}>Logout</Link>
                     </div>
                     <div className='other'>
                         <h2>Profile Information</h2>
