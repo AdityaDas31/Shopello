@@ -9,6 +9,7 @@ import { loadUser } from './actions/userAction';
 import { useEffect } from 'react';
 import store from './store';
 import { useSelector } from 'react-redux';
+import LoginWithOtp from './components/User/LoginWithOtp';
 
 
 
@@ -26,6 +27,8 @@ function App() {
         <Routes>
 
         <Route extact path='/login' element={<LoginSignUp/>}/>
+        <Route extact path='/getOtp' element={<LoginWithOtp/>}/>
+
 
 
 

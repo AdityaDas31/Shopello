@@ -13,5 +13,13 @@ export const LOAD_USER_FAIL = "LOAD_USER_FAIL";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAIL = "LOGOUT_FALI";
 
+export const OTP_SEND_REQUEST = "OTP_SEND_REQUEST";
+export const OTP_SEND_SUCCESS = "OTP_SEND_SUCCESS";
+export const OTP_SEND_FAIL = "OTP_SEND_FAIL";
+
+export const OTP_LOGIN_REQUEST = "OTP_LOGIN_REQUEST";
+export const OTP_LOGIN_SUCCESS = "OTP_LOGIN_SUCCESS";
+export const OTP_LOGIN_FAIL = "OTP_LOGIN_FAIL";
+
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";

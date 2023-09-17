@@ -114,7 +114,11 @@ const LoginSingup = () => {
                             </div>
                             <button ref={switcherTab}></button>
                         </div>
+
+
                         {/* LOGIN */}
+
+
                         <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>
                             <div className='loginEmail'>
                                 <MailOutlineIcon />
@@ -130,7 +134,7 @@ const LoginSingup = () => {
                                 <LockOpenIcon />
                                 <input
                                     type='password'
-                                    placeholder='Enter your passeord'
+                                    placeholder='Enter your password'
                                     required
                                     value={loginPassword}
                                     onChange={(e) => setLoginPassword(e.target.value)}
@@ -139,8 +143,11 @@ const LoginSingup = () => {
                             <Link to="/password/forgot">Forget Password ?</Link>
                             {/* <Link to="/password/forgot" className='otpBtn'>Login With OTP</Link> */}
                             <input type='submit' value="Login" className='loginBtn' />
-                            <input type='submit' value="Login With OTP" className='otpBtn' onClick={() => { navigate('/login/otp') }} />
+                            <input type='submit' value="Login With OTP" className='otpBtn' onClick={() => { navigate('/getOtp') }} />
                         </form>
+
+                        {/* Register */}
+
                         <form className="signUpForm" ref={registerTab} onSubmit={registerSubmit} encType="multipart/form-data">
                             <div className='signUpName'>
                                 <FaceIcon />
