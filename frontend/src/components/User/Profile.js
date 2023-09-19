@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import MetaData from '../Layout/MetaData';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Layout/Loader/Loader';
-import {logout} from '../../actions/userAction';
+import { logout } from '../../actions/userAction';
 import { useAlert } from 'react-alert';
 
 
@@ -18,29 +18,37 @@ const Profile = () => {
     const alert = useAlert();
 
 
-    function logoutUser(){
+    function logoutUser() {
         dispatch(logout());
         alert.success("Logout Successfully");
         navigate('/login');
     }
 
-    useEffect(()=>{
-        if(isAuthenticated === false){
+    useEffect(() => {
+        if (isAuthenticated === false) {
             navigate('/login');
         }
-    },[navigate, isAuthenticated]);
+    }, [navigate, isAuthenticated]);
     return (
         <Fragment>
             <MetaData title={`${user.name}'s Profile`} />
             {loading ? <Loader /> : <Fragment>
-                <Header />  
+                <Header />
                 <div className='profile_container'>
+
+
+
                     <div className='img_container'>
-                        <img src={user.avatar.url} alt={ProfileImg} />
+                        <div className='block glow'>
+                        <img src={user.avatar.url} alt={ProfileImg}/>
+                        </div>
                         <Link className='edit_profile'>Edit Profile</Link>
                         <Link className='change_password'>Change Password</Link>
                         <Link className='logout' onClick={logoutUser}>Logout</Link>
                     </div>
+
+
+
                     <div className='other'>
                         <h2>Profile Information</h2>
                         <div className='other_info'>
