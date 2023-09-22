@@ -1,0 +1,133 @@
+.LoginContainer{
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(231, 231, 231); */
+    background-color: #2874F0;
+    position: fixed;
+    top: 0%;
+    left: 0;
+}
+.LoginBox{
+    background-color: white;
+    width: 25vw;
+    height: 60vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.LoginBox h1{
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid;
+}
+
+.loginOtpForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 1vmax;
+    justify-content: space-evenly;
+    height: 70%;
+    transition: all 0.5s;
+}
+
+.loginOtpForm>div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.loginOtpEmail {
+    display: flex;
+    flex-direction: row;
+}
+
+.loginOtpEmail>input {
+    padding: 1vmax 3vmax;
+    padding-right: 0.5vmax;
+    width: 80%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 5px;
+    font: 300 0.9vmax;
+    outline: none;
+}
+.loginOtpEmail > input[type=submit]{
+    padding-left: 5px;
+    width: 20%;
+    margin-left: 15px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background-color: rgb(1, 158, 1);
+    transition: all 0.5s;
+}
+.loginOtpEmail > input[type=submit]:hover{
+    background-color: rgb(5, 212, 5);
+}
+
+.loginPassword >input{
+    padding: 1vmax 3vmax;
+    padding-right: 0.5vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 5px;
+    font: 300 0.9vmax;
+    outline: none;
+}
+
+.loginOtpForm>div>svg {
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.623);
+}
+
+.loginOtpBtn {
+    margin-top: 20px;
+    border: none;
+    background-color: #0007ff;
+    color: white;
+    font: 300 0.9vmax ;
+    width: 100%;
+    padding: 0.8vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+
+.loginOtpBtn:hover {
+    background-color: #060b8c;
+}
+
+@media screen and (max-width: 992px)  {
+ .LoginContainer{
+    background-color: white;
+ }   
+ .LoginBox{
+    width: 100vw;
+    height: 95vh;
+ }
+ .loginOtpForm{
+    padding: 5vmax  ;
+ }
+ .loginOtpForm>div>input{
+    padding: 2.5vmax 5vmax;
+    font: 300 1.7vmax; 
+ }
+
+ .loginOtpBtn{
+    font: 300 1.9vmax;
+    padding: 1.8vmax;
+ }
+}
