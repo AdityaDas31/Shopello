@@ -97,7 +97,7 @@ export const sendOtp = (email) => async(dispatch) =>{
 
     const { data } = await axios.post(`/api/v1/user/sendotp`, { email }, config);
 
-    dispatch({type: OTP_SEND_SUCCESS, payload: data.user })
+    dispatch({type: OTP_SEND_SUCCESS, payload: data })
 
   } catch (error) {
     dispatch({ type: OTP_SEND_FAIL, payload: error.response.data.message });

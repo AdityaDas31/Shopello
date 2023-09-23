@@ -4,7 +4,7 @@ import Navbar from '../miscellaneous/Header/Header';
 import Footer from '../miscellaneous/Footer/Footer';
 import './Home.css';
 import Product from './ProductCard';
-import MetaData from '../Layout/MetaData'
+import MetaData from '../Layout/MetaData';
 
 
 
@@ -20,7 +20,6 @@ const Home = () => {
     <Fragment>
       <MetaData title="Shopello" />
       <Navbar />
-      {/* carousel */}
       <div className='home-container' id='home-container'>
         <Product product={product} />
         <Product product={product} />
