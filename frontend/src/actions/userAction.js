@@ -16,6 +16,9 @@ import {
   OTP_LOGIN_REQUEST,
   OTP_LOGIN_SUCCESS,
   OTP_LOGIN_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
   CLEAR_ERRORS,
 } from '../constants/userConstants';
 import axios from 'axios';
@@ -117,6 +120,22 @@ export const loginOtp = (email,otp) => async(dispatch) =>{
     dispatch({type: OTP_LOGIN_SUCCESS, payload: data.user})
   } catch (error) {
     dispatch({type: OTP_LOGIN_FAIL, payload: error.response.data.message})
+  }
+}
+
+// Update Password
+
+export const updatePassword = (passwords) => async (dispatch) =>{
+  try {
+    dispatch({type:UPDATE_PASSWORD_REQUEST});
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const {data} = await axios.put(`/api/v1/user/password/update`, passwords,config);
+
+    dispatch({type: UPDATE_PASSWORD_SUCCESS, payload: data.success})
+  } catch (error) {
+    dispatch({type: UPDATE_PASSWORD_FAIL,payload: error.response.data.message,})
   }
 }
 
