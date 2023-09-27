@@ -12,6 +12,7 @@ import store from './store';
 import { useSelector } from 'react-redux';
 import LoginWithOtp from './components/User/LoginWithOtp';
 import UpdatePassword from './components/User/UpdatePassword';
+import ProductDetails from './components/Product/ProductDetails';
 
 
 
@@ -36,6 +37,7 @@ function App() {
 
         <Route extact path="/" element={<Home />} />
         <Route extact path="/products" element={<Products />} />
+        <Route extact path='/product/:id' element={<ProductDetails/>}/>
 
 
 

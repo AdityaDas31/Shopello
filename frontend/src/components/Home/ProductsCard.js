@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 
+
 const ProductsCard = ({ product }) => {
     const options = {
         value: product.rating,
