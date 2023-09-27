@@ -1,11 +1,14 @@
 import React, { Fragment, useState } from 'react';
-
 import './ProductDetails.css';
 import MetaData from '../Layout/MetaData';
 import Rating from '@material-ui/lab/Rating'
 import { Button } from '@material-ui/core';
 import Header from '../miscellaneous/Header/Header';
 import Footer from '../miscellaneous/Footer/Footer';
+// import { Tooltip as ReactTooltip } from 'react-tooltip';
+// import Tooltip from '@material-ui/core';
+import Tooltip from '@mui/material/Tooltip';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 const ProductDetails = () => {
     const product = {
@@ -24,31 +27,60 @@ const ProductDetails = () => {
         precision: 0.5,
     };
 
-   const [quantity, setQuantity]=  useState(1);
+    const [quantity, setQuantity] = useState(1);
+    const [urlToCopy, setUrlToCopy] = useState(`http://localhost:3000/product/${product._id}`);
+    const [open, setOpen] = React.useState(false);
 
-   const decreaseQuantity = () =>{
-    if(1 >= quantity) return;
+    const decreaseQuantity = () => {
+        if (1 >= quantity) return;
 
-    const qty = quantity - 1;
-    setQuantity(qty);
-   }
+        const qty = quantity - 1;
+        setQuantity(qty);
+    }
 
-   const increaseQuantity = () =>{
-    if (product.stock <= quantity) return;
+    const increaseQuantity = () => {
+        if (product.stock <= quantity) return;
 
-    const qty = quantity + 1;
-    setQuantity(qty);
-   }
+        const qty = quantity + 1;
+        setQuantity(qty);
+    }
 
+
+    const handleTooltipClose = () => {
+        setOpen(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setOpen(true);
+        navigator.clipboard.writeText(urlToCopy);
+    };
 
 
     return (
         <Fragment>
             <MetaData title={`${product.name} -- Shopello`} />
-            <Header/>
+            <Header />
             <div className='ProductDetails'>
-                <div>
+                <div className='img'>
                     <img src={product.images[0].url} alt={product.name} />
+                    {/* <i className="fa-solid fa-share" data-tooltip-id='share' data-tooltip-content="Share" data-tooltip-place='right' value={urlToCopy} onClick={handleCopyClick}></i>  */}
+                    {/* <ReactTooltip id='share'/> */}
+                    <ClickAwayListener onClickAway={handleTooltipClose}>
+                        <Tooltip
+                            PopperProps={{
+                                disablePortal: true,
+                            }}
+                            onClose={handleTooltipClose}
+                            open={open}
+                            disableFocusListener
+                            disableTouchListener
+                            title="Copy Shareable Link"
+                            placement='top'
+                            arrow
+                        >
+                             <i className="fa-solid fa-share" onClick={handleTooltipOpen}></i>
+                        </Tooltip>
+                    </ClickAwayListener>
                 </div>
                 <div>
                     <div className='detailsBlock-1'>
@@ -76,11 +108,11 @@ const ProductDetails = () => {
                         </p>
                     </div>
                     <div className='detailsBlock-4'>
-                    Description: <p>{product.description}</p>
+                        Description: <p>{product.description}</p>
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </Fragment>
     )
 }
