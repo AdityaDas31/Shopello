@@ -44,12 +44,7 @@
 
 .detailsBlock-1 {
     color: rgb(54, 54, 54);
-    font: 600 0.6vmax "Roboto";
-}
-
-.detailsBlock-1>p {
-    color: rgba(54, 54, 54, 0.582);
-    font: 200 0.6vmax cursive;
+    font: 600 1vmax "Roboto";
 }
 
 .detailsBlock-2 {

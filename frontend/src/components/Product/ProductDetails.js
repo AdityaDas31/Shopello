@@ -2,13 +2,16 @@ import React, { Fragment, useState } from 'react';
 import './ProductDetails.css';
 import MetaData from '../Layout/MetaData';
 import Rating from '@material-ui/lab/Rating'
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import Header from '../miscellaneous/Header/Header';
 import Footer from '../miscellaneous/Footer/Footer';
 // import { Tooltip as ReactTooltip } from 'react-tooltip';
 // import Tooltip from '@material-ui/core';
-import Tooltip from '@mui/material/Tooltip';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
+// import Tooltip from '@mui/material/Tooltip';
+// import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import { ShareSocial } from 'react-share-social';
 
 const ProductDetails = () => {
     const product = {
@@ -28,8 +31,9 @@ const ProductDetails = () => {
     };
 
     const [quantity, setQuantity] = useState(1);
-    const [urlToCopy, setUrlToCopy] = useState(`http://localhost:3000/product/${product._id}`);
-    const [open, setOpen] = React.useState(false);
+    // const [urlToCopy, setUrlToCopy] = useState(`http://localhost:3000/product/${product._id}`);
+    // const [open, setOpen] = React.useState(false);
+    const [show, setShow] = useState(false);
 
     const decreaseQuantity = () => {
         if (1 >= quantity) return;
@@ -45,15 +49,20 @@ const ProductDetails = () => {
         setQuantity(qty);
     }
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-    const handleTooltipClose = () => {
-        setOpen(false);
-    };
+    const shareUrl = `http://localhost:3000/product/${product._id}`;
 
-    const handleTooltipOpen = () => {
-        setOpen(true);
-        navigator.clipboard.writeText(urlToCopy);
-    };
+
+    // const handleTooltipClose = () => {
+    //     setOpen(false);
+    // };
+
+    // const handleTooltipOpen = () => {
+    //     setOpen(true);
+    //     navigator.clipboard.writeText(urlToCopy);
+    // };
 
 
     return (
@@ -65,7 +74,7 @@ const ProductDetails = () => {
                     <img src={product.images[0].url} alt={product.name} />
                     {/* <i className="fa-solid fa-share" data-tooltip-id='share' data-tooltip-content="Share" data-tooltip-place='right' value={urlToCopy} onClick={handleCopyClick}></i>  */}
                     {/* <ReactTooltip id='share'/> */}
-                    <ClickAwayListener onClickAway={handleTooltipClose}>
+                    {/* <ClickAwayListener onClickAway={handleTooltipClose}>
                         <Tooltip
                             PopperProps={{
                                 disablePortal: true,
@@ -80,7 +89,25 @@ const ProductDetails = () => {
                         >
                              <i className="fa-solid fa-share" onClick={handleTooltipOpen}></i>
                         </Tooltip>
-                    </ClickAwayListener>
+                    </ClickAwayListener> */}
+                    <i className="fa-solid fa-share" onClick={handleShow}></i>
+                    <Modal show={show} onHide={handleShow}>
+                        <Modal.Header>
+                            <Modal.Title>Share Product Link</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <ShareSocial
+                                url={shareUrl}
+                                socialTypes={['facebook', 'twitter', 'whatsapp', 'telegram']}
+                                onSocialButtonClicked={data => console.log(data)}
+                            />
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
                 <div>
                     <div className='detailsBlock-1'>
