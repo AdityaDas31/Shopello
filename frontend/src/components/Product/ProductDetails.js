@@ -52,8 +52,9 @@ const ProductDetails = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const shareUrl = `http://localhost:3000/product/${product._id}`;
-
+    // const shareUrl = `localhost:3000/product/${product._id}`;\
+    
+    const shareUrl  = window.location.href
 
     // const handleTooltipClose = () => {
     //     setOpen(false);
@@ -90,24 +91,7 @@ const ProductDetails = () => {
                              <i className="fa-solid fa-share" onClick={handleTooltipOpen}></i>
                         </Tooltip>
                     </ClickAwayListener> */}
-                    <i className="fa-solid fa-share" onClick={handleShow}></i>
-                    <Modal show={show} onHide={handleShow}>
-                        <Modal.Header>
-                            <Modal.Title>Share Product Link</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <ShareSocial
-                                url={shareUrl}
-                                socialTypes={['facebook', 'twitter', 'whatsapp', 'telegram']}
-                                onSocialButtonClicked={data => console.log(data)}
-                            />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
+
                 </div>
                 <div>
                     <div className='detailsBlock-1'>
@@ -126,6 +110,24 @@ const ProductDetails = () => {
                                 <button className='increase' onClick={increaseQuantity}>+</button>
                             </div>
                             <Button>Add To Cart</Button>
+                            <Button onClick={handleShow}><i className="fa-solid fa-share"></i></Button>
+                            <Modal show={show} onHide={handleShow}>
+                                <Modal.Header>
+                                    <Modal.Title>Share Product Link</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <ShareSocial
+                                        url={shareUrl}
+                                        socialTypes={['facebook', 'twitter', 'whatsapp', 'telegram']}
+                                        onSocialButtonClicked={data => console.log(data)}
+                                    />
+                                </Modal.Body>
+                                <Modal.Footer >
+                                    <Button variant="danger" onClick={handleClose}>
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </div>
                         <p>
                             Status:
