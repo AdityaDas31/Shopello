@@ -67,12 +67,12 @@ nav .searchbar svg {
     color: var(--col1);
 }
 
-nav .searchbar svg:hover {
+/* nav .searchbar svg:hover {
     background-color: var(--col1);
     color: white;
     border-radius: 50%;
     padding: 5px;
-}
+} */
 
 nav .searchbar button {
     border: none;
