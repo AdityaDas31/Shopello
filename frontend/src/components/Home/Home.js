@@ -5,6 +5,7 @@ import Footer from '../miscellaneous/Footer/Footer';
 import './Home.css';
 import Product from './ProductCard';
 import MetaData from '../Layout/MetaData';
+import Carousel from '../miscellaneous/Carosel/Carousel';
 
 
 
@@ -20,6 +21,7 @@ const Home = () => {
     <Fragment>
       <MetaData title="Shopello" />
       <Navbar />
+      <Carousel />
       <div className='home-container' id='home-container'>
         <Product product={product} />
         <Product product={product} />

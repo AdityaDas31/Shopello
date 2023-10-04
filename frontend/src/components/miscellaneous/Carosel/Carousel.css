@@ -1,0 +1,11 @@
+.carousel{
+    position: relative;
+    width: 100%;
+    margin: 2px;
+    padding: 10px;
+}
+.carousel img{
+    display:flex;
+    flex-direction: row;
+    background: no-repeat;
+}
