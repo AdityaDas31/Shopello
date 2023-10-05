@@ -19,7 +19,7 @@ const ProductDetails = () => {
         images: [{ url: "https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/n/a/l-half-latter-one-nb-nicky-boy-original-imagk2gr6ngwxgft.jpeg?q=70" }],
         price: "1200",
         _id: "sdfasfasfas",
-        rating: 2.5,
+        rating: 2.7,
         stock: 10,
         description: "This is the best tshirt in the world",
     };

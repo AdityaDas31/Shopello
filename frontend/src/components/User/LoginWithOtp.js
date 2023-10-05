@@ -13,7 +13,7 @@ const LoginWithOtp = () => {
     const [otpLoginEmail, setOtpLoginEmail] = useState("");
     const [otpLoginPassword, setOtpLoginPassword] = useState("");
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const [countdown, setCountdown] = useState(60);
+    const [countdown, setCountdown] = useState(60);// 15
     const [timerId, setTimerId] = useState(null);
     const [buttonColor, setButtonColor] = useState('green');
     const [showFirstForm, setShowFirstForm] = useState(true);
@@ -47,7 +47,7 @@ const LoginWithOtp = () => {
 
         setIsButtonDisabled(true);
 
-        setCountdown(60);
+        setCountdown(60);//15
 
         setButtonColor('red');
 
