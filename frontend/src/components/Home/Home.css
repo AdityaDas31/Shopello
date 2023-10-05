@@ -57,7 +57,7 @@ body{
 
 @media screen and (max-width: 660px) {
     .productCard > p{
-        font-size: 1.7px;
+        font-size: 1.7vmax;
     }
     .productCard > div{
         margin: 0;
