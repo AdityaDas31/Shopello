@@ -1,16 +1,20 @@
 import Carousel from 'react-bootstrap/Carousel';
-import test3 from '../../../images/test3.jpg';
-import test4 from '../../../images/test4.jpg';
-import test5 from '../../../images/test5.jpg';
+import test1 from '../../../images/1.png';
+import test2 from '../../../images/2.png';
+import test3 from '../../../images/3.png';
+import test4 from '../../../images/4.png';
+import test5 from '../../../images/5.png';
+import './Carousel.css'
+
 // import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
 function IndividualIntervalsExample() {
   return (
-    <Carousel>
-      <Carousel.Item interval={1000}>
+    <Carousel data-bs-theme="dark">
+      <Carousel.Item>
         <img 
             className="d-block w-100"
-            src={test5}
+            src={test1}
             alt="First slide"
         />
         {/* <Carousel.Caption>
@@ -18,10 +22,10 @@ function IndividualIntervalsExample() {
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </Carousel.Caption> */}
       </Carousel.Item>
-      <Carousel.Item interval={500}>
+      <Carousel.Item>
         <img 
             className="d-block w-100"
-            src={test4}
+            src={test2}
             alt="Second slide"
         />
         {/* <Carousel.Caption>
@@ -34,6 +38,32 @@ function IndividualIntervalsExample() {
             className="d-block w-100"
             src={test3}
             alt="Third slide"
+        />
+        {/* <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption> */}
+      </Carousel.Item>
+      <Carousel.Item>
+        <img 
+            className="d-block w-100"
+            src={test4}
+            alt="Forth slide"
+        />
+        {/* <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption> */}
+      </Carousel.Item>
+      <Carousel.Item>
+        <img 
+            className="d-block w-100"
+            src={test5}
+            alt="Fifth slide"
         />
         {/* <Carousel.Caption>
           <h3>Third slide label</h3>
