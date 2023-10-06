@@ -4,6 +4,7 @@ import test2 from '../../../images/2.png';
 import test3 from '../../../images/3.png';
 import test4 from '../../../images/4.png';
 import test5 from '../../../images/5.png';
+import './Carousel.css'
 
 // import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
