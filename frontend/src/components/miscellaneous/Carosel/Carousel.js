@@ -10,7 +10,7 @@ import './Carousel.css'
 
 function IndividualIntervalsExample() {
   return (
-    <Carousel data-bs-theme="dark">
+    <Carousel data-bs-theme="dark" className='carousel'>
       <Carousel.Item>
         <img 
             className="d-block w-100"
