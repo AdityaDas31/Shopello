@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import LoginWithOtp from './components/User/LoginWithOtp';
 import UpdatePassword from './components/User/UpdatePassword';
 import ProductDetails from './components/Product/ProductDetails';
+import Cart from './components/Cart/Cart';
 
 
 
@@ -40,7 +41,7 @@ function App() {
         <Route extact path='/product/:id' element={<ProductDetails/>}/>
 
 
-
+      <Route extact path='/cart' element={<Cart/>}/>
 
         {/* <Route extact path='/profile' element={<Profile/>}/> */}
 
