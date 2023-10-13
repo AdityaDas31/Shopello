@@ -1,63 +1,88 @@
 import React from 'react';
 import './Footer.css';
+import logo from '../../../images/logo.png';
+import pay1 from '../../../images/icon-pay-01.png';
+import pay2 from '../../../images/icon-pay-02.png';
+import pay3 from '../../../images/icon-pay-03.png';
+import pay4 from '../../../images/icon-pay-04.png';
+import pay5 from '../../../images/icon-pay-05.png';
+
+import { Link } from "react-router-dom";
 
 const Footer = () => {
-  return (
-    <div class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <h6>About</h6>
-            <p class="text-justify">At Shopello, we're more than just an online store - we're your shopping companion on a journey of convenience and discovery. With a passion for quality and a dedication to service, we curate a diverse range of products that cater to your needs and aspirations.
-
-              Our mission is to bring you a seamless and enjoyable shopping experience, whether you're looking for fashion, electronics, home essentials, or beyond. With a user-friendly interface, secure transactions, and a commitment to excellence, we're here to make your online shopping simple and exciting.
-
-              Thank you for choosing Shopello as your go-to destination. Join us in creating memories through shopping, and let's embark on this journey together..</p>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Categories</h6>
-            <ul class="footer-links">
-              <li><a href="#/action-1">Categories 1</a></li>
-              <li><a href="#/action-2">Categories 2</a></li>
-              <li><a href="#/action-3">Categories 3</a></li>
-              <li><a href="#/action-4">Categories 4</a></li>
-              <li><a href="#/action-5">Categories 5</a></li>
-              <li><a href="#/action-6">Categories 6</a></li>
-            </ul>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="#/action-1">About Us</a></li>
-              <li><a href="#/action-2">Contact Us</a></li>
-              <li><a href="#/action-3">Privacy Policy</a></li>
-            </ul>
-          </div>
-        </div>
-        {/* <hr> */}
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p className="copyright-text">Copyright &copy; 2023 All Rights Reserved by
-              <a href="#/action-1"> Shopello</a>.
-            </p>
-          </div>
-
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <ul class="social-icons">
-              <li><a class="facebook" href="#/action-1"><i class="fa-brands fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#/action-2"><i class="fa-brands fa-twitter"></i></a></li>
-              <li><a class="dribbble" href="#/action-3"><i class="fa-brands fa-instagram"></i></a></li>
-              <li><a class="linkedin" href="#/action-4"><i class="fa-brands fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+    return (
+        <>
+            <footer className="footer">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-4 col-md-6 col-sm-7">
+                            <div className="footer__about">
+                                <div className="footer__logo">
+                                    <Link to="/"><img src="" alt='logo' /></Link>
+                                </div>
+                                <p>
+                                    Thank you for choosing Shopello as your go-to destination. Join us in creating memories through shopping, and let's embark on this journey together.</p>
+                                <div className="footer__payment">
+                                    <Link to="#"><img src={pay1} alt="" /></Link>
+                                    <Link to="#"><img src={pay2} alt="" /></Link>
+                                    <Link to="#"><img src={pay3} alt="" /></Link>
+                                    <Link to="#"><img src={pay4} alt="" /></Link>
+                                    <Link to="#"><img src={pay5} alt="" /></Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-2 col-md-3 col-sm-5">
+                            <div className="footer__widget">
+                                <h6>Quick links</h6>
+                                <ul>
+                                    <li><Link to="#">About Us</Link></li>
+                                    <li><Link to="#">Contact Us</Link></li>
+                                    <li><Link to="#">Privacy Policy</Link></li>
+                                    <li><Link to="#">FAQ</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-lg-2 col-md-3 col-sm-4">
+                            <div className="footer__widget">
+                                <h6>Account</h6>
+                                <ul>
+                                    <li><Link to="/profile">My Account</Link></li>
+                                    <li><Link to="#">Orders Tracking</Link></li>
+                                    <li><Link to="#">Checkout</Link></li>
+                                    <li><Link to="#">Wishlist</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-8 col-sm-8">
+                            <div className="footer__newslatter">
+                                <h6>NEWSLETTER</h6>
+                                <form action="#">
+                                    <input type="text" placeholder="Email" />
+                                    <button type="submit" className="site-btn">Subscribe</button>
+                                </form>
+                                <div className="footer__social">
+                                    <Link to="#"><i className="fa fa-facebook"></i></Link>
+                                    <Link to="#"><i className="fa fa-twitter"></i></Link>
+                                    <Link to="#"><i className="fa fa-youtube-play"></i></Link>
+                                    <Link to="#"><i className="fa fa-instagram"></i></Link>
+                                    <Link to="#"><i className="fa fa-pinterest"></i></Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="footer_copyright_text">
+                                <p className="copyright-text">Copyright &copy; 2023 All Rights Reserved by
+                                    <a href="#/action-1"> Shopello</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </>
+    );
 }
 
-export default Footer
+export default Footer;
