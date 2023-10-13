@@ -1,7 +1,7 @@
 .footer {
 	padding-top: 55px;
-  background-color: #111111;
-  font-family: "Montserrat", sans-serif;
+	background-color: #111111ec;
+	font-family: "Montserrat", sans-serif;
 }
 
 .footer__about {
@@ -10,11 +10,15 @@
 
 .footer__about p {
 	margin-bottom: 20px;
-  color: #666666;;
+	color: #757575;
 }
 
 .footer__logo {
 	margin-bottom: 20px;
+}
+
+.footer__logo>a>img {
+	width: 200px;
 }
 
 .footer__payment a {
@@ -36,7 +40,7 @@
 	font-weight: 600;
 	text-transform: uppercase;
 	margin-bottom: 12px;
-  padding-left: 32px;
+	/* padding-left: 32px; */
 }
 
 .footer__widget ul li {
@@ -44,10 +48,10 @@
 }
 
 .footer__widget ul li a {
-  font-size: 14px;
-	color: #666666;
+	font-size: 14px;
+	color: #757575;
 	line-height: 30px;
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .footer__newslatter {
@@ -70,6 +74,7 @@
 	height: 52px;
 	width: 100%;
 	border: 1px solid #e1e1e1;
+	outline: none;
 	border-radius: 50px;
 	padding-left: 30px;
 	font-size: 14px;
@@ -120,6 +125,23 @@
 	margin-right: 0;
 }
 
+.footer__social a.facebook:hover {
+	background-color: #3b5998
+}
+
+.footer__social a.twitter:hover {
+	background-color: #00aced
+}
+
+.footer__social a.youtube:hover {
+	background-color: #CD201F
+}
+
+.footer__social a.instagram:hover {
+	background-color: #d62976
+}
+
+
 .footer_copyright_text {
 	border-top: 1px solid #e1e1e1;
 	padding: 18px 0 25px;
@@ -130,12 +152,12 @@
 
 .footer_copyright_text p {
 	margin-bottom: 0;
-  color:#666666
+	color: #666666
 }
 
 .footer_copyright_text a {
 	color: #666666;
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .footer_copyright_text i {
@@ -147,27 +169,30 @@
 }
 
 .fa-facebook:before {
-  content: "\f09a";
+	content: "\f09a";
 }
+
 .fa-youtube-play:before {
-  content: "\f16a";
+	content: "\f16a";
 }
+
 .fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
+
 .site-btn {
-  font-size: 14px;
-  color: #ffffff;
-  background: #ca1515;
-  font-weight: 600;
-  border: none;
-  text-transform: uppercase;
-  display: inline-block;
-  padding: 12px 30px;
-  border-radius: 50px;
+	font-size: 14px;
+	color: #ffffff;
+	background: #ca1515;
+	font-weight: 600;
+	border: none;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 12px 30px;
+	border-radius: 50px;
 }
