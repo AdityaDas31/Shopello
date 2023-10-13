@@ -6,6 +6,7 @@ import './Home.css';
 import Product from './ProductCard';
 import MetaData from '../Layout/MetaData';
 import Carousel from '../miscellaneous/Carosel/Carousel';
+import Categories from './Categories';
 
 
 
@@ -22,6 +23,7 @@ const Home = () => {
       <MetaData title="Shopello" />
       <Navbar />
       <Carousel />
+      <Categories />
       <div className='home-container' id='home-container'>
         <Product product={product} />
         <Product product={product} />
