@@ -18,7 +18,7 @@ const Footer = () => {
                         <div className="col-lg-4 col-md-6 col-sm-7">
                             <div className="footer__about">
                                 <div className="footer__logo">
-                                    <Link to="/"><img src="" alt='logo' /></Link>
+                                    <Link to="/"><img src={logo} alt='logo' /></Link>
                                 </div>
                                 <p>
                                     Thank you for choosing Shopello as your go-to destination. Join us in creating memories through shopping, and let's embark on this journey together.</p>
@@ -31,10 +31,11 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-2 col-md-3 col-sm-5">
+                       <div className='col-lg-4 col-md-6 col-sm-12 row d-flex justify-content-center flex-row'>
+                       <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                             <div className="footer__widget">
                                 <h6>Quick links</h6>
-                                <ul>
+                                <ul className='p-0'>
                                     <li><Link to="#">About Us</Link></li>
                                     <li><Link to="#">Contact Us</Link></li>
                                     <li><Link to="#">Privacy Policy</Link></li>
@@ -42,10 +43,10 @@ const Footer = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-2 col-md-3 col-sm-4">
+                        <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                             <div className="footer__widget">
                                 <h6>Account</h6>
-                                <ul>
+                                <ul className='p-0'>
                                     <li><Link to="/profile">My Account</Link></li>
                                     <li><Link to="#">Orders Tracking</Link></li>
                                     <li><Link to="#">Checkout</Link></li>
@@ -53,19 +54,20 @@ const Footer = () => {
                                 </ul>
                             </div>
                         </div>
+                       </div>
                         <div className="col-lg-4 col-md-8 col-sm-8">
                             <div className="footer__newslatter">
-                                <h6>NEWSLETTER</h6>
+                                <h6>NEWS LETTER</h6>
                                 <form action="#">
                                     <input type="text" placeholder="Email" />
                                     <button type="submit" className="site-btn">Subscribe</button>
                                 </form>
                                 <div className="footer__social">
-                                    <Link to="#"><i className="fa fa-facebook"></i></Link>
-                                    <Link to="#"><i className="fa fa-twitter"></i></Link>
-                                    <Link to="#"><i className="fa fa-youtube-play"></i></Link>
-                                    <Link to="#"><i className="fa fa-instagram"></i></Link>
-                                    <Link to="#"><i className="fa fa-pinterest"></i></Link>
+                                    <Link to="#" className='facebook'><i className="fa fa-facebook"></i></Link>
+                                    <Link to="#" className='twitter'><i className="fa fa-twitter"></i></Link>
+                                    <Link to="#" className='youtube'><i className="fa fa-youtube-play"></i></Link>
+                                    <Link to="#" className='instagram'><i className="fa fa-instagram"></i></Link>
+                                    {/* <Link to="#" className='pinterest'><i className="fa fa-pinterest"></i></Link> */}
                                 </div>
                             </div>
                         </div>
