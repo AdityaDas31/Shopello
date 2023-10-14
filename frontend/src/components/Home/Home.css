@@ -9,6 +9,16 @@ body{
     justify-content: center;
     max-width: 100%;
 }
+
+.homeHeading{
+    text-align: center;
+    font-size: 1.5vmax;
+    border-bottom: 1px solid ;
+    width: 15vmax;
+    padding: 0.5vmax;
+    margin: 5vmax auto;
+    color: rgb(0, 0, 0, 0.7);
+}
 .productCard {
     width: 14vmax;
     display: flex;

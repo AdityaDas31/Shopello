@@ -6,7 +6,7 @@ import './Home.css';
 import Product from './ProductCard';
 import MetaData from '../Layout/MetaData';
 import Carousel from '../miscellaneous/Carosel/Carousel';
-import Categories from './Categories';
+import Categories from '../miscellaneous/CategoriBox/Categories';
 
 
 
@@ -24,6 +24,7 @@ const Home = () => {
       <Navbar />
       <Carousel />
       <Categories />
+      <h2 className='homeHeading'>Featured Product</h2>
       <div className='home-container' id='home-container'>
         <Product product={product} />
         <Product product={product} />
