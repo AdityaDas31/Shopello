@@ -29,7 +29,7 @@ function Categories() {
                                             <div className="categories__item categories__large__item set-bg" style={{ backgroundImage: `url(${cat1})` }}>
                                                 <div className="categories__text">
                                                     <h1>Women's fashion</h1>
-                                                    <p className='col-md-11'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, repudiandae doloribus doloremque recusandae similique possimus soluta voluptatibus id nobis eos vel eligendi minus corporis voluptas molestiae, est excepturi! Accusantium, molestiae</p>
+                                                    <p className='col-md-11'>Our closets are more than storage spaces; they are treasure troves of memories and possibilities. Each piece of clothing carries with it the echo of past adventures and the promise of future escapades. Fashion is the diary we wear, revealing our journey through life</p>
                                                     <Link to="#">Shop now</Link>
                                                 </div>
                                             </div>
@@ -38,7 +38,7 @@ function Categories() {
                                             <div className="categories__item categories__large__item set-bg" style={{ backgroundImage: `url(${cat6})` }}>
                                                 <div className="categories__text">
                                                     <h1 className='text-white'>Men's fashion</h1>
-                                                    <p className='text-white col-md-8'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, repudiandae doloribus doloremque </p>
+                                                    <p className='text-white col-md-8'>Fashion is a language that doesn't need words. It communicates your taste, your attitude, and your understanding of the world. Your clothing is your vocabulary, so choose your words wisely</p>
                                                     <Link to="#" className='text-white'>Shop now</Link>
                                                 </div>
                                             </div>
@@ -47,7 +47,7 @@ function Categories() {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="col-lg-6 ">
                             <div className="row">
                                 <div className="col-lg-6 col-md-6 col-sm-6 p-0">
