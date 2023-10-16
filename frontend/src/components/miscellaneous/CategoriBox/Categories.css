@@ -138,3 +138,9 @@
 		margin-bottom: 650px;
 	}
 }
+
+@media only screen and (min-width: 1200px) {
+	.container {
+		max-width: 1170px;
+	}
+}

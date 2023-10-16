@@ -35,17 +35,14 @@ function Header() {
                     </div>
                     <div className="col-lg-3">
                         <div className="header__right">
-                            <div className="header__right__auth">
+                            {/* <div className="header__right__auth">
                                 <Link to="/Profile">Login</Link>
                                 <Link to="/Profile">Register</Link>
-                            </div>
+                            </div> */}
                             <ul className="header__right__widget">
                                 <li><span className="icon_search search-switch"><i className="fas fa-search"></i></span></li>
-                                <li><Link to="#"><span className="icon_heart_alt"><i class="fa-regular fa-heart"></i></span>
-                                    <div className="tip">2</div>
-                                </Link></li>
+                                <li><Link to="/Profile"><i class="fa-regular fa-user"></i></Link></li>
                                 <li><Link to="/Cart"><span className="icon_bag_alt"><i className="fas fa-shopping-cart"></i></span>
-                                    <div className="tip">2</div>
                                 </Link></li>
                             </ul>
                         </div>

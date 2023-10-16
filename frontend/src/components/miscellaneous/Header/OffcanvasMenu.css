@@ -251,7 +251,7 @@ ol {
 
 .header {
     font-family: "Montserrat", sans-serif;
-    background: #111111;
+    background: #111111ec;
     -webkit-box-shadow: 0px 5px 10px rgba(91, 91, 91, 0.1);
     box-shadow: 0px 5px 10px rgba(91, 91, 91, 0.1);
 }
@@ -369,7 +369,7 @@ ol {
 
 .header__right__auth a {
     font-size: 12px;
-    color: #666666;
+    color: #757575;
     position: relative;
     margin-right: 8px;
 }
