@@ -19,9 +19,10 @@ ol {
 
 .header {
     font-family: "Montserrat", sans-serif;
-    background: #111111ec;
+    /* background: #111111ec;
     -webkit-box-shadow: 0px 5px 10px rgba(91, 91, 91, 0.1);
-    box-shadow: 0px 5px 10px rgba(91, 91, 91, 0.1);
+    box-shadow: 0px 5px 10px rgba(91, 91, 91, 0.1); */
+     background-color: #2874F0;
 }
 
 .header__logo {

@@ -5,7 +5,7 @@ import './OffcanvasMenu.css';
 function OffcanvasMenu() {
   return (
     <div>
-      <div className="offcanvas-menu-overlay"></div>
+      {/* <div className="offcanvas-menu-overlay"></div>
       <div className="offcanvas-menu-wrapper">
         <div className="offcanvas__close">+</div>
         <ul className="offcanvas__widget">
@@ -21,7 +21,7 @@ function OffcanvasMenu() {
           <Link to="#">Login</Link>
           <Link to="#">Register</Link>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
