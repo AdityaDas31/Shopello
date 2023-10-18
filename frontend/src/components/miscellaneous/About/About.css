@@ -41,8 +41,9 @@
     text-decoration: underline;
 }
 
-.link img{
-    max-height: 700px;
+.link img {
+    /* max-width: 600px; */
+    max-height: 300px;
 }
 
 a.more {
@@ -79,4 +80,18 @@ a.more {
     font-size: 14px;
     line-height: 22px;
     color: #6a6a6a;
+}
+
+.member-profile {
+    top: -95px;
+    left: 0;
+}
+
+.member-profile img {
+    width: 150px;
+    height: 150px;
+}
+
+.list-inline-item > a > i{
+    font-size: 20px;
 }

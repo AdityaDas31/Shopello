@@ -20,6 +20,9 @@ import {
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_RESET,
   UPDATE_PASSWORD_FAIL,
+  SUBSCRIBE_REQUEST,
+  SUBSCRIBE_SUCCESS,
+  SUBSCRIBE_FAIL,
   CLEAR_ERRORS,
 } from '../constants/userConstants';
 
@@ -36,6 +39,12 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: true,
         isAuthenticated: false,
       };
+    
+      case SUBSCRIBE_REQUEST:
+        return {
+          loading: true,
+        }
+    
     case OTP_SEND_REQUEST:
       return {
         loading: false,
@@ -51,6 +60,12 @@ export const userReducer = (state = { user: {} }, action) => {
         isAuthenticated: true,
         user: action.payload,
       };
+
+    case SUBSCRIBE_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+      }
 
     case OTP_SEND_SUCCESS:
       return {
@@ -83,6 +98,12 @@ export const userReducer = (state = { user: {} }, action) => {
         user: null,
         error: action.payload,
       };
+
+    case SUBSCRIBE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
 
     case LOGOUT_FAIL:
       return {
