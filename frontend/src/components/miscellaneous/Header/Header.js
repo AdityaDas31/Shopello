@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../images/logo.png";
 import './Navbar.css';
-// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
 
 const Header = () => {
 
     const [show, setShow] = useState(false);
-
+    
     const [canvas, setCanvas] = useState("");
     const canvas__open = () => {
         if (canvas === "") {
@@ -27,9 +25,9 @@ const Header = () => {
         <>
             <div className={`offcanvas-menu-overlay ${canvas}`} onClick={canvas__open}></div>
             <div className={`offcanvas-menu-wrapper ${canvas}`} >
-                <div className="offcanvas__close" onClick={canvas__open}><i class="fa-solid fa-xmark"></i></div>
+            <div className="offcanvas__close" onClick={canvas__open}><i class="fa-solid fa-xmark"></i></div>
                 <ul className="offcanvas__widget">
-                    <li><i className="fas fa-search" onClick={handleShow}></i></li>
+                <li><i className="fas fa-search" onClick={handleShow}></i></li>
                     <li><Link to="/Profile"><i class="fa-regular fa-user"></i>
                     </Link></li>
                     <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>
@@ -46,16 +44,18 @@ const Header = () => {
                         <li><Link to="#" role="menuitem">Women's</Link></li>
                         <li><Link to="#" role="menuitem">Men's</Link></li>
                         <li><Link to="#" role="menuitem">Shop</Link></li>
+                        <li><Link to="/About" role="menuitem">About Us</Link></li>
                         <li class="slicknav_parent slicknav_collapsed"><Link to="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" ><Link to="/Products">Products</Link>
-                        </Link><ul class="dropdown slicknav_hidden d-none" role="menu" aria-hidden="true" >
-
+                            
+                            </Link><ul class="dropdown slicknav_hidden d-none" role="menu" aria-hidden="true" >
+                              
                             </ul>
                         </li>
-
+                       
                     </ul>
-                </nav></div></div> */}
+                </nav></div></div>
 
-                {/* <div className="offcanvas__auth">
+                <div className="offcanvas__auth">
                     <Link to="#">Login</Link>
                     <Link to="#">Register</Link>
                 </div> */}
@@ -70,27 +70,29 @@ const Header = () => {
                             </div>
                         </div>
                         {/* <div className="col-xl-6 col-lg-7">
-                            <nav className="header__menu ">
+                            <nav className="header__menu">
                                 <ul>
                                     <li className="active"><Link to="/">Home</Link></li>
                                     <li><Link to="#">Women's</Link></li>
                                     <li><Link to="#">Men's</Link></li>
                                     <li><Link to="#">Shop</Link></li>
                                     <li><Link to="/Products">Products</Link></li>
+                                    <li><Link to="/About">About Us</Link></li>
                                 </ul>
                             </nav>
                         </div> */}
-                        <div className="col-xl-6 header__right_con">
+                        <div className="col-lg-3 header__right_con">
                             <div className="header__right">
                                 {/* <div className="header__right__auth">
                                     <Link to="#">Login</Link>
                                     <Link to="#">Register</Link>
                                 </div> */}
                                 <ul className="header__right__widget">
-                                    <li><i className="fas fa-search" onClick={handleShow}></i></li>
-                                    <li><Link to="/Profile"><i class="fa-regular fa-user"></i></Link></li>
-                                    <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i></Link></li>
-                                </ul>
+                                <li><i className="fas fa-search" onClick={handleShow}></i></li>
+                                <li><Link to="/Profile"><i class="fa-regular fa-user"></i></Link></li>
+                                <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>
+                                </Link></li>
+                            </ul>
                             </div>
                         </div>
                     </div>

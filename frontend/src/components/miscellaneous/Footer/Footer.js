@@ -63,7 +63,7 @@ const Footer = () => {
                                 <div className="footer__widget">
                                     <h6>Quick links</h6>
                                     <ul className='p-0'>
-                                        <li><Link to="#">About Us</Link></li>
+                                        <li><Link to="/about">About Us</Link></li>
                                         <li><Link to="#">Contact Us</Link></li>
                                         <li><Link to="#">Privacy Policy</Link></li>
                                         <li><Link to="#">FAQ</Link></li>
