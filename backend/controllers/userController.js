@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 const userOTP = require('../models/userOtp');
 const cloudinary = require("cloudinary");
+const Subscribe = require("../models/subscribeModel");
 
 
 
@@ -48,38 +49,38 @@ The Team Shopello`;
 
 // Login
 exports.loginUser = catchAsyncError(async (req, res, next) => {
-        const { email, password } = req.body;
-        // checking if user given password and email both
-        if (!email || !password) {
-            return next(new ErrorHandler("Please Enter Email and Password", 400));
-        }
-        const user = await User.findOne({ email }).select("+password");
-        if (!user) {
-            return next(new ErrorHandler("Invalid Email or Password", 401));
-        }
-        const isPasswordMatched = await user.comparePassword(password);
-        if (!isPasswordMatched) {
-            return next(new ErrorHandler("Invalid Email or Password", 401));
-        }
-        const message = `Hello ${user.name},
+    const { email, password } = req.body;
+    // checking if user given password and email both
+    if (!email || !password) {
+        return next(new ErrorHandler("Please Enter Email and Password", 400));
+    }
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+        return next(new ErrorHandler("Invalid Email or Password", 401));
+    }
+    const isPasswordMatched = await user.comparePassword(password);
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("Invalid Email or Password", 401));
+    }
+    const message = `Hello ${user.name},
 
     We're delighted to see you again! Your shopping journey continues, and we're here to make it exceptional. Let's dive in and explore what's new.
 
     Happy shopping!
 
     The Team Shopello`
-        try {
-            await sendEmail({
-                email: user.email,
-                to: user.name,
-                subject: "Welcome back to Shopello! 👏",
-                message,
-            })
-            sendToken(user, 200, res);
+    try {
+        await sendEmail({
+            email: user.email,
+            to: user.name,
+            subject: "Welcome back to Shopello! 👏",
+            message,
+        })
+        sendToken(user, 200, res);
 
-        } catch (error) {
-            return next(new ErrorHandler(error.message, 500));
-        }
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+    }
 
 
 })
@@ -262,3 +263,36 @@ The Team Shopello`
     }
     //sendToken(user, 200, res);
 });
+
+// Subscribe
+
+exports.subscribe = catchAsyncError(async (req, res, next) => {
+    const { email } = req.body;
+
+    const subscribe = await Subscribe.create({
+        email,
+    })
+
+    const message = `Dear Subscriber,
+    
+We are thrilled to introduce a fantastic opportunity to enhance your shopping experience at Shoppilo. We are excited to announce our brand new subscription service that will keep you informed, engaged, and rewarded.!
+
+Best wishes,
+The Team Shopello`;
+
+
+try {
+    await sendEmail({
+        email: subscribe.email,
+        subject: "Welcome to Shopello - Your Ultimate Shopping Destination! 🛒",
+        message,
+    })
+    res.status(200).json({
+        success: true,
+        message: "Successfully Subscribe",
+    });
+
+} catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+}
+}) 

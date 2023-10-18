@@ -10,6 +10,11 @@ import pay5 from '../../../images/icon-pay-05.png';
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+
+    const subscribeSubmit = () =>{
+
+    }
+    
     return (
         <>
             <footer className="footer">
@@ -58,8 +63,8 @@ const Footer = () => {
                         <div className="col-lg-4 col-md-8 col-sm-8">
                             <div className="footer__newslatter">
                                 <h6>NEWS LETTER</h6>
-                                <form action="#">
-                                    <input type="text" placeholder="Email" />
+                                <form action="#" onSubmit={subscribeSubmit}>
+                                    <input type="text" placeholder="Email"/>
                                     <button type="submit" className="site-btn">Subscribe</button>
                                 </form>
                                 <div className="footer__social">
