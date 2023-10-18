@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../images/logo.png";
 import './Navbar.css';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
@@ -104,7 +104,20 @@ const Header = () => {
                 {/* <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header> */}
-                <Modal.Body className="modal_body"><input type="text" placeholder="Search Product"/><button><i className="fas fa-search"></i></button></Modal.Body>
+                <Modal.Body className="modal_body">
+                    <div className="wrapper">
+                        <div className="container">
+                            <div className="search_wrap search_wrap_3">
+                                <div className="search_box">
+                                    <input type="text" class="input" placeholder="Search..." />
+                                    <div className="btn btn_common">
+                                        <i className="fas fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Modal.Body>
                 {/* <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
