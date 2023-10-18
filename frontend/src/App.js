@@ -14,6 +14,7 @@ import LoginWithOtp from './components/User/LoginWithOtp';
 import UpdatePassword from './components/User/UpdatePassword';
 import ProductDetails from './components/Product/ProductDetails';
 import Cart from './components/Cart/Cart';
+import About from './components/miscellaneous/About/About';
 
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route extact path="/" element={<Home />} />
         <Route extact path="/products" element={<Products />} />
         <Route extact path='/product/:id' element={<ProductDetails/>}/>
+        <Route extact path='/about' element={<About/>}/>
 
 
       <Route extact path='/cart' element={<Cart/>}/>

@@ -7,6 +7,8 @@ import Product from './ProductCard';
 import MetaData from '../Layout/MetaData';
 import Carousel from '../miscellaneous/Carosel/Carousel';
 import Categories from '../miscellaneous/CategoriBox/Categories';
+// import About from '../miscellaneous/About/About';
+
 
 
 
@@ -35,6 +37,7 @@ const Home = () => {
         <Product product={product} />
         <Product product={product} />
       </div>
+      {/* <About /> */}
       <Footer />
     </Fragment>
   )
