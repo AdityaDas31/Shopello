@@ -19,6 +19,9 @@ import {
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_FAIL,
+  SUBSCRIBE_REQUEST,
+  SUBSCRIBE_SUCCESS,
+  SUBSCRIBE_FAIL,
   CLEAR_ERRORS,
 } from '../constants/userConstants';
 import axios from 'axios';
@@ -139,6 +142,22 @@ export const updatePassword = (passwords) => async (dispatch) =>{
   }
 }
 
+
+// Subscribe
+
+export const subscribe = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: SUBSCRIBE_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.post(`/api/v1/user/subscribe`, { email }, config);
+
+    dispatch({ type: SUBSCRIBE_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({ type: SUBSCRIBE_FAIL, payload: error.response.data.message });
+  }
+}
 
 
 // Clearing Errors

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Footer.css';
 import logo from '../../../images/logo.png';
 import pay1 from '../../../images/icon-pay-01.png';
@@ -8,13 +8,35 @@ import pay4 from '../../../images/icon-pay-04.png';
 import pay5 from '../../../images/icon-pay-05.png';
 
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+
+import { subscribe, clearErrors } from '../../../actions/userAction';
+import { useAlert } from 'react-alert';
+
+import Spinner from 'react-bootstrap/Spinner';
+
+
 
 const Footer = () => {
 
-    const subscribeSubmit = () =>{
+    const [subscribeEmail, setSubscribeEmail] = useState();
+    const { error, loading } = useSelector((state) => state.user);
 
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    const subscribeSubmit = (e) => {
+        e.preventDefault();
+        dispatch(subscribe(subscribeEmail));
     }
-    
+
+    useEffect(()=>{
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+    },[dispatch, error, alert])
+
     return (
         <>
             <footer className="footer">
@@ -36,36 +58,42 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                       <div className='col-lg-4 col-md-6 col-sm-12 row d-flex justify-content-center flex-row'>
-                       <div className="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <div className="footer__widget">
-                                <h6>Quick links</h6>
-                                <ul className='p-0'>
-                                    <li><Link to="#">About Us</Link></li>
-                                    <li><Link to="#">Contact Us</Link></li>
-                                    <li><Link to="#">Privacy Policy</Link></li>
-                                    <li><Link to="#">FAQ</Link></li>
-                                </ul>
+                        <div className='col-lg-4 col-md-6 col-sm-12 row d-flex justify-content-center flex-row'>
+                            <div className="col-lg-6 col-md-6 col-sm-6 col-6">
+                                <div className="footer__widget">
+                                    <h6>Quick links</h6>
+                                    <ul className='p-0'>
+                                        <li><Link to="#">About Us</Link></li>
+                                        <li><Link to="#">Contact Us</Link></li>
+                                        <li><Link to="#">Privacy Policy</Link></li>
+                                        <li><Link to="#">FAQ</Link></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-6 col-6">
+                                <div className="footer__widget">
+                                    <h6>Account</h6>
+                                    <ul className='p-0'>
+                                        <li><Link to="/profile">My Account</Link></li>
+                                        <li><Link to="#">Orders Tracking</Link></li>
+                                        <li><Link to="#">Checkout</Link></li>
+                                        <li><Link to="#">Wishlist</Link></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <div className="footer__widget">
-                                <h6>Account</h6>
-                                <ul className='p-0'>
-                                    <li><Link to="/profile">My Account</Link></li>
-                                    <li><Link to="#">Orders Tracking</Link></li>
-                                    <li><Link to="#">Checkout</Link></li>
-                                    <li><Link to="#">Wishlist</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                       </div>
                         <div className="col-lg-4 col-md-8 col-sm-8">
                             <div className="footer__newslatter">
                                 <h6>NEWS LETTER</h6>
                                 <form action="#" onSubmit={subscribeSubmit}>
-                                    <input type="text" placeholder="Email"/>
-                                    <button type="submit" className="site-btn">Subscribe</button>
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        required
+                                        value={subscribeEmail}
+                                        onChange={e => setSubscribeEmail(e.target.value)}
+                                    />
+                                    <button type="submit" className="site-btn">Subscribe    {loading ? <Spinner animation="border"  size='sm' />  : ''}</button>
                                 </form>
                                 <div className="footer__social">
                                     <Link to="#" className='facebook'><i className="fa fa-facebook"></i></Link>
