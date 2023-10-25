@@ -41,6 +41,7 @@ const Footer = () => {
         <>
             <footer className="footer">
                 <div className="container">
+
                     <div className="row">
                         <div className="col-lg-4 col-md-6 col-sm-7">
                             <div className="footer__about">
@@ -105,7 +106,9 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+
+
+                    {/* <div className="row">
                         <div className="col-lg-12">
                             <div className="footer_copyright_text">
                                 <p className="copyright-text">Copyright &copy; 2023 All Rights Reserved by
@@ -113,7 +116,9 @@ const Footer = () => {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+
+
                 </div>
             </footer>
         </>
