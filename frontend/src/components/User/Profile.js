@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import Header from '../miscellaneous/Header/Header';
-// import Footer from '../miscellaneous/Footer/Footer';
+import Footer from '../miscellaneous/Footer/Footer';
 import './Profile.css';
 import ProfileImg from '../../images/Profile.png';
 import { Link, useNavigate } from 'react-router-dom';
@@ -73,7 +73,7 @@ const Profile = () => {
                         <Link>Order</Link>
                     </div>
                 </div>
-                {/* <Footer /> */}
+                <Footer />
             </Fragment>}
         </Fragment>
     )

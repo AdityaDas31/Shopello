@@ -34,6 +34,7 @@ body{
 
 .productCard>img {
     width: 14vmax;
+    max-height: 200px;
 }
 
 .productCard>div {
