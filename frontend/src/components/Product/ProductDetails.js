@@ -29,7 +29,7 @@ const ProductDetails = () => {
     //     sizes: ["M", "L", "XL", "XXL"],
     // };
 
-    
+
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState('');
     // const [urlToCopy, setUrlToCopy] = useState(`http://localhost:3000/product/${product._id}`);
@@ -40,10 +40,10 @@ const ProductDetails = () => {
     const { id } = useParams();
     const product = products.find(product => product.id === id);
 
-      if (!product) {
-    return <div>Product not found</div>;
-  }
-    
+    if (!product) {
+        return <div>Product not found</div>;
+    }
+
     const options = {
         value: product.rating,
         readOnly: true,
@@ -102,23 +102,24 @@ const ProductDetails = () => {
                     </div>
                     <div className='detailsBlock-3'>
                         <h1>{`₹${product.price}`}</h1>
-                        {product.sizes != null ? <p>Size 
+                        {product.sizes != null ? <p>Size
                             <select
-                             value={selectedSize}
-                             onChange={(e) => setSelectedSize(e.target.value)}
+                                value={selectedSize}
+                                onChange={(e) => setSelectedSize(e.target.value)}
                             >
-                            {/* <option value="">Select a size</option> */}
-                            {product.sizes.map((size, index) => (
-                                <option key={index} value={size}>{size}</option>
-                            ))}
-                        </select> </p> : ' '}
+                                {/* <option value="">Select a size</option> */}
+                                {product.sizes.map((size, index) => (
+                                    <option key={index} value={size}>{size}</option>
+                                ))}
+                            </select> </p> : ' '}
                         <div className='detailsBlock-3-1'>
                             <div className='detailsBlock-3-1-1'>
                                 <button className='decrease' onClick={decreaseQuantity}>-</button>
                                 <input readOnly value={quantity} type="number" />
                                 <button className='increase' onClick={increaseQuantity}>+</button>
                             </div>
-                            <Button onClick={handleAddToCart}>Add To Cart</Button>
+                            {product.stock < 1 ? <Button disabled variant="danger">Add To Cart</Button> : <Button onClick={handleAddToCart}>Add To Cart</Button>}
+                            {/* <Button onClick={handleAddToCart}>Add To Cart</Button> */}
                             <Button onClick={handleShow}><i className="fa-solid fa-share"></i></Button>
                             <Modal show={show} onHide={handleShow}>
                                 <Modal.Header>
