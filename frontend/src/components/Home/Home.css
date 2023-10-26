@@ -34,6 +34,7 @@ body{
 
 .productCard>img {
     width: 14vmax;
+    max-height: 200px;
 }
 
 .productCard>div {
@@ -62,7 +63,8 @@ body{
 
 .productCard:hover {
     box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
-
+    text-decoration: none;
+    color: black;
 }
 
 @media screen and (max-width: 660px) {

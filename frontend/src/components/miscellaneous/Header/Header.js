@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../images/logo.png";
 import './Navbar.css';
 import Modal from 'react-bootstrap/Modal';
+import { useCart } from '../../../CartContext';
 
 const Header = () => {
+
 
     const [show, setShow] = useState(false);
     
@@ -20,6 +22,10 @@ const Header = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const { cart } = useCart();
+
+
+
 
     return (
         <>
@@ -30,7 +36,7 @@ const Header = () => {
                 <li><i className="fas fa-search" onClick={handleShow}></i></li>
                     <li><Link to="/Profile"><i class="fa-regular fa-user"></i>
                     </Link></li>
-                    <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>
+                    <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
                     </Link></li>
                 </ul>
                 <div className="offcanvas__logo">
@@ -90,7 +96,7 @@ const Header = () => {
                                 <ul className="header__right__widget">
                                 <li><i className="fas fa-search" onClick={handleShow}></i></li>
                                 <li><Link to="/Profile"><i class="fa-regular fa-user"></i></Link></li>
-                                <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>
+                                <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
                                 </Link></li>
                             </ul>
                             </div>

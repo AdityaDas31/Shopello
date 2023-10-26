@@ -12,29 +12,43 @@ import Footer from '../miscellaneous/Footer/Footer';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ShareSocial } from 'react-share-social';
+import { useCart } from '../../CartContext';
+import { useAlert } from 'react-alert';
+import { useParams } from 'react-router-dom';
+import products from '../../ProductData';
 
 const ProductDetails = () => {
-    const product = {
-        name: "Tshirt",
-        images: [{ url: "https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/n/a/l-half-latter-one-nb-nicky-boy-original-imagk2gr6ngwxgft.jpeg?q=70" }],
-        price: "1200",
-        _id: "sdfasfasfas",
-        rating: 2.7,
-        stock: 10,
-        description: "This is the best tshirt in the world",
-    };
+    // const product = {
+    //     name: "Tshirt",
+    //     images: [{ url: "https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/n/a/l-half-latter-one-nb-nicky-boy-original-imagk2gr6ngwxgft.jpeg?q=70" }],
+    //     price: "1200",
+    //     _id: "sdfasfasfas",
+    //     rating: 2.7,
+    //     stock: 10,
+    //     description: "This is the best tshirt in the world",
+    //     sizes: ["M", "L", "XL", "XXL"],
+    // };
+
+
+    const [quantity, setQuantity] = useState(1);
+    const [selectedSize, setSelectedSize] = useState('');
+    // const [urlToCopy, setUrlToCopy] = useState(`http://localhost:3000/product/${product._id}`);
+    // const [open, setOpen] = React.useState(false);
+    const [show, setShow] = useState(false);
+    const { addToCart } = useCart();
+    const alert = useAlert();
+    const { id } = useParams();
+    const product = products.find(product => product.id === id);
+
+    if (!product) {
+        return <div>Product not found</div>;
+    }
 
     const options = {
         value: product.rating,
         readOnly: true,
         precision: 0.5,
     };
-
-    const [quantity, setQuantity] = useState(1);
-    // const [urlToCopy, setUrlToCopy] = useState(`http://localhost:3000/product/${product._id}`);
-    // const [open, setOpen] = React.useState(false);
-    const [show, setShow] = useState(false);
-
     const decreaseQuantity = () => {
         if (1 >= quantity) return;
 
@@ -53,8 +67,8 @@ const ProductDetails = () => {
     const handleShow = () => setShow(true);
 
     // const shareUrl = `localhost:3000/product/${product._id}`;\
-    
-    const shareUrl  = window.location.href
+
+    const shareUrl = window.location.href
 
     // const handleTooltipClose = () => {
     //     setOpen(false);
@@ -65,6 +79,10 @@ const ProductDetails = () => {
     //     navigator.clipboard.writeText(urlToCopy);
     // };
 
+    const handleAddToCart = () => {
+        addToCart({ ...product, quantity, size: selectedSize });
+        alert.success("Item Added to Cart")
+    };
 
     return (
         <Fragment>
@@ -73,25 +91,6 @@ const ProductDetails = () => {
             <div className='ProductDetails'>
                 <div className='img'>
                     <img src={product.images[0].url} alt={product.name} />
-                    {/* <i className="fa-solid fa-share" data-tooltip-id='share' data-tooltip-content="Share" data-tooltip-place='right' value={urlToCopy} onClick={handleCopyClick}></i>  */}
-                    {/* <ReactTooltip id='share'/> */}
-                    {/* <ClickAwayListener onClickAway={handleTooltipClose}>
-                        <Tooltip
-                            PopperProps={{
-                                disablePortal: true,
-                            }}
-                            onClose={handleTooltipClose}
-                            open={open}
-                            disableFocusListener
-                            disableTouchListener
-                            title="Copy Shareable Link"
-                            placement='top'
-                            arrow
-                        >
-                             <i className="fa-solid fa-share" onClick={handleTooltipOpen}></i>
-                        </Tooltip>
-                    </ClickAwayListener> */}
-
                 </div>
                 <div>
                     <div className='detailsBlock-1'>
@@ -103,13 +102,24 @@ const ProductDetails = () => {
                     </div>
                     <div className='detailsBlock-3'>
                         <h1>{`₹${product.price}`}</h1>
+                        {product.sizes != null ? <p>Size
+                            <select
+                                value={selectedSize}
+                                onChange={(e) => setSelectedSize(e.target.value)}
+                            >
+                                {/* <option value="">Select a size</option> */}
+                                {product.sizes.map((size, index) => (
+                                    <option key={index} value={size}>{size}</option>
+                                ))}
+                            </select> </p> : ' '}
                         <div className='detailsBlock-3-1'>
                             <div className='detailsBlock-3-1-1'>
                                 <button className='decrease' onClick={decreaseQuantity}>-</button>
                                 <input readOnly value={quantity} type="number" />
                                 <button className='increase' onClick={increaseQuantity}>+</button>
                             </div>
-                            <Button>Add To Cart</Button>
+                            {product.stock < 1 ? <Button disabled variant="danger">Add To Cart</Button> : <Button onClick={handleAddToCart}>Add To Cart</Button>}
+                            {/* <Button onClick={handleAddToCart}>Add To Cart</Button> */}
                             <Button onClick={handleShow}><i className="fa-solid fa-share"></i></Button>
                             <Modal show={show} onHide={handleShow}>
                                 <Modal.Header>
