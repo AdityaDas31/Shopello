@@ -1,4 +1,4 @@
-.LoginContainer{
+.LoginContainer {
     width: 100vw;
     height: 100vh;
     max-width: 100%;
@@ -11,7 +11,8 @@
     top: 0%;
     left: 0;
 }
-.LoginBox{
+
+.LoginBox {
     background-color: white;
     width: 25vw;
     height: 60vh;
@@ -19,7 +20,8 @@
     overflow: hidden;
     border-radius: 5px;
 }
-.LoginBox h1{
+
+.LoginBox h1 {
     text-align: center;
     padding: 15px;
     border-bottom: 1px solid;
@@ -38,42 +40,84 @@
 
 .loginOtpForm>div {
     display: flex;
+    /* flex-direction: column; */
     width: 100%;
     align-items: center;
-    margin-top: 15px;
+    /* margin-top: 15px; */
 }
 
-.loginOtpEmail {
+/* .loginOtpEmail {
     display: flex;
     flex-direction: row;
-}
+} */
 
 .loginOtpEmail>input {
-    padding: 1vmax 3vmax;
-    padding-right: 0.5vmax;
-    width: 80%;
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
     box-sizing: border-box;
     border: 1px solid black;
     border-radius: 5px;
     font: 300 0.9vmax;
     outline: none;
 }
-.loginOtpEmail > input[type=submit]{
-    padding-left: 5px;
-    width: 20%;
-    margin-left: 15px;
-    text-align: center;
-    cursor: pointer;
+
+input[type=submit] {
+    margin-top: 20px;
     border: none;
-    color: #fff;
-    background-color: rgb(1, 158, 1);
+    /* background-color: #0007ff; */
+    color: white;
+    font: 300 0.9vmax;
+    width: 100%;
+    padding: 0.8vmax;
+    /* cursor: pointer; */
     transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
 }
-.loginOtpEmail > input[type=submit]:hover{
+
+/* .loginOtpEmail > input[type=submit]:hover{
+    background-color: rgb(5, 212, 5);
+} */
+
+.green {
+    background-color: rgb(1, 158, 1);
+    color: white;
+    cursor: pointer;
+}
+.green:hover{
     background-color: rgb(5, 212, 5);
 }
 
-.loginPassword >input{
+.red {
+    background-color: rgb(188, 2, 2);
+    color: white;
+    cursor: not-allowed;
+}
+
+.red:hover{
+    background-color: rgb(237, 2, 2);
+}
+
+.changeEmail{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    
+}
+
+.changeEmail > span{
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.changeEmail > span:hover{
+    color: #0007ff;
+    text-decoration: underline;
+}
+
+.loginPassword>input {
     padding: 1vmax 3vmax;
     padding-right: 0.5vmax;
     width: 100%;
@@ -91,12 +135,18 @@
     color: rgba(0, 0, 0, 0.623);
 }
 
+.resendOtp{
+    display: flex;
+    flex-direction: column;
+    color: red;
+}
+
 .loginOtpBtn {
     margin-top: 20px;
     border: none;
     background-color: #0007ff;
     color: white;
-    font: 300 0.9vmax ;
+    font: 300 0.9vmax;
     width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
@@ -110,24 +160,31 @@
     background-color: #060b8c;
 }
 
-@media screen and (max-width: 992px)  {
- .LoginContainer{
-    background-color: white;
- }   
- .LoginBox{
-    width: 100vw;
-    height: 95vh;
- }
- .loginOtpForm{
-    padding: 5vmax  ;
- }
- .loginOtpForm>div>input{
-    padding: 2.5vmax 5vmax;
-    font: 300 1.7vmax; 
- }
+@media screen and (max-width: 992px) {
+    .LoginContainer {
+        background-color: white;
+    }
 
- .loginOtpBtn{
-    font: 300 1.9vmax;
-    padding: 1.8vmax;
- }
+    .LoginBox {
+        width: 100vw;
+        height: 95vh;
+    }
+
+    .loginOtpForm {
+        padding: 5vmax;
+    }
+    
+    .loginOtpEmail>input[type=submit]{
+        width: 22%;
+    }
+
+    .loginOtpForm>div>input {
+        padding: 2.5vmax 5vmax;
+        font: 300 1.7vmax;
+    }
+
+    .loginOtpBtn {
+        font: 300 1.9vmax;
+        padding: 1.8vmax;
+    }
 }

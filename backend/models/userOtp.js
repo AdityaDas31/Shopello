@@ -12,14 +12,14 @@ const userOtpSchema = new monsgoose.Schema({
         type : String,
         require: true,
     },
-    // createdAt:{
-    //     type: Date,
-    //     default: Date.now,
-    // },
+    createdAt:{
+        type: Date,
+        default: Date.now,
+    },
 },
-{
-    timestamps: true,
-}
+// {
+//     timestamps: true,
+// }
 );
 
 

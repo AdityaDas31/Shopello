@@ -1,0 +1,16 @@
+.carousel{
+    position: relative;
+    width: 100%;
+    /* margin-top: 12px; */
+    padding: 5px;
+
+}
+.carousel img{
+   height: 580px;
+}
+
+@media screen and (max-width: 660px) {
+    .carousel img{
+        height: 275px;
+    }
+}

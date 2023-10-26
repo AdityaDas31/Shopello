@@ -16,6 +16,12 @@ import {
   OTP_LOGIN_REQUEST,
   OTP_LOGIN_SUCCESS,
   OTP_LOGIN_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
+  SUBSCRIBE_REQUEST,
+  SUBSCRIBE_SUCCESS,
+  SUBSCRIBE_FAIL,
   CLEAR_ERRORS,
 } from '../constants/userConstants';
 import axios from 'axios';
@@ -97,7 +103,7 @@ export const sendOtp = (email) => async(dispatch) =>{
 
     const { data } = await axios.post(`/api/v1/user/sendotp`, { email }, config);
 
-    dispatch({type: OTP_SEND_SUCCESS, payload: data.user })
+    dispatch({type: OTP_SEND_SUCCESS, payload: data })
 
   } catch (error) {
     dispatch({ type: OTP_SEND_FAIL, payload: error.response.data.message });
@@ -120,6 +126,38 @@ export const loginOtp = (email,otp) => async(dispatch) =>{
   }
 }
 
+// Update Password
+
+export const updatePassword = (passwords) => async (dispatch) =>{
+  try {
+    dispatch({type:UPDATE_PASSWORD_REQUEST});
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const {data} = await axios.put(`/api/v1/user/password/update`, passwords,config);
+
+    dispatch({type: UPDATE_PASSWORD_SUCCESS, payload: data.success})
+  } catch (error) {
+    dispatch({type: UPDATE_PASSWORD_FAIL,payload: error.response.data.message,})
+  }
+}
+
+
+// Subscribe
+
+export const subscribe = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: SUBSCRIBE_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.post(`/api/v1/user/subscribe`, { email }, config);
+
+    dispatch({ type: SUBSCRIBE_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({ type: SUBSCRIBE_FAIL, payload: error.response.data.message });
+  }
+}
 
 
 // Clearing Errors

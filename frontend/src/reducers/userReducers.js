@@ -16,9 +16,18 @@ import {
   OTP_LOGIN_REQUEST,
   OTP_LOGIN_SUCCESS,
   OTP_LOGIN_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_RESET,
+  UPDATE_PASSWORD_FAIL,
+  SUBSCRIBE_REQUEST,
+  SUBSCRIBE_SUCCESS,
+  SUBSCRIBE_FAIL,
   CLEAR_ERRORS,
 } from '../constants/userConstants';
 
+
+// Register, Login, Load, OTP
 
 export const userReducer = (state = { user: {} }, action) => {
   switch (action.type) {
@@ -30,6 +39,12 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: true,
         isAuthenticated: false,
       };
+    
+      case SUBSCRIBE_REQUEST:
+        return {
+          loading: true,
+        }
+    
     case OTP_SEND_REQUEST:
       return {
         loading: false,
@@ -45,6 +60,12 @@ export const userReducer = (state = { user: {} }, action) => {
         isAuthenticated: true,
         user: action.payload,
       };
+
+    case SUBSCRIBE_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+      }
 
     case OTP_SEND_SUCCESS:
       return {
@@ -78,6 +99,12 @@ export const userReducer = (state = { user: {} }, action) => {
         error: action.payload,
       };
 
+    case SUBSCRIBE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+
     case LOGOUT_FAIL:
       return {
         ...state,
@@ -96,3 +123,37 @@ export const userReducer = (state = { user: {} }, action) => {
   }
 };
 
+export const profileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case UPDATE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      }
+    case UPDATE_PASSWORD_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      }
+
+    case UPDATE_PASSWORD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+}

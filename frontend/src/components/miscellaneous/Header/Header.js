@@ -1,76 +1,143 @@
-import React, { useState } from 'react';
+import React, {useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../../images/logo.png";
 import './Navbar.css';
-//import Dropdown from 'react-bootstrap/Dropdown';
-import logo from '../../../images/logo.png';
-//import Products from '../../Product/Products';
-import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-
-
+import Modal from 'react-bootstrap/Modal';
+import { useCart } from '../../../CartContext';
 
 const Header = () => {
-    const [showOptions, setShowOptions] = useState(false);
+
+
+    const [show, setShow] = useState(false);
+    
+    const [canvas, setCanvas] = useState("");
+    const canvas__open = () => {
+        if (canvas === "") {
+            setCanvas("active");
+        } else {
+            setCanvas("");
+        }
+    }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const { cart } = useCart();
+
+
+
 
     return (
         <>
-            <nav>
-                <div className='s1'>
-                    <Link to='/'> <img src={logo} alt='logo' className='logo' /></Link>
-                    <div className='searchbar'>
-                        <input type='text' placeholder='Search Product' className='search' />
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div className='right'>
-                        <div className='cart'>
-                            <Link to='/cart' data-tooltip-id='cart' data-tooltip-content="Cart" data-tooltip-place='left'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                            </svg></Link>
-                            <ReactTooltip id='cart'/>
+            <div className={`offcanvas-menu-overlay ${canvas}`} onClick={canvas__open}></div>
+            <div className={`offcanvas-menu-wrapper ${canvas}`} >
+            <div className="offcanvas__close" onClick={canvas__open}><i class="fa-solid fa-xmark"></i></div>
+                <ul className="offcanvas__widget">
+                <li><i className="fas fa-search" onClick={handleShow}></i></li>
+                    <li><Link to="/Profile"><i class="fa-regular fa-user"></i>
+                    </Link></li>
+                    <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
+                    </Link></li>
+                </ul>
+                <div className="offcanvas__logo">
+                    <Link to="/"><img src={logo} alt="" style={{ width: 100 }} /></Link>
+                </div>
+                {/* <div id="mobile-menu-wrap"></div> */}
+
+                {/* <div id="mobile-menu-wrap"><div class="slicknav_menu"><Link to="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" ><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></Link><nav class="slicknav_nav slicknav_hidden d-none" aria-hidden="true" role="menu" >
+                    <ul>
+                        <li class="active"><Link to="/" role="menuitem">Home</Link></li>
+                        <li><Link to="#" role="menuitem">Women's</Link></li>
+                        <li><Link to="#" role="menuitem">Men's</Link></li>
+                        <li><Link to="#" role="menuitem">Shop</Link></li>
+                        <li><Link to="/About" role="menuitem">About Us</Link></li>
+                        <li class="slicknav_parent slicknav_collapsed"><Link to="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" ><Link to="/Products">Products</Link>
+                            
+                            </Link><ul class="dropdown slicknav_hidden d-none" role="menu" aria-hidden="true" >
+                              
+                            </ul>
+                        </li>
+                       
+                    </ul>
+                </nav></div></div>
+
+                <div className="offcanvas__auth">
+                    <Link to="#">Login</Link>
+                    <Link to="#">Register</Link>
+                </div> */}
+            </div>
+
+            <header className="header">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-xl-3 col-lg-2">
+                            <div className="header__logo">
+                                <Link to="/"><img src={logo} alt="" style={{ width: 100 }} /></Link>
+                            </div>
                         </div>
-                        <Link to='/profile' data-tooltip-id='profile' data-tooltip-content="Profile" data-tooltip-place='left'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg></Link>
-                        <ReactTooltip id='profile'/>
-
+                        {/* <div className="col-xl-6 col-lg-7">
+                            <nav className="header__menu">
+                                <ul>
+                                    <li className="active"><Link to="/">Home</Link></li>
+                                    <li><Link to="#">Women's</Link></li>
+                                    <li><Link to="#">Men's</Link></li>
+                                    <li><Link to="#">Shop</Link></li>
+                                    <li><Link to="/Products">Products</Link></li>
+                                    <li><Link to="/About">About Us</Link></li>
+                                </ul>
+                            </nav>
+                        </div> */}
+                        <div className="col-lg-3 header__right_con">
+                            <div className="header__right">
+                                {/* <div className="header__right__auth">
+                                    <Link to="#">Login</Link>
+                                    <Link to="#">Register</Link>
+                                </div> */}
+                                <ul className="header__right__widget">
+                                <li><i className="fas fa-search" onClick={handleShow}></i></li>
+                                <li><Link to="/Profile"><i class="fa-regular fa-user"></i></Link></li>
+                                <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
+                                </Link></li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="canvas__open" onClick={canvas__open}>
+                        <i className="fa fa-bars"></i>
                     </div>
                 </div>
-                <div className='lower'>
-                    <div className='searchbar_toggle'>
-                        <input type='text' placeholder='Search Product' className='search_toggle' />
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div className={showOptions ? "s2 toggle_menu" : "s2"}>
-                        {/* <Dropdown>
-                            <Dropdown.Toggle variant="" id="dropdown-basic" className='dropdown'>
-                                Categories
-                            </Dropdown.Toggle>
+            </header>
 
-                            <Dropdown.Menu className='dropdown-menu'>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown> */}
-                        <Link to='/products' className='other-a toggle_menu_other-a'>Explore</Link>
-                        <Link href='#/action-1' className='other-a toggle_menu_other-a'>About Us</Link>
-                        <Link href='#/action-2' className='other-a toggle_menu_other-a'>Contact Us</Link>
+            <Modal show={show} onHide={handleClose} className="modal">
+                {/* <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body className="modal_body">
+                    <div className="wrapper">
+                        <div className="container">
+                            <div className="search_wrap search_wrap_3">
+                                <div className="search_box">
+                                    <input type="text" class="input" placeholder="Search..." />
+                                    <div className="btn btn_common">
+                                        <i className="fas fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className='toggle_btn'>
-                        <Link onClick={() => setShowOptions(!showOptions)}><GiHamburgerMenu /></Link>
-                    </div>
-                </div>
-            </nav>
+                </Modal.Body>
+                {/* <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer> */}
+            </Modal>
+
         </>
-    )
+    );
 }
 
 export default Header;

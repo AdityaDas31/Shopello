@@ -18,8 +18,8 @@
 }
 
 .block{
-    height: 21vh;
-    width: 21vh;
+    height: 20vh;
+    width: 20vh;
     position: relative;
     background: black;
     display: flex;
@@ -64,7 +64,7 @@
     } */
 }
 .glow::after{
-    filter: blur(40px);
+    filter: blur(20px);
 } 
 
 

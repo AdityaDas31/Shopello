@@ -59,7 +59,7 @@
     margin: auto;
     padding: 2vmax;
     justify-content: space-evenly;
-    height: 70%;
+    height: 80%;
     transition: all 0.5s;
 }
 
@@ -93,6 +93,7 @@
     align-self: flex-end;
     transition: all 0.5s;
     font: 500 0.8vmax;
+    cursor: pointer;
 }
 
 .loginForm>a:hover {
@@ -140,7 +141,7 @@
     margin: auto;
     padding: 2vmax;
     justify-content: space-evenly;
-    height: 70%;
+    height: 80%;
     transition: all 0.5s;
     transform: translateY(-100%) translateX(-100vmax);
 }
