@@ -1,22 +1,19 @@
 import React, { Fragment } from 'react';
-import "./CartItemCard.css";
+// import "./CartItemCard.css";
+import "./Cart.css"
 import { Link } from 'react-router-dom';
-import { useCart } from '../../CartContext';
 
-const CartItemCard = ({item}) => {
-  const {removeFromCart } = useCart();
+const CartItemCard = ({ item }) => {
   return (
     <Fragment>
-      <div className='CartItemCard'>
-      <img src={item.images[0].url} alt={item.name}/>
-      <div>
-        <Link to={`/product/${item.product}`}>{item.name} {item.size && <> ({item.size})</>}</Link>
-        <span>{`Price: ₹${item.price}`}</span>
-        <p onClick={() => removeFromCart(item)}>Remove</p>
-      </div>
-    </div>
+      <Link class="cart-item-product" to={`/product/${item.id}`}>
+        <div class="cart-item-product-thumb"><img src={item.images[0].url} alt={item.name} /></div>
+        <div class="cart-item-product-info">
+          <h4 class="cart-item-product-title">{item.name}</h4><span>{item.size && <> Size: ({item.size})</>}</span><span>Color: Black</span>
+        </div>
+      </Link>
     </Fragment>
-    
+
   )
 }
 

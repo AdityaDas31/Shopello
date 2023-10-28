@@ -34,9 +34,9 @@ const Header = () => {
             <div className="offcanvas__close" onClick={canvas__open}><i class="fa-solid fa-xmark"></i></div>
                 <ul className="offcanvas__widget">
                 <li><i className="fas fa-search" onClick={handleShow}></i></li>
-                    <li><Link to="/Profile"><i class="fa-regular fa-user"></i>
+                    <li><Link to="/profile"><i class="fa-regular fa-user"></i>
                     </Link></li>
-                    <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
+                    <li><Link to="/cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
                     </Link></li>
                 </ul>
                 <div className="offcanvas__logo">
@@ -95,8 +95,8 @@ const Header = () => {
                                 </div> */}
                                 <ul className="header__right__widget">
                                 <li><i className="fas fa-search" onClick={handleShow}></i></li>
-                                <li><Link to="/Profile"><i class="fa-regular fa-user"></i></Link></li>
-                                <li><Link to="/Cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
+                                <li><Link to="/profile"><i class="fa-regular fa-user"></i></Link></li>
+                                <li><Link to="/cart"><i className="fas fa-shopping-cart"></i>{cart.length < 1 ? ' ' : <span>{cart.length}</span>}
                                 </Link></li>
                             </ul>
                             </div>

@@ -7,11 +7,12 @@ import { useCart } from '../../CartContext';
 import { Typography } from "@material-ui/core";
 import MetaData from "../Layout/MetaData";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Cart = () => {
-    const { cart } = useCart();
+    const { cart, removeFromCart } = useCart();
+    const navigate = useNavigate();
 
     // const item ={
     //     product: "sdfasfasfas",
@@ -27,6 +28,10 @@ const Cart = () => {
     const increaseQuantity = () => {
     };
 
+    const checkoutHandler = () => { 
+        navigate('/login?redirect=checkout'); 
+    }
+
 
     return (
         <Fragment>
@@ -39,44 +44,43 @@ const Cart = () => {
                     <Typography>No Product in Your Cart</Typography>
                     <Link to="/">View Products</Link>
                 </div>
-            ) : (
-                <div className='cartPage'>
-                    <div className='cartHeader'>
-                        <p>Product</p>
-                        <p>Quantity</p>
-                        <p>Subtotal</p>
-                    </div>
-                    {cart && cart.map((item) => (
-                        <div className='cartContainer'>
+            ) : ( 
+            <div class="container pb-5 mb-2">
+                {cart && cart.map((item) => (
+
+                    <div class="cart-item d-md-flex justify-content-between mt-5"><span class="remove-item"><i class="fa fa-times" onClick={() => removeFromCart(item)}></i></span>
+                        <div class="px-3 my-3">
                             <CartItemCard item={item} />
-                            <div className='cartInput'>
+                        </div>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Quantity</div>
+                            <div class="count-input">
                                 <button onClick={() => decreaseQuantity(item)}>-</button>
                                 <input type='number' readOnly value={item.quantity} />
                                 <button onClick={() => increaseQuantity(item)}>+</button>
                             </div>
-                            <p className='cartSubtotal'>{`₹${item.price * item.quantity}`}</p>
                         </div>
-
-                    ))}
-
-                    <div className="cartGrossProfit">
-                        <div></div>
-                        <div className="cartGrossProfitBox">
-                            <p>Gross Total</p>
-                            <p>{`₹${cart.reduce(
-                                (acc, item) => acc + item.quantity * item.price,
-                                0
-                            )}`}</p>
-                        </div>
-                        <div></div>
-                        <div className="checkOutBtn">
-                            <button>Check Out</button>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Subtotal</div><span class="text-xl font-weight-medium">₹${item.price}</span>
                         </div>
                     </div>
+                ))}
 
+
+                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
+
+                    <div class="py-2"><span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Gross Total:</span><span class="d-inline-block align-middle text-xl font-weight-medium">{`₹${cart.reduce(
+                                (acc, item) => acc + item.quantity * item.price,
+                                0
+                            )}`}</span></div>
                 </div>
-            )
-            }
+
+                {/* <hr class="my-2"> */}
+                <div class="row pt-3 pb-5 mb-2 ">
+                    <div class="col-sm-6 mb-3 "><button class="btn btn-style-1 btn-primary btn-block " onClick={checkoutHandler}>Checkout</button></div>
+                </div>
+            </div>
+            )}
             <Footer />
         </Fragment>
     )
