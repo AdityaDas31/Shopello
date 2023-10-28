@@ -9,12 +9,12 @@ import icon5 from "../../../images/about.jpg";
 import kaustav from "../../../images/Kaustav.jpg";
 import aditya from "../../../images/Aditya.jpg";
 import Navbar from "../Header/Header";
-// import Footer from "../Footer/Footer";
+import Footer from "../Footer/Footer";
 
 const About = () => {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="why-choose-section">
         <div className="container">
           <div className="row justify-content-between align-items-center">
@@ -211,7 +211,7 @@ const About = () => {
           </section>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
