@@ -16,6 +16,7 @@ import ProductDetails from './components/Product/ProductDetails';
 import Cart from './components/Cart/Cart';
 import About from './components/miscellaneous/About/About';
 import { CartProvider } from './CartContext';
+import Loader from './components/Layout/Loader/Loader';
 
 
 
@@ -38,6 +39,7 @@ function App() {
 
             <Route extact path="/" element={<Home />} />
             <Route extact path='/about' element={<About />} />
+            <Route extact path='/loader' element={<Loader />} />
 
             <Route extact path='/login' element={<LoginSignUp />} />
             <Route extact path='/getOtp' element={<LoginWithOtp />} />
