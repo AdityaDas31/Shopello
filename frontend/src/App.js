@@ -17,6 +17,7 @@ import Cart from './components/Cart/Cart';
 import About from './components/miscellaneous/About/About';
 import { CartProvider } from './CartContext';
 import Loader from './components/Layout/Loader/Loader';
+import Checkout from './components/Checkout/Checkout';
 
 
 
@@ -50,6 +51,8 @@ function App() {
 
             <Route extact path='/product/:id' element={<ProductDetails />} />
             <Route exact path='/cart' element={<Cart />} />
+            <Route exact path='/checkout' element={<Checkout />} />
+
 
 
 
