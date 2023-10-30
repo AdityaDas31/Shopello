@@ -91,6 +91,7 @@ const ProductDetails = () => {
             <div className='ProductDetails'>
                 <div className='img'>
                     <img src={product.images[0].url} alt={product.name} />
+                    {product.id}
                 </div>
                 <div>
                     <div className='detailsBlock-1'>
