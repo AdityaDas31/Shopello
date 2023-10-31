@@ -8,6 +8,8 @@ export function CartProvider({ children }) {
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
+  const [shippingInfo, setShippingInfo] = useState(null);
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -36,8 +38,12 @@ export function CartProvider({ children }) {
     setCart((prevCart) => prevCart.filter((item) => item.id !== product.id));
   };
 
+  const updateShippingInfo = (info) => {
+    setShippingInfo(info);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart,shippingInfo,updateShippingInfo }}>
       {children}
     </CartContext.Provider>
   );

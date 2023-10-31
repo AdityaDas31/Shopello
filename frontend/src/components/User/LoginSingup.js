@@ -3,7 +3,7 @@ import './LoginSignUp.css';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Link } from '@material-ui/core';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import FaceIcon from "@material-ui/icons/Face";
 import Profile from '../../images/Profile.png';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ const LoginSingup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const alert = useAlert();
-    const location = useLocation();
+
 
     const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 

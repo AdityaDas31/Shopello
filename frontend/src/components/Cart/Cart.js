@@ -10,6 +10,7 @@ import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link, useNavigate } from 'react-router-dom';
 
 
+
 const Cart = () => {
     const { cart, removeFromCart } = useCart();
     const navigate = useNavigate();
@@ -45,39 +46,41 @@ const Cart = () => {
                     <Link to="/">View Products</Link>
                 </div>
             ) : ( 
-            <div class="container pb-5 mb-2">
+            <div className="container pb-5 mb-2">
                 {cart && cart.map((item) => (
 
-                    <div class="cart-item d-md-flex justify-content-between mt-5"><span class="remove-item"><i class="fa fa-times" onClick={() => removeFromCart(item)}></i></span>
-                        <div class="px-3 my-3">
+                    <div className="cart-item d-md-flex justify-content-between mt-5"><span className="remove-item"><i className="fa fa-times" onClick={() => removeFromCart(item)}></i></span>
+                        <div className="px-3 my-3">
                             <CartItemCard item={item} />
                         </div>
-                        <div class="px-3 my-3 text-center">
-                            <div class="cart-item-label">Quantity</div>
-                            <div class="count-input">
+                        <div className="px-3 my-3 text-center">
+                            <div className="cart-item-label">Quantity</div>
+                            <div className="count-input">
                                 <button onClick={() => decreaseQuantity(item)}>-</button>
                                 <input type='number' readOnly value={item.quantity} />
                                 <button onClick={() => increaseQuantity(item)}>+</button>
                             </div>
                         </div>
-                        <div class="px-3 my-3 text-center">
-                            <div class="cart-item-label">Subtotal</div><span class="text-xl font-weight-medium">₹${item.price}</span>
+                        <div className="px-3 my-3 text-center">
+                            <div className="cart-item-label">Subtotal</div><span className="text-xl font-weight-medium">{`₹${
+                    item.price * item.quantity
+                  }`}</span>
                         </div>
                     </div>
                 ))}
 
 
-                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
+                <div className="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
 
-                    <div class="py-2"><span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Gross Total:</span><span class="d-inline-block align-middle text-xl font-weight-medium">{`₹${cart.reduce(
+                    <div className="py-2"><span className="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Gross Total:</span><span className="d-inline-block align-middle text-xl font-weight-medium">{`₹${cart.reduce(
                                 (acc, item) => acc + item.quantity * item.price,
                                 0
                             )}`}</span></div>
                 </div>
 
-                {/* <hr class="my-2"> */}
-                <div class="row pt-3 pb-5 mb-2 ">
-                    <div class="col-sm-6 mb-3 "><button class="btn btn-style-1 btn-primary btn-block " onClick={checkoutHandler}>Checkout</button></div>
+                {/* <hr className="my-2"> */}
+                <div className="row pt-3 pb-5 mb-2 ">
+                    <div className="col-sm-6 mb-3 "><button className="btn btn-style-1 btn-primary btn-block " onClick={checkoutHandler}>Checkout</button></div>
                 </div>
             </div>
             )}

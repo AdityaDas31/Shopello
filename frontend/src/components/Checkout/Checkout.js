@@ -1,282 +1,491 @@
-import React from 'react'
-import './Checkout.css';
-import Header from '../miscellaneous/Header/Header';
-import Footer from '../miscellaneous/Footer/Footer';
+import React, { useEffect } from "react";
+import "./Checkout.css";
+import Header from "../miscellaneous/Header/Header";
+import Footer from "../miscellaneous/Footer/Footer";
+import { useCart } from "../../CartContext";
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Country, State } from 'country-state-city';
+import PinDropIcon from "@material-ui/icons/PinDrop";
+import HomeIcon from "@material-ui/icons/Home";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import PublicIcon from "@material-ui/icons/Public";
+import PhoneIcon from "@material-ui/icons/Phone";
+import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
+import { Typography } from "@material-ui/core";
+import Loader from "../Layout/Loader/Loader";
 
 const Checkout = () => {
+    const { cart } = useCart();
+
+    const [show, setShow] = useState(false);
+
+    // const [country, setCountry] = useState('');
+
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedState, setSelectedState] = useState('');
+    const [states, setStates] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [formData, setFormData] = useState({
+        address: '',
+        city: '',
+        pinCode: '',
+        phoneNumber: '',
+        country: '',
+        state: '',
+    });
+
+    const countries = Country.getAllCountries();
+
+    const handleCountryChange = (event) => {
+        const countryId = event.target.value;
+        setSelectedCountry(countryId);
+
+        // Fetch states for the selected country
+        const countryStates = State.getStatesOfCountry(countryId);
+        setStates(countryStates);
+    };
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        const formValues = {
+            address: e.target.address.value,
+            city: e.target.city.value,
+            pinCode: e.target.pinCode.value,
+            phoneNumber: e.target.phoneNumber.value,
+            country: selectedCountry,
+            state: selectedState,
+        };
+        if (formValues) {
+            localStorage.setItem('shippingData', JSON.stringify(formValues));
+        }
+        setFormData(formValues);
+        setShow(false)
+    };
+
+    console.log("Selected State (before):", selectedState);
+
+    const handleEditClick = () => {
+        const savedFormData = JSON.parse(localStorage.getItem('shippingData'));
+
+        if (savedFormData && typeof savedFormData === 'object') {
+            setFormData(savedFormData);
+            setSelectedCountry(savedFormData.country);
+            setSelectedState(savedFormData.state);
+        }
+
+        setIsEditing(true);
+        setShow(true);
+    };
+
+
+    const savedFormData = JSON.parse(localStorage.getItem('shippingData'));
+
+    const fullAddress = savedFormData
+        ? `${savedFormData.address}, ${savedFormData.city}, ${savedFormData.state}, ${savedFormData.pinCode}, ${savedFormData.country}`
+        : '';
+    const placeOrder = () => {
+        localStorage.removeItem('cart');
+        setIsLoading(true);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+    }
+
+    useEffect(() => {
+        if (isLoading) {
+          const loadingTimer = setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
+
+          return () => {
+            clearTimeout(loadingTimer);
+          };
+        }
+      }, [isLoading]);
+
+
+
+
+
+
     return (
         <>
-            <Header />
-            <div className="untree_co-section">
-                <div className="container">
-                    <div className="row mb-5">
-                        <div className="col-md-12">
-                            {/* <div className="border p-4 rounded" role="alert">
+
+            {isLoading ? <Loader /> : <>
+                <Header />
+                <div className="untree_co-section">
+                    <div className="container">
+                        <div className="row mb-5">
+                            <div className="col-md-12">
+                                {/* <div className="border p-4 rounded" role="alert">
 		            Returning customer? <a href="#">Click here</a> to login
 		          </div> */}
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-md-6 mb-5 mb-md-0">
+                                <h2 className="h3 mb-3 text-black">Billing Details</h2>
+                                <div className="p-3 p-lg-5 border bg-white">
+
+                                    {/* <Button variant="primary" onClick={handleShow}>
+                                    <i class="fa-solid fa-plus"></i> Add Shipping Address
+                                </Button> */}
+
+                                    {savedFormData && typeof savedFormData === 'object' ? (
+                                        // <div>
+                                        //     <p>Address: {savedFormData.address}</p>
+                                        //     <p>City: {savedFormData.city}</p>
+                                        //     <p>Pin Code: {savedFormData.pinCode}</p>
+                                        //     <p>Phone Number: {savedFormData.phoneNumber}</p>
+                                        //     <p>Country: {savedFormData.country}</p>
+                                        //     <p>State: {savedFormData.state}</p>
+                                        // <Button variant="primary" onClick={handleEditClick}>
+                                        //     <i class="fa-solid fa-pen-to-square"></i> Edit Shipping Address
+                                        // </Button>
+                                        // </div>
+                                        <div>
+                                            <div className="confirmOrderPage">
+                                                <div>
+                                                    <div className="confirmshippingArea">
+                                                        <Typography>Shipping Info</Typography>
+                                                        <div className="confirmshippingAreaBox">
+                                                            <div>
+                                                                <p>Phone:</p>
+                                                                <span>{savedFormData.phoneNumber}</span>
+                                                            </div>
+                                                            <div>
+                                                                <p>Address:</p>
+                                                                <span>{fullAddress}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <Button variant="primary" onClick={handleEditClick} className="edit_btn">
+                                                <i class="fa-solid fa-pen-to-square"></i> Edit Shipping Address
+                                            </Button>
+                                        </div>
+
+                                    ) : (
+                                        <Button variant="primary" onClick={handleShow}>
+                                            <i class="fa-solid fa-plus"></i> Add Shipping Address
+                                        </Button>
+                                    )}
+
+                                    {/* <div className="confirmOrderPage">
+                                    <div>
+                                        <div className="confirmshippingArea">
+                                            <Typography>Shipping Info</Typography>
+                                            <div className="confirmshippingAreaBox">
+                                                <div>
+                                                    <p>Phone:</p>
+                                                    <span>{savedFormData.phoneNumber}</span>
+                                                </div>
+                                                <div>
+                                                    <p>Address:</p>
+                                                    <span>{fullAddress}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> */}
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+                            <div className="col-md-6">
+                                <div className="row mb-5">
+                                    <div className="col-md-12">
+                                        <h2 className="h3 mb-3 text-black">Coupon Code</h2>
+                                        <div className="p-3 p-lg-5 border bg-white">
+                                            <label for="c_code" className="text-black mb-3">
+                                                Enter your coupon code if you have one
+                                            </label>
+                                            <div className="input-group w-75 couponcode-wrap">
+                                                <input
+                                                    type="text"
+                                                    className="form-control me-2"
+                                                    id="c_code"
+                                                    placeholder="Coupon Code"
+                                                    aria-label="Coupon Code"
+                                                    aria-describedby="button-addon2"
+                                                />
+                                                <div className="input-group-append">
+                                                    <button
+                                                        className="btn btn-style-1 btn-primary btn-block"
+                                                        type="button"
+                                                        id="button-addon2"
+                                                    >
+                                                        Apply
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row mb-5">
+                                    <div className="col-md-12">
+                                        <h2 className="h3 mb-3 text-black">Your Order</h2>
+                                        <div className="p-3 p-lg-5 border bg-white">
+                                            <table className="table site-block-order-table mb-5">
+                                                <thead>
+                                                    <th>Product</th>
+                                                    <th>Total</th>
+                                                </thead>
+                                                {cart &&
+                                                    cart.map((item) => (
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    {item.name} <strong className="mx-2">x</strong>{" "}
+                                                                    {item.quantity}
+                                                                </td>
+                                                                <td>{`₹${item.price * item.quantity}`}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    ))}
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="text-black font-weight-bold">
+                                                            <strong>Cart Gross Total</strong>
+                                                        </td>
+                                                        <td className="text-black">{`₹${cart.reduce(
+                                                            (acc, item) => acc + item.quantity * item.price,
+                                                            0
+                                                        )}`}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="text-black font-weight-bold">
+                                                            <strong>Total Payable Amount</strong>
+                                                        </td>
+                                                        <td className="text-black">{`₹${cart.reduce(
+                                                            (acc, item) => acc + item.quantity * item.price,
+                                                            0
+                                                        )}`}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div className="border p-3 mb-3">
+                                                <h3 className="h6 mb-0">
+                                                    <a
+                                                        className="d-block"
+                                                        data-bs-toggle="collapse"
+                                                        href="#collapsebank"
+                                                        role="button"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapsebank"
+                                                    >
+                                                        Direct Bank Transfer
+                                                    </a>
+                                                </h3>
+
+                                                <div className="collapse" id="collapsebank">
+                                                    <div className="py-2">
+                                                        <p className="mb-0">
+                                                            Make your payment directly into our bank account.
+                                                            Please use your Order ID as the payment reference.
+                                                            Your order won’t be shipped until the funds have
+                                                            cleared in our account.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="border p-3 mb-3">
+                                                <h3 className="h6 mb-0">
+                                                    <a
+                                                        className="d-block"
+                                                        data-bs-toggle="collapse"
+                                                        href="#collapsecheque"
+                                                        role="button"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapsecheque"
+                                                    >
+                                                        Cheque Payment
+                                                    </a>
+                                                </h3>
+
+                                                <div className="collapse" id="collapsecheque">
+                                                    <div className="py-2">
+                                                        <p className="mb-0">
+                                                            Make your payment directly into our bank account.
+                                                            Please use your Order ID as the payment reference.
+                                                            Your order won’t be shipped until the funds have
+                                                            cleared in our account.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="border p-3 mb-5">
+                                                <h3 className="h6 mb-0">
+                                                    <a
+                                                        className="d-block"
+                                                        data-bs-toggle="collapse"
+                                                        href="#collapsepaypal"
+                                                        role="button"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapsepaypal"
+                                                    >
+                                                        Paypal
+                                                    </a>
+                                                </h3>
+
+                                                <div className="collapse" id="collapsepaypal">
+                                                    <div className="py-2">
+                                                        <p className="mb-0">
+                                                            Make your payment directly into our bank account.
+                                                            Please use your Order ID as the payment reference.
+                                                            Your order won’t be shipped until the funds have
+                                                            cleared in our account.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <button
+                                                    className="btn btn-style-1 btn-primary btn-block "
+                                                    onClick={placeOrder}
+                                                >
+                                                    Place Order
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-6 mb-5 mb-md-0">
-                            <h2 className="h3 mb-3 text-black">Billing Details</h2>
-                            <div className="p-3 p-lg-5 border bg-white">
-                                <div className="form-group">
-                                    <label for="c_country" className="text-black">Country <span className="text-danger">*</span></label>
-                                    <select id="c_country" className="form-control">
-                                        <option value="1">Select a country</option>
-                                        <option value="2">bangladesh</option>
-                                        <option value="3">Algeria</option>
-                                        <option value="4">Afghanistan</option>
-                                        <option value="5">Ghana</option>
-                                        <option value="6">Albania</option>
-                                        <option value="7">Bahrain</option>
-                                        <option value="8">Colombia</option>
-                                        <option value="9">Dominican Republic</option>
+                </div>
+                <Footer />
+            </>
+            }
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton >
+                    <Modal.Title >Shipping Address</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-center">
+                    <div className="shippingContainer">
+                        <div className="shippingBox">
+                            <form className="shippingForm" onSubmit={handleFormSubmit}>
+                                <div>
+                                    <HomeIcon />
+                                    <input
+                                        type="text"
+                                        placeholder="Address"
+                                        name="address"
+                                        id="address"
+                                        value={formData.address}
+                                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <LocationCityIcon />
+                                    <input
+                                        type="text"
+                                        placeholder="City"
+                                        name="city"
+                                        id="city"
+                                        value={formData.city}
+                                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <PinDropIcon />
+                                    <input
+                                        type="number"
+                                        placeholder="Pin Code"
+                                        name="pinCode"
+                                        id="pinCode"
+                                        value={formData.pinCode}
+                                        onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <PhoneIcon />
+                                    <input
+                                        type="number"
+                                        placeholder="Phone Number"
+                                        name="phoneNumber"
+                                        id="phoneNumber"
+                                        value={formData.phoneNumber}
+                                        onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <PublicIcon />
+                                    <select
+                                        id="countrySelect"
+                                        value={selectedCountry}
+                                        onChange={handleCountryChange}
+                                    >
+                                        <option value="">Country</option>
+                                        {Country &&
+                                            Country.getAllCountries().map((item) => (
+                                                <option key={item.isoCode} value={item.isoCode}>
+                                                    {item.name}
+                                                </option>
+                                            ))}
                                     </select>
                                 </div>
-                                <div className="form-group row">
-                                    <div className="col-md-6">
-                                        <label for="c_fname" className="text-black">First Name <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_fname" name="c_fname" />
+
+                                {selectedCountry && (
+
+                                    <div>
+                                        <TransferWithinAStationIcon />
+                                        <select
+                                            id="stateSelect"
+                                            value={selectedState}
+                                            onChange={(e) => setSelectedState(e.target.value)}
+                                        >
+                                            <option value="">State</option>
+                                            {State &&
+                                                State.getStatesOfCountry(selectedCountry).map((item) => (
+                                                    <option key={item.isoCode} value={item.isoCode}>
+                                                        {item.name}
+                                                    </option>
+                                                ))}
+                                        </select>
                                     </div>
-                                    <div className="col-md-6">
-                                        <label for="c_lname" className="text-black">Last Name <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_lname" name="c_lname" />
-                                    </div>
-                                </div>
+                                )}
 
-                                <div className="form-group row">
-                                    <div className="col-md-12">
-                                        <label for="c_companyname" className="text-black">Company Name </label>
-                                        <input type="text" className="form-control" id="c_companyname" name="c_companyname" />
-                                    </div>
-                                </div>
-
-                                <div className="form-group row">
-                                    <div className="col-md-12">
-                                        <label for="c_address" className="text-black">Address <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_address" name="c_address" placeholder="Street address" />
-                                    </div>
-                                </div>
-
-                                <div className="form-group mt-3">
-                                    <input type="text" className="form-control" placeholder="Apartment, suite, unit etc. (optional)" />
-                                </div>
-
-                                <div className="form-group row">
-                                    <div className="col-md-6">
-                                        <label for="c_state_country" className="text-black">State / Country <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_state_country" name="c_state_country" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <label for="c_postal_zip" className="text-black">Posta / Zip <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_postal_zip" name="c_postal_zip" />
-                                    </div>
-                                </div>
-
-                                <div className="form-group row mb-5">
-                                    <div className="col-md-6">
-                                        <label for="c_email_address" className="text-black">Email Address <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_email_address" name="c_email_address" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <label for="c_phone" className="text-black">Phone <span className="text-danger">*</span></label>
-                                        <input type="text" className="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label for="c_create_account" className="text-black" data-bs-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account" /> Create an account?</label>
-                                    <div className="collapse" id="create_an_account">
-                                        <div className="py-2 mb-4">
-                                            <p className="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                            <div className="form-group">
-                                                <label for="c_account_password" className="text-black">Account Password</label>
-                                                <input type="email" className="form-control" id="c_account_password" name="c_account_password" placeholder="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className="form-group">
-                                    <label for="c_ship_different_address" className="text-black" data-bs-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address" /> Ship To A Different Address?</label>
-                                    <div className="collapse" id="ship_different_address">
-                                        <div className="py-2">
-
-                                            <div className="form-group">
-                                                <label for="c_diff_country" className="text-black">Country <span className="text-danger">*</span></label>
-                                                <select id="c_diff_country" className="form-control">
-                                                    <option value="1">Select a country</option>
-                                                    <option value="2">bangladesh</option>
-                                                    <option value="3">Algeria</option>
-                                                    <option value="4">Afghanistan</option>
-                                                    <option value="5">Ghana</option>
-                                                    <option value="6">Albania</option>
-                                                    <option value="7">Bahrain</option>
-                                                    <option value="8">Colombia</option>
-                                                    <option value="9">Dominican Republic</option>
-                                                </select>
-                                            </div>
-
-
-                                            <div className="form-group row">
-                                                <div className="col-md-6">
-                                                    <label for="c_diff_fname" className="text-black">First Name <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_fname" name="c_diff_fname" />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <label for="c_diff_lname" className="text-black">Last Name <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_lname" name="c_diff_lname" />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group row">
-                                                <div className="col-md-12">
-                                                    <label for="c_diff_companyname" className="text-black">Company Name </label>
-                                                    <input type="text" className="form-control" id="c_diff_companyname" name="c_diff_companyname" />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group row  mb-3">
-                                                <div className="col-md-12">
-                                                    <label for="c_diff_address" className="text-black">Address <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_address" name="c_diff_address" placeholder="Street address" />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Apartment, suite, unit etc. (optional)" />
-                                            </div>
-
-                                            <div className="form-group row">
-                                                <div className="col-md-6">
-                                                    <label for="c_diff_state_country" className="text-black">State / Country <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_state_country" name="c_diff_state_country" />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <label for="c_diff_postal_zip" className="text-black">Posta / Zip <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip" />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group row mb-5">
-                                                <div className="col-md-6">
-                                                    <label for="c_diff_email_address" className="text-black">Email Address <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_email_address" name="c_diff_email_address" />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <label for="c_diff_phone" className="text-black">Phone <span className="text-danger">*</span></label>
-                                                    <input type="text" className="form-control" id="c_diff_phone" name="c_diff_phone" placeholder="Phone Number" />
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label for="c_order_notes" className="text-black">Order Notes</label>
-                                    <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" className="form-control" placeholder="Write your notes here..."></textarea>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-
-                            <div className="row mb-5">
-                                <div className="col-md-12">
-                                    <h2 className="h3 mb-3 text-black">Coupon Code</h2>
-                                    <div className="p-3 p-lg-5 border bg-white">
-
-                                        <label for="c_code" className="text-black mb-3">Enter your coupon code if you have one</label>
-                                        <div className="input-group w-75 couponcode-wrap">
-                                            <input type="text" className="form-control me-2" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2" />
-                                            <div className="input-group-append">
-                                                <button className="btn btn-black btn-sm" type="button" id="button-addon2">Apply</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row mb-5">
-                                <div className="col-md-12">
-                                    <h2 className="h3 mb-3 text-black">Your Order</h2>
-                                    <div className="p-3 p-lg-5 border bg-white">
-                                        <table className="table site-block-order-table mb-5">
-                                            <thead>
-                                                <th>Product</th>
-                                                <th>Total</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Top Up T-Shirt <strong className="mx-2">x</strong> 1</td>
-                                                    <td>$250.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Polo Shirt <strong className="mx-2">x</strong>   1</td>
-                                                    <td>$100.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                                    <td className="text-black">$350.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                                    <td className="text-black font-weight-bold"><strong>$350.00</strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div className="border p-3 mb-3">
-                                            <h3 className="h6 mb-0"><a className="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
-
-                                            <div className="collapse" id="collapsebank">
-                                                <div className="py-2">
-                                                    <p className="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="border p-3 mb-3">
-                                            <h3 className="h6 mb-0"><a className="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
-
-                                            <div className="collapse" id="collapsecheque">
-                                                <div className="py-2">
-                                                    <p className="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="border p-3 mb-5">
-                                            <h3 className="h6 mb-0"><a className="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
-
-                                            <div className="collapse" id="collapsepaypal">
-                                                <div className="py-2">
-                                                    <p className="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <button className="btn btn-black btn-lg py-3 btn-block" onclick="window.location='thankyou.html'">Place Order</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
+                                <input
+                                    type="submit"
+                                    value="Continue"
+                                    className="shippingBtn"
+                                    disabled={selectedState ? false : true}
+                                />
+                            </form>
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <Footer />
+                </Modal.Body>
+            </Modal>
         </>
-    )
-}
+    );
+};
 
-export default Checkout
+export default Checkout;
