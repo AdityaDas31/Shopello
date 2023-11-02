@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment } from "react";
 import "./Checkout.css";
 import Header from "../miscellaneous/Header/Header";
 import Footer from "../miscellaneous/Footer/Footer";
@@ -13,15 +13,19 @@ import LocationCityIcon from "@material-ui/icons/LocationCity";
 import PublicIcon from "@material-ui/icons/Public";
 import PhoneIcon from "@material-ui/icons/Phone";
 import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
-import { Typography } from "@material-ui/core";
+import { FormControlLabel, Radio, RadioGroup, Typography } from "@material-ui/core";
 import Loader from "../Layout/Loader/Loader";
+import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
+import MetaData from "../Layout/MetaData";
 
 const Checkout = () => {
     const { cart } = useCart();
 
+    const navigate =  useNavigate()
+
     const [show, setShow] = useState(false);
 
-    // const [country, setCountry] = useState('');
 
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedState, setSelectedState] = useState('');
@@ -29,6 +33,8 @@ const Checkout = () => {
     const [isEditing, setIsEditing] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [selectedOption, setSelectedOption] = useState(null);
 
     const [formData, setFormData] = useState({
         address: '',
@@ -39,19 +45,21 @@ const Checkout = () => {
         state: '',
     });
 
+  const alert = useAlert();
+
     const countries = Country.getAllCountries();
 
     const handleCountryChange = (event) => {
         const countryId = event.target.value;
         setSelectedCountry(countryId);
-
-        // Fetch states for the selected country
         const countryStates = State.getStatesOfCountry(countryId);
         setStates(countryStates);
     };
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const payableAmount = `${cart.reduce((acc, item) => acc + item.quantity * item.price,0 )}`;
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -70,7 +78,6 @@ const Checkout = () => {
         setShow(false)
     };
 
-    console.log("Selected State (before):", selectedState);
 
     const handleEditClick = () => {
         const savedFormData = JSON.parse(localStorage.getItem('shippingData'));
@@ -88,29 +95,50 @@ const Checkout = () => {
 
     const savedFormData = JSON.parse(localStorage.getItem('shippingData'));
 
-    const fullAddress = savedFormData
-        ? `${savedFormData.address}, ${savedFormData.city}, ${savedFormData.state}, ${savedFormData.pinCode}, ${savedFormData.country}`
-        : '';
-    const placeOrder = () => {
-        localStorage.removeItem('cart');
-        setIsLoading(true);
+    const fullAddress = savedFormData ? `${savedFormData.address}, ${savedFormData.city}, ${savedFormData.state}, ${savedFormData.pinCode}, ${savedFormData.country}`: '';
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+    const handleOptionChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
+
+    const placeOrder = () => {
+        localStorage.setItem('payableAmount', payableAmount);
+        if (selectedOption === 'upi') {
+            alert.success("this is a test alert for upi");
+        }
+
+        if (selectedOption === 'card') {
+            navigate("/process/card");
+        }        
+
+        if (selectedOption === 'netBanking') {
+            alert.success("this is a test alert for netBanking");
+        }
+
+        if (selectedOption === 'cod') {
+            navigate("/success");
+        }        
+
+
+        // localStorage.removeItem('cart');
+        // setIsLoading(true);
+
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 1000);
     }
 
-    useEffect(() => {
-        if (isLoading) {
-          const loadingTimer = setTimeout(() => {
-            setIsLoading(false);
-          }, 1000);
+    // useEffect(() => {
+    //     if (isLoading) {
+    //         const loadingTimer = setTimeout(() => {
+    //             setIsLoading(false);
+    //         }, 1000);
 
-          return () => {
-            clearTimeout(loadingTimer);
-          };
-        }
-      }, [isLoading]);
+    //         return () => {
+    //             clearTimeout(loadingTimer);
+    //         };
+    //     }
+    // }, [isLoading]);
 
 
 
@@ -118,7 +146,8 @@ const Checkout = () => {
 
 
     return (
-        <>
+        <Fragment>
+            <MetaData title="Checkout"/>
 
             {isLoading ? <Loader /> : <>
                 <Header />
@@ -274,91 +303,72 @@ const Checkout = () => {
                                                         <td className="text-black font-weight-bold">
                                                             <strong>Total Payable Amount</strong>
                                                         </td>
-                                                        <td className="text-black">{`₹${cart.reduce(
-                                                            (acc, item) => acc + item.quantity * item.price,
-                                                            0
-                                                        )}`}</td>
+                                                        <td className="text-black">₹{payableAmount}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
 
-                                            <div className="border p-3 mb-3">
-                                                <h3 className="h6 mb-0">
-                                                    <a
-                                                        className="d-block"
-                                                        data-bs-toggle="collapse"
-                                                        href="#collapsebank"
-                                                        role="button"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapsebank"
-                                                    >
-                                                        Direct Bank Transfer
-                                                    </a>
-                                                </h3>
-
-                                                <div className="collapse" id="collapsebank">
-                                                    <div className="py-2">
-                                                        <p className="mb-0">
-                                                            Make your payment directly into our bank account.
-                                                            Please use your Order ID as the payment reference.
-                                                            Your order won’t be shipped until the funds have
-                                                            cleared in our account.
-                                                        </p>
-                                                    </div>
+                                            <RadioGroup>
+                                                <div className="border p-3 mb-3">
+                                                    <h3 className="h6 mb-0">
+                                                        <span
+                                                            className="d-block"
+                                                            data-bs-toggle="collapse"
+                                                            href="#collapsebank"
+                                                            role="button"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapsebank"
+                                                        >
+                                                            <FormControlLabel value="upi" control={<Radio />} label="UPI" labelPlacement="start" onChange={handleOptionChange} />
+                                                        </span>
+                                                    </h3>
                                                 </div>
-                                            </div>
 
-                                            <div className="border p-3 mb-3">
-                                                <h3 className="h6 mb-0">
-                                                    <a
-                                                        className="d-block"
-                                                        data-bs-toggle="collapse"
-                                                        href="#collapsecheque"
-                                                        role="button"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapsecheque"
-                                                    >
-                                                        Cheque Payment
-                                                    </a>
-                                                </h3>
-
-                                                <div className="collapse" id="collapsecheque">
-                                                    <div className="py-2">
-                                                        <p className="mb-0">
-                                                            Make your payment directly into our bank account.
-                                                            Please use your Order ID as the payment reference.
-                                                            Your order won’t be shipped until the funds have
-                                                            cleared in our account.
-                                                        </p>
-                                                    </div>
+                                                <div className="border p-3 mb-3">
+                                                    <h3 className="h6 mb-0">
+                                                        <span
+                                                            className="d-block"
+                                                            data-bs-toggle="collapse"
+                                                            href="#collapsecheque"
+                                                            role="button"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapsecheque"
+                                                        >
+                                                            <FormControlLabel value="card" control={<Radio />} label="Credit / Debit / ATM Card" labelPlacement="start" onChange={handleOptionChange} />
+                                                        </span>
+                                                    </h3>
                                                 </div>
-                                            </div>
 
-                                            <div className="border p-3 mb-5">
-                                                <h3 className="h6 mb-0">
-                                                    <a
-                                                        className="d-block"
-                                                        data-bs-toggle="collapse"
-                                                        href="#collapsepaypal"
-                                                        role="button"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapsepaypal"
-                                                    >
-                                                        Paypal
-                                                    </a>
-                                                </h3>
-
-                                                <div className="collapse" id="collapsepaypal">
-                                                    <div className="py-2">
-                                                        <p className="mb-0">
-                                                            Make your payment directly into our bank account.
-                                                            Please use your Order ID as the payment reference.
-                                                            Your order won’t be shipped until the funds have
-                                                            cleared in our account.
-                                                        </p>
-                                                    </div>
+                                                <div className="border p-3 mb-4">
+                                                    <h3 className="h6 mb-0">
+                                                        <span
+                                                            className="d-block"
+                                                            data-bs-toggle="collapse"
+                                                            href="#collapsepaypal"
+                                                            role="button"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapsepaypal"
+                                                        >
+                                                            <FormControlLabel value="netBanking" control={<Radio />} label="Net Banking" labelPlacement="start" onChange={handleOptionChange} />
+                                                        </span>
+                                                    </h3>
                                                 </div>
-                                            </div>
+
+                                                <div className="border p-3 mb-5">
+                                                    <h3 className="h6 mb-0">
+                                                        <span
+                                                            className="d-block"
+                                                            data-bs-toggle="collapse"
+                                                            href="#collapsepaypal"
+                                                            role="button"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapsepaypal"
+                                                        >
+                                                            <FormControlLabel value="cod" control={<Radio />} label="Cash On Delivery" labelPlacement="start" onChange={handleOptionChange} />
+                                                        </span>
+                                                    </h3>
+                                                </div>
+                                            </RadioGroup>
 
                                             <div className="form-group">
                                                 <button
@@ -484,7 +494,7 @@ const Checkout = () => {
                     </div>
                 </Modal.Body>
             </Modal>
-        </>
+        </Fragment>
     );
 };
 
