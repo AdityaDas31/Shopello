@@ -116,7 +116,7 @@ const Checkout = () => {
         }
 
         if (selectedOption === 'cod') {
-            alert.success("this is a test alert for cod");
+            navigate("/success");
         }        
 
 
