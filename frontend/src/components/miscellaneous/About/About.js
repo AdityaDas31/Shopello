@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
 import icon1 from "../../../images/truck.svg";
@@ -12,6 +12,9 @@ import Navbar from "../Header/Header";
 import Footer from "../Footer/Footer";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  })
   return (
     <>
       <Navbar />
@@ -152,12 +155,12 @@ const About = () => {
                       <ul className="social-list list-inline mb-0 mx-auto">
                         <li className="list-inline-item">
                           <Link to="https://www.linkedin.com/in/aditya-das-513883222" className="text-dark">
-                          <i class="fa-brands fa-linkedin"></i>
+                            <i class="fa-brands fa-linkedin"></i>
                           </Link>
                         </li>
                         <li className="list-inline-item">
                           <Link to="https://github.com/AdityaDas31" className="text-dark">
-                          <i class="fa-brands fa-github"></i>
+                            <i class="fa-brands fa-github"></i>
                           </Link>
                         </li>
                       </ul>
@@ -171,13 +174,13 @@ const About = () => {
                       <div className="member-profile position-absolute w-100 text-center">
                         <img
                           className="rounded-circle mx-auto d-inline-block shadow-sm"
-                          src={kaustav} 
+                          src={kaustav}
                           alt="icon"
                         />
                       </div>
                       <div className="card-text pt-1">
                         <h5 className="member-name mb-0 text-center text-primary font-weight-bold">
-                        Kaustav Ghosh
+                          Kaustav Ghosh
                         </h5>
                         <div className="mb-3 text-center">MERN DEVELOPER</div>
                         <div>
@@ -194,12 +197,12 @@ const About = () => {
                       <ul className="social-list list-inline mb-0 mx-auto">
                         <li className="list-inline-item">
                           <Link to="https://www.linkedin.com/in/kaustav-ghosh-b8a8b3222" className="text-dark">
-                          <i class="fa-brands fa-linkedin"></i>
+                            <i class="fa-brands fa-linkedin"></i>
                           </Link>
                         </li>
                         <li className="list-inline-item">
                           <Link to="https://github.com/kaustav03" className="text-dark">
-                          <i class="fa-brands fa-github"></i>
+                            <i class="fa-brands fa-github"></i>
                           </Link>
                         </li>
                       </ul>

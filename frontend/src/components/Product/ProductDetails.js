@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './ProductDetails.css';
 import MetaData from '../Layout/MetaData';
 import Rating from '@material-ui/lab/Rating'
@@ -29,6 +29,9 @@ const ProductDetails = () => {
     //     sizes: ["M", "L", "XL", "XXL"],
     // };
 
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    })
 
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState('');
