@@ -40,7 +40,7 @@ const Profile = () => {
 
                     <div className='img_container'>
                         <div className='block glow'>
-                        <img src={user.avatar.url} alt={ProfileImg}/>
+                        <img src={user.avatar.url} alt={ProfileImg}/>   
                         </div>
                         <Link className='edit_profile'>Edit Profile</Link>
                         <Link to="/password/update" className='change_password'>Change Password</Link>

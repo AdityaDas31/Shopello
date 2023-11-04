@@ -1,16 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating'
 
 
 
 const ProductCard = ({ product }) => {
+    const navigate = useNavigate();
     const options = {
         value: product.rating,
         readOnly: true,
         precision: 0.5,
     };
-
 
 
 
