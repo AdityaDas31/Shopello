@@ -110,11 +110,12 @@ const ProductDetails = () => {
                                 value={selectedSize}
                                 onChange={(e) => setSelectedSize(e.target.value)}
                             >
-                                {/* <option value="">Select a size</option> */}
+                                <option value="">Select a size</option>
                                 {product.sizes.map((size, index) => (
                                     <option key={index} value={size}>{size}</option>
                                 ))}
                             </select> </p> : ' '}
+                            
                         <div className='detailsBlock-3-1'>
                             <div className='detailsBlock-3-1-1'>
                                 <button className='decrease' onClick={decreaseQuantity}>-</button>

@@ -23,13 +23,13 @@ export function CartProvider({ children }) {
       const existingProductIndex = prevCart.findIndex(
         (item) => item.name === product.name && item.size === product.size
       );
-
+  
       if (existingProductIndex !== -1) {
         const updatedCart = [...prevCart];
         updatedCart[existingProductIndex].quantity += product.quantity;
         return updatedCart;
       }
-
+  
       return [...prevCart, product];
     });
   };
