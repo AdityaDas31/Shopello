@@ -68,6 +68,26 @@
 }
 
 
+select {
+    width: 60%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    margin-left: 10px;
+}
+
+select option {
+    padding: 10px; 
+    font-size: 16px;
+    text-align: center;
+}
+
+select option:checked {
+    background-color: #007bff;
+    color: #fff;
+}
+
 
 .detailsBlock-3>h1 {
     color: rgba(17, 17, 17, 0.795);

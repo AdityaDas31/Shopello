@@ -310,6 +310,8 @@
 .cart-item .remove-item {
   right: -10px !important;
 }
+
+
 @media (max-width: 991px) {
   .cart-item {
     padding-right: 30px;

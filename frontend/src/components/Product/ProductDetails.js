@@ -105,12 +105,15 @@ const ProductDetails = () => {
                     </div>
                     <div className='detailsBlock-3'>
                         <h1>{`₹${product.price}`}</h1>
-                        {product.sizes != null ? <p>Size
+
+                        
+                        {product.sizes != null ? <p>Size: 
                             <select
                                 value={selectedSize}
                                 onChange={(e) => setSelectedSize(e.target.value)}
+                                style={{ marginLeft: '5px' }}
                             >
-                                <option value="">Select a size</option>
+                                <option value="" className="select-option">Select a size</option>
                                 {product.sizes.map((size, index) => (
                                     <option key={index} value={size}>{size}</option>
                                 ))}
