@@ -22,7 +22,17 @@ import MetaData from "../Layout/MetaData";
 const Checkout = () => {
     const { cart } = useCart();
 
-    const navigate =  useNavigate()
+    const initialItemsToDisplay = 4;
+    const [itemsToShow, setItemsToShow] = React.useState(initialItemsToDisplay);
+    const showMoreItems = () => {
+        setItemsToShow(itemsToShow + 4);
+    };
+    const showLessItems = () => {
+        setItemsToShow(initialItemsToDisplay);
+        window.scroll(0,0)
+    };
+
+    const navigate = useNavigate()
 
     const [show, setShow] = useState(false);
 
@@ -45,7 +55,7 @@ const Checkout = () => {
         state: '',
     });
 
-  const alert = useAlert();
+    const alert = useAlert();
 
     const countries = Country.getAllCountries();
 
@@ -59,7 +69,7 @@ const Checkout = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const payableAmount = `${cart.reduce((acc, item) => acc + item.quantity * item.price,0 )}`;
+    const payableAmount = `${cart.reduce((acc, item) => acc + item.quantity * item.price, 0)}`;
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -95,7 +105,7 @@ const Checkout = () => {
 
     const savedFormData = JSON.parse(localStorage.getItem('shippingData'));
 
-    const fullAddress = savedFormData ? `${savedFormData.address}, ${savedFormData.city}, ${savedFormData.state}, ${savedFormData.pinCode}, ${savedFormData.country}`: '';
+    const fullAddress = savedFormData ? `${savedFormData.address}, ${savedFormData.city}, ${savedFormData.state}, ${savedFormData.pinCode}, ${savedFormData.country}` : '';
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
@@ -109,7 +119,7 @@ const Checkout = () => {
 
         if (selectedOption === 'card') {
             navigate("/process/card");
-        }        
+        }
 
         if (selectedOption === 'netBanking') {
             alert.success("this is a test alert for netBanking");
@@ -117,7 +127,7 @@ const Checkout = () => {
 
         if (selectedOption === 'cod') {
             navigate("/success");
-        }        
+        }
 
 
         // localStorage.removeItem('cart');
@@ -147,7 +157,7 @@ const Checkout = () => {
 
     return (
         <Fragment>
-            <MetaData title="Checkout"/>
+            <MetaData title="Checkout" />
 
             {isLoading ? <Loader /> : <>
                 <Header />
@@ -277,7 +287,7 @@ const Checkout = () => {
                                                     <th>Product</th>
                                                     <th>Total</th>
                                                 </thead>
-                                                {cart &&
+                                                {/* {cart &&
                                                     cart.map((item) => (
                                                         <tbody>
                                                             <tr>
@@ -288,7 +298,28 @@ const Checkout = () => {
                                                                 <td>{`₹${item.price * item.quantity}`}</td>
                                                             </tr>
                                                         </tbody>
-                                                    ))}
+                                                    ))} */}
+                                                {cart && (
+                                                    <table>
+                                                        <tbody>
+                                                            {cart.slice(0, itemsToShow).map((item, index) => (
+                                                                <tr key={index}>
+                                                                    <td>
+                                                                        {item.name} <strong className="mx-2">x</strong> {item.quantity}
+                                                                    </td>
+                                                                    <td>{`₹${item.price * item.quantity}`}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                )}
+                                                {cart.length > itemsToShow ? (
+                                                    <button onClick={showMoreItems} className="show-more-button">Show More</button>
+                                                ) : (
+                                                    itemsToShow > initialItemsToDisplay && (
+                                                        <button onClick={showLessItems} className="show-more-button">Show Less</button>
+                                                    )
+                                                )}
                                                 <tbody>
                                                     <tr>
                                                         <td className="text-black font-weight-bold">
