@@ -42,7 +42,6 @@ const Home = () => {
           <Product product={product}/>
         ) )}
       </div>
-      {/* <About /> */}
       <Footer />
     </Fragment>
   )

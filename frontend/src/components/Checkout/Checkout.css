@@ -1,0 +1,258 @@
+.form-control {
+  height: 50px;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+}
+
+.form-control:active,
+.form-control:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: #3b5d50;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.form-control::-webkit-input-placeholder {
+  font-size: 14px;
+}
+
+.form-control::-moz-placeholder {
+  font-size: 14px;
+}
+
+.form-control:-ms-input-placeholder {
+  font-size: 14px;
+}
+
+.form-control:-moz-placeholder {
+  font-size: 14px;
+}
+
+.shippingContainer {
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.shippingBox {
+  background-color: white;
+  width: 25vw;
+  /* height: 90vh; */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.shippingForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 2vmax;
+  justify-content: space-evenly;
+  height: 80%;
+  transition: all 0.5s;
+}
+
+.shippingForm>div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.shippingForm>div>input,
+.shippingForm>div>select {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 0.9vmax;
+  outline: none;
+}
+
+.shippingForm>div>svg {
+  position: absolute;
+  transform: translateX(1vmax);
+  font-size: 1.6vmax;
+  color: rgba(0, 0, 0, 0.623);
+}
+
+.shippingBtn {
+  border: none;
+  background-color: #0007ff;
+  color: white;
+  font: 300 1vmax;
+  width: 100%;
+  padding: 1vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+  outline: none;
+  margin: 2vmax;
+  border-radius: 5px;
+}
+
+.shippingBtn:hover {
+  background-color: #0309af;
+}
+
+.confirmOrderPage {
+  height: 25vh;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 6fr 3fr;
+}
+
+.confirmshippingArea>p {
+  font: 400 1.8vmax;
+}
+
+.confirmshippingAreaBox,
+.confirmCartItemsContainer {
+  margin: 2vmax;
+}
+
+.confirmshippingAreaBox>div {
+  display: flex;
+  margin: 1vmax 0;
+}
+
+.confirmshippingAreaBox>div>p {
+  font: 400 1vmax;
+  color: black;
+}
+
+.confirmshippingAreaBox>div>span {
+  margin: 0 1vmax;
+  font: 100 1vmax;
+  color: #575757;
+  width: 25vmax;
+}
+
+.show-more-button {
+  background-color: #007bff; 
+  color: #fff; 
+  border: none;
+  padding: 8px 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+
+.show-more-button:hover {
+  background-color: #0056b3; 
+}
+
+@media (max-width: 992px) {
+  .confirmOrderPage {
+    grid-template-columns: 1fr;
+    height: unset;
+  }
+
+  .confirmshippingArea>p {
+    font: 400 6vw "Roboto";
+  }
+
+  .confirmshippingAreaBox>div {
+    display: flex;
+    margin: 6vw 0;
+  }
+
+  .confirmshippingAreaBox>div>p {
+    font: 400 4vw;
+  }
+
+  .confirmshippingAreaBox>div>span {
+    font: 100 4vw ;
+  }
+
+  .edit_btn{
+    margin-left: 75px;
+  }
+
+  .shippingBox {
+    width: 100vw;
+    height: 95vh;
+  }
+
+  .shippingForm {
+    padding: 11vw;
+  }
+
+  .shippingForm > div > input,
+  .shippingForm > div > select {
+    padding: 5vw 10vw;
+    font: 300 4vw;
+  }
+
+  .shippingForm > div > svg {
+    font-size: 6vw;
+    transform: translateX(3vw);
+  }
+
+  .shippingBtn {
+    font: 300 4vw;
+    padding: 4vw;
+  }
+}
+
+/* .btn {
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: #ffffff;
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+}
+
+.btn:hover {
+  color: #ffffff;
+  background: #222222;
+  border-color: #222222;
+}
+
+.btn:active,
+.btn:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn.btn-primary {
+  background: #3b5d50;
+  border-color: #3b5d50;
+}
+
+.btn.btn-primary:hover {
+  background: #314d43;
+  border-color: #314d43;
+}
+
+.btn.btn-secondary {
+  color: #2f2f2f;
+  background: #f9bf29;
+  border-color: #f9bf29;
+}
+
+.btn.btn-secondary:hover {
+  background: #f8b810;
+  border-color: #f8b810;
+}
+
+.btn.btn-white-outline {
+  background: transparent;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn.btn-white-outline:hover {
+  border-color: white;
+  color: #ffffff;
+} */

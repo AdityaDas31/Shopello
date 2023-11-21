@@ -3,7 +3,7 @@ import './LoginSignUp.css';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Link } from '@material-ui/core';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import FaceIcon from "@material-ui/icons/Face";
 import Profile from '../../images/Profile.png';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ const LoginSingup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const alert = useAlert();
+
 
     const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 
@@ -38,12 +39,17 @@ const LoginSingup = () => {
     const [avatar, setAvatar] = useState();
     const [avatarPreview, setAvatarPreview] = useState(Profile);
 
+    // const redirect = location.search ? location.search.split("=")[1] : "/profile";
+    const redirect = isAuthenticated ? "/checkout" : "/profile";
+
+    console.log(redirect);
+
     const loginSubmit = (e) => {
         e.preventDefault();
         dispatch(login(loginEmail, loginPassword));
     }
 
-    const registerSubmit = (e) =>{
+    const registerSubmit = (e) =>{ 
         e.preventDefault();
         const myForm = new FormData();
         myForm.set("name", name);
@@ -75,9 +81,9 @@ const LoginSingup = () => {
         }
         //const path = location.pathname;
         if(isAuthenticated){
-            navigate("/profile");
+            navigate(redirect);
         }
-    }, [dispatch, error, alert,isAuthenticated,navigate]);
+    }, [dispatch, error, alert,isAuthenticated,navigate,redirect]);
 
     const switchTabs = (e, tab) => {
         if (tab === "login") {

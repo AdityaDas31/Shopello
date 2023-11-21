@@ -16,9 +16,12 @@ app.use(fileUpload());
 
 // Import Route
 const user = require("./routes/userRoutes");
+const payment = require("./routes/paymentRoutes");
 
 // Config api
 app.use("/api/v1/user",user);
+app.use("/api/v1/payment",payment);
+
 
 
 
