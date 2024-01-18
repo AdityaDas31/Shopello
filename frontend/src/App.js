@@ -23,6 +23,8 @@ import Payment from './components/Checkout/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js'
 import OrderSuccess from './components/Checkout/OrderSuccess';
+import AdminPage from './components/Admin/AdminPage';
+import Analytics from './components/Admin/Analytics';
 
 
 
@@ -32,8 +34,8 @@ function App() {
   const [stripeApiKey, setStriprApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/payment/stripeapikey");
-    setStriprApiKey(data.stripeApiKey);
+    // const { data } = await axios.get("/api/v1/payment/stripeapikey");
+    // setStriprApiKey(data.stripeApiKey);
   }
 
 
@@ -57,23 +59,26 @@ function App() {
           )}
           <Routes>
 
-            <Route extact path="/" element={<Home />} />
-            <Route extact path='/profile' element={isAuthenticated ? <Profile /> : <LoginSignUp />} />
-            <Route extact path='/password/update' element={isAuthenticated ? <UpdatePassword /> : <LoginSignUp />} />
-            <Route extact path='/about' element={<About />} />
-            <Route extact path='/loader' element={<Loader />} />
+            <Route exact path="/" element={<Home />} />
+            <Route exact path='/profile' element={isAuthenticated ? <Profile /> : <LoginSignUp />} />
+            <Route exact path='/password/update' element={isAuthenticated ? <UpdatePassword /> : <LoginSignUp />} />
+            <Route exact path='/about' element={<About />} />
+            <Route exact path='/loader' element={<Loader />} />
 
-            <Route extact path='/login' element={<LoginSignUp />} />
-            <Route extact path='/getOtp' element={<LoginWithOtp />} />
-
-
-            <Route extact path="/products" element={<Products />} />
+            <Route exact path='/login' element={<LoginSignUp />} />
+            <Route exact path='/getOtp' element={<LoginWithOtp />} />
 
 
-            <Route extact path='/product/:id' element={<ProductDetails />} />
+            <Route exact path="/products" element={<Products />} />
+
+
+            <Route exact path='/product/:id' element={<ProductDetails />} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/checkout' element={<Checkout />} />
             <Route exact path='/success' element={<OrderSuccess />} />
+
+            <Route exact path='/admin' element={<AdminPage/>}/>
+            <Route exact path='/admin/analytics' element={<Analytics/>}/>
 
 
             

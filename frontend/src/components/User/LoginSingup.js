@@ -42,7 +42,7 @@ const LoginSingup = () => {
     // const redirect = location.search ? location.search.split("=")[1] : "/profile";
     const redirect = isAuthenticated ? "/checkout" : "/profile";
 
-    console.log(redirect);
+    // console.log(redirect);
 
     const loginSubmit = (e) => {
         e.preventDefault();
@@ -55,8 +55,9 @@ const LoginSingup = () => {
         myForm.set("name", name);
         myForm.set("email", email);
         myForm.set("password", password);
-        myForm.set("avatar", avatar);
+        myForm.set("avatar", avatar)
         dispatch(register(myForm));
+        console.log("data", myForm);
     };
 
     const registerDataChange = (e) =>{
