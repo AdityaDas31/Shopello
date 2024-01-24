@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import './AdminPage.css'
+// import './AdminPage.css'
 import AdminPage from './AdminPage';
 
-const Analytics = () => {
-    return (
-        <Fragment>
+const Users = () => {
+  return (
+    <Fragment>
             <AdminPage />
             <div className='content'>
                 <main>
@@ -16,7 +16,7 @@ const Analytics = () => {
                                     Admin
                                 </a></li>
                                 /
-                                <li><a href="#" className="active">Analytics</a></li>
+                                <li><a href="#" className="active">Users</a></li>
                             </ul>
                         </div>
                         <a href="#" className="report">
@@ -26,7 +26,7 @@ const Analytics = () => {
                     </div>
 
                     {/* <!-- Insights --> */}
-                    <ul className="insights">
+                    {/* <ul className="insights">
                         <li>
                             <i className="fa-regular fa-calendar-check"></i>
                             <span className="info">
@@ -60,7 +60,7 @@ const Analytics = () => {
                                 <p>Total Sales</p>
                             </span>
                         </li>
-                    </ul>
+                    </ul> */}
                     {/* <!-- End of Insights --> */}
 
                     <div className="bottom-data">
@@ -68,7 +68,7 @@ const Analytics = () => {
                             <div className="header-admin">
                                 <i className="fa-solid fa-file-invoice-dollar"></i>
                                 <h3>Recent Orders</h3>
-                                {/* <i className='bx bx-filter'></i> */}
+                                <i className='bx bx-filter'></i>
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </div>
                             <table>
@@ -77,7 +77,6 @@ const Analytics = () => {
                                         <th>User</th>
                                         <th>Order Date</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,47 +108,13 @@ const Analytics = () => {
                             </table>
                         </div>
 
-                        {/* <!-- Reminders --> */}
-                        {/* <div className="reminders">
-                            <div className="header-admin">
-                                <i className='bx bx-note'></i>
-                                <h3>Remiders</h3>
-                                <i className='bx bx-filter'></i>
-                                <i className='bx bx-plus'></i>
-                            </div>
-                            <ul className="task-list">
-                                <li className="completed">
-                                    <div className="task-title">
-                                        <i className='bx bx-check-circle'></i>
-                                        <p>Start Our Meeting</p>
-                                    </div>
-                                    <i className='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li className="completed">
-                                    <div className="task-title">
-                                        <i className='bx bx-check-circle'></i>
-                                        <p>Analyse Our Site</p>
-                                    </div>
-                                    <i className='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li className="not-completed">
-                                    <div className="task-title">
-                                        <i className='bx bx-x-circle'></i>
-                                        <p>Play Footbal</p>
-                                    </div>
-                                    <i className='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                            </ul>
-                        </div> */}
-
-                        {/* <!-- End of Reminders--> */}
 
                     </div>
 
                 </main>
             </div>
         </Fragment>
-    )
+  )
 }
 
-export default Analytics
+export default Users
