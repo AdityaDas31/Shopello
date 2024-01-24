@@ -13,10 +13,10 @@ const Sellers = () => {
                             <h1>Dashboard</h1>
                             <ul className="breadcrumb">
                                 <li><a href="#">
-                                    Analytics
+                                    Admin
                                 </a></li>
                                 /
-                                <li><a href="#" className="active">Shop</a></li>
+                                <li><a href="#" className="active">Sellers</a></li>
                             </ul>
                         </div>
                         <a href="#" className="report">

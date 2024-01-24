@@ -1,20 +1,22 @@
-.product-form-container {
-  max-width: 500px;
+.product-form {
+  max-width: 400px;
   margin: 0 auto;
   padding: 20px;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
 
-.product-form label {
+label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
-.product-form input,
-.product-form textarea,
-.product-form button {
+input,
+textarea,
+select,
+button {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -23,16 +25,41 @@
   box-sizing: border-box;
 }
 
-.product-form textarea {
+textarea {
   resize: vertical;
 }
 
-.product-form button {
-  background-color: #4caf50;
-  color: white;
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px top 50%;
+  background-size: 12px;
   cursor: pointer;
+  text-align-last: left; /* Align text to the left */
 }
 
-.product-form button:hover {
-  background-color: #45a049;
+.submit_btn {
+  background-color: #2874F0;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.submit_btn:hover {
+  background-color: #66a7ff;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.image-preview-container img {
+  max-width: calc(33.333% - 10px);
+  height: auto;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }

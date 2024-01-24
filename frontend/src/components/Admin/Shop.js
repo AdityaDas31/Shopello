@@ -4,7 +4,7 @@ import AdminPage from './AdminPage';
 import "./Form.css";
 
 const Shop = () => {
-    const [formData, setFormData] = useState({
+    const [productData, setProductData] = useState({
         name: '',
         price: '',
         description: '',
@@ -12,19 +12,42 @@ const Shop = () => {
         images: [],
     });
 
-    const handleChange = (e) => {
-        const { name, value, type } = e.target;
+    const categories = ['Select a category', 'Electronics', 'Clothing', 'Books'];
 
-        setFormData({
-            ...formData,
-            [name]: type === 'file' ? e.target.files : value,
+    const handleChange = (e) => {
+        const { name, value, type, files } = e.target;
+
+        if (type === 'file') {
+            setProductData({
+                ...productData,
+                [name]: Array.from(files),
+            });
+        } else {
+            setProductData({
+                ...productData,
+                [name]: value,
+            });
+        }
+    };
+
+    const handleImagePreview = (e) => {
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const images = e.target.files;
+
+        imagePreviewContainer.innerHTML = '';
+
+        Array.from(images).forEach((image) => {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(image);
+            img.alt = 'Product Preview';
+            imagePreviewContainer.appendChild(img);
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        console.log('Form submitted:', formData);
+        // Add your form submission logic here
+        console.log('Form submitted:', productData);
     };
 
     return (
@@ -37,7 +60,7 @@ const Shop = () => {
                             <h1>Dashboard</h1>
                             <ul className="breadcrumb">
                                 <li><a href="#">
-                                    Analytics
+                                    Admin
                                 </a></li>
                                 /
                                 <li><a href="#" className="active">Shop</a></li>
@@ -49,60 +72,35 @@ const Shop = () => {
                         </a>
                     </div>
 
-                    <div className="product-form-container">
-                        <form onSubmit={handleSubmit} className="product-form">
+                    <div className="product-form">
+                        <form onSubmit={handleSubmit}>
                             <label htmlFor="name">Name:</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" id="name" name="name" value={productData.name} onChange={handleChange} required />
 
                             <label htmlFor="price">Price:</label>
-                            <input
-                                type="number"
-                                id="price"
-                                name="price"
-                                value={formData.price}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" id="price" name="price" value={productData.price} onChange={handleChange} required />
 
                             <label htmlFor="description">Description:</label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                required
-                            ></textarea>
+                            <textarea id="description" name="description" value={productData.description} onChange={handleChange} required />
 
                             <label htmlFor="category">Category:</label>
-                            <input
-                                type="text"
-                                id="category"
-                                name="category"
-                                value={formData.category}
-                                onChange={handleChange}
-                                required
-                            />
+                            <select id="category" name="category" value={productData.category} onChange={handleChange} required>
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
 
                             <label htmlFor="images">Images:</label>
-                            <input
-                                type="file"
-                                id="images"
-                                name="images"
-                                onChange={handleChange}
-                                multiple
-                                accept="image/*"
-                            />
+                            <input type="file" id="images" name="images" accept="image/*" onChange={(e) => { handleChange(e); handleImagePreview(e); }} multiple required />
 
-                            <button type="submit">Submit</button>
+                            <div id="imagePreviewContainer" className="image-preview-container"></div>
+
+                            <button className='submit_btn' type="submit">Submit</button>
                         </form>
                     </div>
+
 
 
                 </main>
