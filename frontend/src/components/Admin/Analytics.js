@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import './AdminPage.css'
 import AdminPage from './AdminPage';
 
 const Analytics = () => {

@@ -23,11 +23,11 @@ import Payment from './components/Checkout/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js'
 import OrderSuccess from './components/Checkout/OrderSuccess';
-import AdminPage from './components/Admin/AdminPage';
 import Analytics from './components/Admin/Analytics';
 import Shop from './components/Admin/Shop';
 import Users from './components/Admin/Users';
 import Sellers from './components/Admin/Sellers';
+import Dashboard from './components/Admin/Dashboard';
 
 
 
@@ -80,7 +80,7 @@ function App() {
             <Route exact path='/checkout' element={<Checkout />} />
             <Route exact path='/success' element={<OrderSuccess />} />
 
-            <Route exact path='/admin' element={<AdminPage/>}/>
+            <Route exact path='/admin' element={<Dashboard/>}/>
             <Route exact path='/admin/analytics' element={<Analytics/>}/>
             <Route exact path='/admin/shop' element={<Shop/>}/>
             <Route exact path='/admin/users' element={<Users/>}/>
