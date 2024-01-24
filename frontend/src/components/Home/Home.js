@@ -26,7 +26,7 @@ const Home = () => {
     <Fragment>
       <MetaData title="Shopello" />
       <Navbar />
-      <Carousel />
+      {/* <Carousel /> */}
       <Categories />
       <h2 className='homeHeading'>Featured Product</h2>
       <div className='home-container' id='home-container'>
@@ -38,9 +38,12 @@ const Home = () => {
         <Product product={product} />
         <Product product={product} />
         <Product product={product} /> */}
+
+
         {products && products.map(product=>(
           <Product product={product}/>
         ) )}
+
       </div>
       <Footer />
     </Fragment>
