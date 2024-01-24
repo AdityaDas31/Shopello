@@ -50,7 +50,7 @@ const AdminPage = () => {
                     <div className="logo-name">Shopello</div>
                 </a>
                 <ul className="side-menu">
-                    <li><a href="/dashboard"><i className="fa-regular fa-life-ring"></i>Dashboard</a></li>
+                    <li><a href="/admin"><i className="fa-regular fa-life-ring"></i>Dashboard</a></li>
                     <li><a href="/admin/analytics"><i className="fa-solid fa-chart-line"></i>Analytics</a></li>
                     <li><a href="/admin/shop"><i className="fa-solid fa-shop"></i>Shop</a></li>
                     <li><a href="/admin/users"><i className="fa-solid fa-users"></i>Users</a></li>
