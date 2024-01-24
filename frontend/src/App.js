@@ -25,6 +25,9 @@ import { loadStripe } from '@stripe/stripe-js'
 import OrderSuccess from './components/Checkout/OrderSuccess';
 import AdminPage from './components/Admin/AdminPage';
 import Analytics from './components/Admin/Analytics';
+import Shop from './components/Admin/Shop';
+import Users from './components/Admin/Users';
+import Sellers from './components/Admin/Sellers';
 
 
 
@@ -79,6 +82,9 @@ function App() {
 
             <Route exact path='/admin' element={<AdminPage/>}/>
             <Route exact path='/admin/analytics' element={<Analytics/>}/>
+            <Route exact path='/admin/shop' element={<Shop/>}/>
+            <Route exact path='/admin/users' element={<Users/>}/>
+            <Route exact path='/admin/sellers' element={<Sellers/>}/>
 
 
             
