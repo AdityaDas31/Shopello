@@ -77,6 +77,7 @@ const Analytics = () => {
                                         <th>User</th>
                                         <th>Order Date</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
