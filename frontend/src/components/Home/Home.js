@@ -38,9 +38,12 @@ const Home = () => {
         <Product product={product} />
         <Product product={product} />
         <Product product={product} /> */}
+
+
         {products && products.map(product=>(
           <Product product={product}/>
         ) )}
+
       </div>
       <Footer />
     </Fragment>

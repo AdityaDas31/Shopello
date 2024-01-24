@@ -29,7 +29,7 @@ const ProductDetails = () => {
     //     sizes: ["M", "L", "XL", "XXL"],
     // };
 
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo(0, 0);
     })
 
@@ -106,8 +106,8 @@ const ProductDetails = () => {
                     <div className='detailsBlock-3'>
                         <h1>{`₹${product.price}`}</h1>
 
-                        
-                        {product.sizes != null ? <p>Size: 
+
+                        {product.sizes != null ? <p>Size:
                             <select
                                 value={selectedSize}
                                 onChange={(e) => setSelectedSize(e.target.value)}
@@ -118,14 +118,14 @@ const ProductDetails = () => {
                                     <option key={index} value={size}>{size}</option>
                                 ))}
                             </select> </p> : ' '}
-                            
+
                         <div className='detailsBlock-3-1'>
                             <div className='detailsBlock-3-1-1'>
                                 <button className='decrease' onClick={decreaseQuantity}>-</button>
                                 <input readOnly value={quantity} type="number" />
                                 <button className='increase' onClick={increaseQuantity}>+</button>
                             </div>
-                            {product.stock < 1 ? <Button disabled variant="danger">Add To Cart</Button> : <Button onClick={handleAddToCart}>Add To Cart</Button>}
+                            {product.stock < 1 || !product.available ? <Button disabled variant="danger">Add To Cart</Button> : <Button onClick={handleAddToCart}>Add To Cart</Button>}
                             {/* <Button onClick={handleAddToCart}>Add To Cart</Button> */}
                             <Button onClick={handleShow}><i className="fa-solid fa-share"></i></Button>
                             <Modal show={show} onHide={handleShow}>
@@ -148,8 +148,10 @@ const ProductDetails = () => {
                         </div>
                         <p>
                             Status:
-                            <b className={product.stock < 1 ? "redColor" : "greenColor"}>
-                                {product.stock < 1 ? "OutOfStock" : "InStock"}
+                            <b className={product.stock < 1 || !product.available ? "redColor" : "greenColor"}>
+                                {product.available ? (
+                                     product.stock < 1 ? "OutOfStock" : "InStock" 
+                                ): "Currently Unavailable"}
                             </b>
                         </p>
                     </div>

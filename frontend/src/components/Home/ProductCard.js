@@ -15,14 +15,19 @@ const ProductCard = ({ product }) => {
 
 
     return (
-        <Link className='productCard' to={`/product/${product.id}`}>
-            <img src={product.images[0].url} alt={product.name} />
-            <p>{product.name}</p>
-            <div>
-               <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
-            </div>
-            <span>{product.price}</span>
-        </Link>
+        <div>
+            {product.approved ? (
+
+                <Link className='productCard' to={`/product/${product.id}`}>
+                <img src={product.images[0].url} alt={product.name} />
+                <p>{product.name}</p>
+                <div>
+                    <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
+                </div>
+                <span>{product.price}</span>
+            </Link>
+                ) : ' '}
+        </div>
     )
 }
 

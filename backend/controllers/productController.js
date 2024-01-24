@@ -91,3 +91,58 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
     });
 });
 
+// Approve Product -- Admin
+
+exports.productApproval = catchAsyncError(async (req, res, next) => {
+
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return next(new ErrorHandler(`Product not found`, 404));
+    };
+
+    product.approveStatus = !product.approveStatus;
+
+    await product.save();
+
+    if(!product.approveStatus){
+        res.status(200).json({
+            success: true,
+            message: "Product Disapprove Successfully",
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "Product Approve Successfully",
+    });
+
+});
+
+
+// Available Product -- Admin
+
+
+exports.productAvailable = catchAsyncError(async(req,res,next)=>{
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return next(new ErrorHandler(`Product not found`, 404));
+    };
+
+    product.availableStatus = !product.availableStatus;
+
+    await product.save();
+
+    if(!product.availableStatus){
+        res.status(200).json({
+            success: true,
+            message: "Product Not Available",
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "Product Available",
+    });
+})

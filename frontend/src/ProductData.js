@@ -8,6 +8,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Orange T-Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: true,
+        available: true,
     },
     {
         id: "2",
@@ -18,6 +20,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Pink T-Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: false,
+        available: true,
     },
     {
         id: "3",
@@ -28,6 +32,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Red T-Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: true,
+        available: true,
     },
     {
         id: "4",
@@ -38,6 +44,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Purple T-Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: true,
+        available: true,
     },
     {
         id: "5",
@@ -48,6 +56,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Most rated Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: false,
+        available: true,
     },
     {
         id: "6",
@@ -58,6 +68,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Black Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: false,
+        available: true,
     },
     {
         id: "7",
@@ -68,6 +80,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Blue Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: true,
+        available: true,
     },
     {
         id: "8",
@@ -78,6 +92,8 @@ const ProductData = [
         stock: 10,
         description: "This is the Aqua Shirt",
         sizes: ["M", "L", "XL", "XXL"],
+        approved: true,
+        available: true,
     },
     {
         id: "9",
@@ -88,6 +104,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best rated Shoe",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "10",
@@ -98,6 +116,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased shoe",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "11",
@@ -108,6 +128,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best shoe at its price",
         sizes: null,
+        approved: false,
+        available: true,
     },
     {
         id: "12",
@@ -118,6 +140,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased shoe",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "13",
@@ -128,6 +152,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased bagpack",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "14",
@@ -138,6 +164,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best rated bagpack",
         sizes: null,
+        approved: false,
+        available: true,
     },
     {
         id: "15",
@@ -148,6 +176,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased bagpack",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "16",
@@ -158,6 +188,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best bagpack at its price",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "17",
@@ -168,6 +200,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased watch",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "18",
@@ -178,6 +212,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best rated watch",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "19",
@@ -188,6 +224,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased watch",
         sizes: null,
+        approved: false,
+        available: true,
     },
     {
         id: "20",
@@ -198,6 +236,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best watch at its price",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "21",
@@ -208,6 +248,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased sunglass",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "22",
@@ -218,6 +260,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best rated sunglass ",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "23",
@@ -228,6 +272,8 @@ const ProductData = [
         stock: 10,
         description: "This is the most purchased sunglass",
         sizes: null,
+        approved: true,
+        available: true,
     },
     {
         id: "24",
@@ -238,6 +284,8 @@ const ProductData = [
         stock: 10,
         description: "This is the best sunglass at its price",
         sizes: null,
+        approved: true,
+        available: true,
     },
     
     
