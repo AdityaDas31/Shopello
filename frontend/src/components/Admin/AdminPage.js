@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import './AdminPage.css';
 import logo from '../../images/logo.png';
+import { Link } from 'react-router-dom';
 
 const AdminPage = () => {
 
@@ -44,24 +45,25 @@ const AdminPage = () => {
         <Fragment>
             {/* <!-- Sidebar --> */}
             <div className={`sidebar ${isSidebarClosed ? 'close' : ''}`}>
-                <a href="#" className="logo">
+                <Link to="#" className="logo">
                     {/* <i className='bx bx-code-alt'></i> */}
                     <i className="fa-solid fa-shop"></i>
                     <div className="logo-name">Shopello</div>
-                </a>
+                </Link>
                 <ul className="side-menu">
-                    <li><a href="/admin"><i className="fa-regular fa-life-ring"></i>Dashboard</a></li>
-                    <li><a href="/admin/analytics"><i className="fa-solid fa-chart-line"></i>Analytics</a></li>
-                    <li><a href="/admin/shop"><i className="fa-solid fa-shop"></i>Shop</a></li>
-                    <li><a href="/admin/users"><i className="fa-solid fa-users"></i>Users</a></li>
-                    <li><a href="/admin/sellers"><i className="fa-solid fa-image-portrait"></i>Sellers</a></li>
+                    <li><Link to="/admin"><i className="fa-regular fa-life-ring"></i>Dashboard</Link></li>
+                    <li><Link to="/admin/analytics"><i className="fa-solid fa-chart-line"></i>Analytics</Link></li>
+                    <li><Link to="/admin/shop"><i className="fa-solid fa-shop"></i>Shop</Link></li>
+                    <li><Link to="/admin/products"><i class="fa-brands fa-elementor"></i>Product</Link></li>
+                    <li><Link to="/admin/users"><i className="fa-solid fa-users"></i>Users</Link></li>
+                    <li><Link to="/admin/sellers"><i className="fa-solid fa-image-portrait"></i>Sellers</Link></li>
                 </ul>
                 <ul className="side-menu">
                     <li>
-                        <a href="#" className="logout">
+                        <Link to="#" className="logout">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             Logout
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
@@ -80,13 +82,13 @@ const AdminPage = () => {
                     </form>
                     <input type="checkbox" id="theme-toggle" hidden />
                     <label htmlFor="theme-toggle" className="theme-toggle"></label>
-                    <a href="#" className="notif">
+                    <Link to="#" className="notif">
                         <i className="fa-regular fa-bell"></i>
                         <span className="count">12</span>
-                    </a>
-                    <a href="#" className="profile">
+                    </Link>
+                    <Link to="#" className="profile">
                         <img src={logo} />
-                    </a>
+                    </Link>
                 </nav>
 
                 {/* <!-- End of Navbar --> */}

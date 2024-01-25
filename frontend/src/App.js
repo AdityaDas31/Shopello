@@ -28,6 +28,7 @@ import Shop from './components/Admin/Shop';
 import Users from './components/Admin/Users';
 import Sellers from './components/Admin/Sellers';
 import Dashboard from './components/Admin/Dashboard';
+import ProductsList from './components/Admin/ProductsList';
 
 
 
@@ -83,6 +84,7 @@ function App() {
             <Route exact path='/admin' element={<Dashboard/>}/>
             <Route exact path='/admin/analytics' element={<Analytics/>}/>
             <Route exact path='/admin/shop' element={<Shop/>}/>
+            <Route exact path='/admin/products' element={<ProductsList/>}/>
             <Route exact path='/admin/users' element={<Users/>}/>
             <Route exact path='/admin/sellers' element={<Sellers/>}/>
 
