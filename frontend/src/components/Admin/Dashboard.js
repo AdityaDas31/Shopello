@@ -680,7 +680,7 @@ const Dashboard = () => {
                 </main>
             </div>
         </Fragment>
-    )
+    );
 }
 
 export default Dashboard

@@ -4,6 +4,7 @@ import Rating from '@material-ui/lab/Rating'
 
 
 
+
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const options = {
@@ -17,18 +18,37 @@ const ProductCard = ({ product }) => {
     return (
         <div>
             {product.approved ? (
+            <div class="card">
 
-                <Link className='productCard' to={`/product/${product.id}`}>
-                <img src={product.images[0].url} alt={product.name} />
-                <p>{product.name}</p>
-                <div>
-                    <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
+                <div class="imgBox">
+                    <img src={product.images[0].url} alt={product.name} class="mouse" />
                 </div>
-                <span>{product.price}</span>
-            </Link>
-                ) : ' '}
+
+                <div class="contentBox">
+                    <h3>{product.name}</h3>
+                    <h2 class="price">₹{product.price}</h2>
+                    <a href={`/product/${product.id}`} class="buy">Buy Now</a>
+                </div>
+
+            </div>
+            ) : ' '}
         </div>
     )
 }
+        // {/* <div>
+        //     {product.approved ? (
+
+        //         <Link className='productCard' to={`/product/${product.id}`}>
+        //         <img src={product.images[0].url} alt={product.name} />
+        //         <p>{product.name}</p>
+        //         <div>
+        //             <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
+        //         </div>
+        //         <span>{product.price}</span>
+        //     </Link>
+        //         ) : ' '}
+        // </div> */}
+//     )
+// }
 
 export default ProductCard;
