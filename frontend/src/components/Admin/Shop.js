@@ -1,52 +1,81 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import AdminPage from './AdminPage';
 import "./Form.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useAlert } from "react-alert";
+import { useNavigate } from "react-router";
+import { clearErrors, createProduct } from '../../actions/productActions';
+import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
 
 const Shop = () => {
-    const [productData, setProductData] = useState({
-        name: '',
-        price: '',
-        description: '',
-        category: '',
-        images: [],
-    });
 
-    const categories = ['Select a category', 'Electronics', 'Clothing', 'Books'];
+    const dispatch = useDispatch();
+    const alert = useAlert();
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value, type, files } = e.target;
+    const { loading, error, success } = useSelector((state) => state.newProduct)
 
-        if (type === 'file') {
-            setProductData({
-                ...productData,
-                [name]: Array.from(files),
-            });
-        } else {
-            setProductData({
-                ...productData,
-                [name]: value,
-            });
-        }
-    };
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState(0);
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
+    const [stock, setStock] = useState(0);
+    const [images, setImages] = useState([]);
+    const [imagesPreview, setImagesPreview] = useState([]);
 
-    const handleImagePreview = (e) => {
-        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-        const images = e.target.files;
+    const categories = ['Electronics', 'Clothing', 'Books'];
 
-        imagePreviewContainer.innerHTML = '';
+    useEffect(() => {
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors());
+        };
 
-        Array.from(images).forEach((image) => {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(image);
-            img.alt = 'Product Preview';
-            imagePreviewContainer.appendChild(img);
-        });
-    };
+        if(success){
+            alert.success("Product Created Successfully");
+            navigate("/admin");
+            dispatch({ type: NEW_PRODUCT_RESET });
+        };
+    }, [dispatch, alert, error, navigate, success])
 
-    const handleSubmit = (e) => {
+
+    const createProductSubmitHandler = (e) => {
         e.preventDefault();
-        // Add your form submission logic here
-        console.log('Form submitted:', productData);
+
+        const myForm = new FormData();
+
+        myForm.set("name", name);
+        myForm.set("price", price);
+        myForm.set("description", description);
+        myForm.set("category", category);
+        myForm.set("stock", stock);
+
+        images.forEach((image) => {
+            myForm.append("images", image);
+        });
+
+        dispatch(createProduct(myForm));
+        console.log('Hi')
+    }
+
+    const createProductImagesChange = (e) => {
+        const files = Array.from(e.target.files);
+
+        setImages([]);
+        setImagesPreview([]);
+
+        files.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImagesPreview((old) => [...old, reader.result]);
+                    setImages((old) => [...old, reader.result]);
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
     };
 
     return (
@@ -72,31 +101,39 @@ const Shop = () => {
                     </div>
 
                     <div className="product-form">
-                        <form onSubmit={handleSubmit}>
+                        <form encType="multipart/form-data" onSubmit={createProductSubmitHandler}>
                             <label htmlFor="name">Name:</label>
-                            <input type="text" id="name" name="name" value={productData.name} onChange={handleChange} required />
+                            <input type="text" placeholder="Product Name" required value={name} onChange={(e) => setName(e.target.value)} />
 
                             <label htmlFor="price">Price:</label>
-                            <input type="text" id="price" name="price" value={productData.price} onChange={handleChange} required />
+                            <input type="number" placeholder="Product Price"  onChange={(e) => setPrice(e.target.value)} required />
 
                             <label htmlFor="description">Description:</label>
-                            <textarea id="description" name="description" value={productData.description} onChange={handleChange} required />
+                            <textarea placeholder="Product Description" value={description} onChange={(e) => setDescription(e.target.value)} cols="30" rows="1" required />
 
                             <label htmlFor="category">Category:</label>
-                            <select id="category" name="category" value={productData.category} onChange={handleChange} required>
-                                {categories.map((category, index) => (
-                                    <option key={index} value={category}>
-                                        {category}
+                            <select  onChange={(e) => setCategory(e.target.value)} >
+                                <option value="">Select a category</option>
+                                {categories.map((cate) => (
+                                    <option key={cate} value={cate}>
+                                        {cate}
                                     </option>
                                 ))}
                             </select>
 
+                            <label htmlFor="price">Stock:</label>
+                            <input type="number" placeholder='Paroduct Stock' onChange={(e) => setStock(e.target.value)} required />
+
                             <label htmlFor="images">Images:</label>
-                            <input type="file" id="images" name="images" accept="image/*" onChange={(e) => { handleChange(e); handleImagePreview(e); }} multiple required />
+                            <input type="file" name="avatar" accept="image/*" onChange={createProductImagesChange} multiple />
 
-                            <div id="imagePreviewContainer" className="image-preview-container"></div>
+                            <div id="imagePreviewContainer" className="image-preview-container">
+                                {imagesPreview.map((image, index) => (
+                                    <img key={index} src={image} alt="Product Preview" />
+                                ))}
+                            </div>
 
-                            <button className='submit_btn' type="submit">Submit</button>
+                            <button className='submit_btn' type="submit" disabled={loading ? true : false}>Submit</button>
                         </form>
                     </div>
 

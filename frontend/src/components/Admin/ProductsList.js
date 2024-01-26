@@ -47,56 +47,112 @@ const ProductsList = () => {
                                 <i className='bx bx-filter'></i>
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Name</th>
-                                        <th>Stock</th>
-                                        <th>Price</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            #jbkjbjfskjdfkjkjnkjn12525
-                                        </td>
-                                        <td>Product 1</td>
-                                        <td>200</td>
-                                        <td>$95.678,45 USD</td>
-                                        <td className='action'>
-                                            <button onClick={handleApproved} style={{ backgroundColor: isApproved ? 'blue' : 'red' }}>
-                                                {isApproved ? 'Approved' : 'Disapproved'}
-                                            </button>
-                                            <button onClick={handleAvailable} style={{ backgroundColor: isAvailable ? 'blue' : 'red' }}>
-                                                {isAvailable ? 'Available' : 'Unavailable'}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    {/* <tr>
-                                        <td>
-                                            <img src="images/profile-1.jpg" />
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>14-08-2023</td>
-                                        <td><span className="status pending">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="images/profile-1.jpg" />
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>14-08-2023</td>
-                                        <td><span className="status process">Processing</span></td>
-                                    </tr> */}
-                                </tbody>
-                            </table>
+                            {/* Table   */}
+                            <div class="container">
+                                <table class="rwd-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Product Id</th>
+                                            <th>Product Name</th>
+                                            <th>Stock</th>
+                                            <th>Price</th>
+                                            <th>Approval</th>
+                                            <th>Availability</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        <tr>
+                                            <td data-th="Product Id">
+                                                65b08a9ae2852912072f36a3
+                                            </td>
+                                            <td data-th="Product Name">
+                                                Product 1
+                                            </td>
+                                            <td data-th="Stock">
+                                                20
+                                            </td>
+                                            <td data-th="Price">
+                                                2000
+                                            </td>
+                                            <td data-th="Approval">
+                                                <button onClick={handleApproved} style={{ backgroundColor: isApproved ? 'blue' : 'red' }}>
+                                                    {isApproved ? 'Approved' : 'Disapproved'}
+                                                </button>
+                                            </td>
+                                            <td data-th="Availability">
+                                                <button onClick={handleAvailable} style={{ backgroundColor: isAvailable ? 'blue' : 'red' }}>
+                                                    {isAvailable ? 'Available' : 'Unavailable'}
+                                                </button>
+                                            </td>
+                                            <td className='action' data-th="Actions">
+                                                <button style={{backgroundColor: "green"}}><i class="fa-regular fa-pen-to-square"></i></button>
+                                                <button style={{backgroundColor: "red"}}><i class="fa-regular fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                        {/* <tr>
+                                            <td data-th="Supplier Code">
+                                                UPS3449
+                                            </td>
+                                            <td data-th="Supplier Name">
+                                                UPS South Inc.
+                                            </td>
+                                            <td data-th="Invoice Number">
+                                                ASDF29301
+                                            </td>
+                                            <td data-th="Invoice Date">
+                                                6/24/2016
+                                            </td>
+                                            <td data-th="Due Date">
+                                                12/25/2016
+                                            </td>
+                                            <td data-th="Net Amount">
+                                                $3,255.49
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-th="Supplier Code">
+                                                BOX5599
+                                            </td>
+                                            <td data-th="Supplier Name">
+                                                BOX Pro West
+                                            </td>
+                                            <td data-th="Invoice Number">
+                                                ASDF43000
+                                            </td>
+                                            <td data-th="Invoice Date">
+                                                6/27/2016
+                                            </td>
+                                            <td data-th="Due Date">
+                                                12/25/2016
+                                            </td>
+                                            <td data-th="Net Amount">
+                                                $45,255.49
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-th="Supplier Code">
+                                                PAN9999
+                                            </td>
+                                            <td data-th="Supplier Name">
+                                                Pan Providers and Co.
+                                            </td>
+                                            <td data-th="Invoice Number">
+                                                ASDF33433
+                                            </td>
+                                            <td data-th="Invoice Date">
+                                                6/29/2016
+                                            </td>
+                                            <td data-th="Due Date">
+                                                12/25/2016
+                                            </td>
+                                            <td data-th="Net Amount">
+                                                $12,335.69
+                                            </td>
+                                        </tr> */}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
-
                     </div>
-
                 </main>
             </div>
         </Fragment>
