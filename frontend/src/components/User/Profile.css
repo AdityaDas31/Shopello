@@ -124,6 +124,14 @@
 .logout:hover {
     background-color: rgb(255, 71, 71);
 }
+.admin {
+    background-color: #194da0;
+}
+
+.admin:hover {
+    background-color: #2d60b4;
+
+}
 
 .other {
     background-color: #fff;
@@ -165,7 +173,7 @@
     border: 2px solid;
 }
 
-.other td,
+.other .other_info table td,
 th {
     text-align: left;
     padding: 5px;

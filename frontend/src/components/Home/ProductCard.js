@@ -7,6 +7,7 @@ import Rating from '@material-ui/lab/Rating'
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
+
     const options = {
         value: product.rating,
         readOnly: true,
@@ -18,19 +19,19 @@ const ProductCard = ({ product }) => {
     return (
         <div>
             {product.approved ? (
-            <div class="card">
+            <Link to={`/product/${product.id}`} className="card">
 
-                <div class="imgBox">
-                    <img src={product.images[0].url} alt={product.name} class="mouse" />
+                <div className="imgBox">
+                    <img src={product.images[0].url} alt={product.name} className="mouse" />
                 </div>
 
-                <div class="contentBox">
+                <div className="contentBox">
                     <h3>{product.name}</h3>
-                    <h2 class="price">₹{product.price}</h2>
-                    <a href={`/product/${product.id}`} class="buy">Buy Now</a>
+                    <h2 className="price">₹{product.price}</h2>
+                    <a  className="buy">Buy Now</a>
                 </div>
 
-            </div>
+            </Link>
             ) : ' '}
         </div>
     )

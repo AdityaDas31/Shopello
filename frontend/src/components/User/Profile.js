@@ -45,6 +45,7 @@ const Profile = () => {
                         <Link className='edit_profile'>Edit Profile</Link>
                         <Link to="/password/update" className='change_password'>Change Password</Link>
                         <Link className='logout' onClick={logoutUser}>Logout</Link>
+                        {user.role === "admin" ? ( <Link className='admin' to="/admin">Dashboard</Link> ) : " "}
                     </div>
 
 
