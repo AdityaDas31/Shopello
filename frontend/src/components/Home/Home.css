@@ -118,6 +118,7 @@ body {
 
 .card:hover {
   text-decoration: none;
+  color: #000000;
 }
 
 /* .card::before {
