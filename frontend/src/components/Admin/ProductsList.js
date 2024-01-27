@@ -1,20 +1,56 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import AdminPage from './AdminPage';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearErrors, getAdminProduct, approveProduct } from '../../actions/productActions';
+import { useAlert } from "react-alert";
+import { useNavigate, useParams } from 'react-router-dom';
+import { APPROVE_PRODUCT_RESET } from '../../constants/productConstants';
 
 
 const ProductsList = () => {
 
-    const [isApproved, setApproved] = useState(false);
+    // const [isApproved, setApproved] = useState(false);
     const [isAvailable, setIsAvailable] = useState(false);
+    const [reloadComponent, setReloadComponent] = useState(false);
 
-    const handleApproved = () => {
-        // Toggle the approval status
-        setApproved(!isApproved);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const alert = useAlert();
+    const params = useParams();
+
+    const { error, products } = useSelector((state) => state.products);
+    const { error: approveError, isApproved } = useSelector((state) => state.product);
+
+
+    const handleApproved = (id) => {
+        // dispatch(isApproved(id));
+        dispatch(approveProduct(id));
+        // window.location.reload();
+        setReloadComponent(!reloadComponent);
     }
 
     const handleAvailable = () => {
         setIsAvailable(!isAvailable)
     }
+
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+
+        if (isApproved) {
+            alert.success("Product Approver Successfully");
+            dispatch({ type: APPROVE_PRODUCT_RESET });
+        }
+
+        if (approveError) {
+            alert.error(approveError);
+            dispatch(clearErrors)
+        }
+        setReloadComponent(false);
+        dispatch(getAdminProduct());
+    }, [dispatch, alert, error, reloadComponent, isApproved, approveError])
 
     return (
         <Fragment>
@@ -60,94 +96,36 @@ const ProductsList = () => {
                                             <th>Availability</th>
                                             <th>Actions</th>
                                         </tr>
-                                        <tr>
-                                            <td data-th="Product Id">
-                                                65b08a9ae2852912072f36a3
-                                            </td>
-                                            <td data-th="Product Name">
-                                                Product 1
-                                            </td>
-                                            <td data-th="Stock">
-                                                20
-                                            </td>
-                                            <td data-th="Price">
-                                                2000
-                                            </td>
-                                            <td data-th="Approval">
-                                                <button onClick={handleApproved} style={{ backgroundColor: isApproved ? 'blue' : 'red' }}>
-                                                    {isApproved ? 'Approved' : 'Disapproved'}
-                                                </button>
-                                            </td>
-                                            <td data-th="Availability">
-                                                <button onClick={handleAvailable} style={{ backgroundColor: isAvailable ? 'blue' : 'red' }}>
-                                                    {isAvailable ? 'Available' : 'Unavailable'}
-                                                </button>
-                                            </td>
-                                            <td className='action' data-th="Actions">
-                                                <button style={{backgroundColor: "green"}}><i class="fa-regular fa-pen-to-square"></i></button>
-                                                <button style={{backgroundColor: "red"}}><i class="fa-regular fa-trash-can"></i></button>
-                                            </td>
-                                        </tr>
-                                        {/* <tr>
-                                            <td data-th="Supplier Code">
-                                                UPS3449
-                                            </td>
-                                            <td data-th="Supplier Name">
-                                                UPS South Inc.
-                                            </td>
-                                            <td data-th="Invoice Number">
-                                                ASDF29301
-                                            </td>
-                                            <td data-th="Invoice Date">
-                                                6/24/2016
-                                            </td>
-                                            <td data-th="Due Date">
-                                                12/25/2016
-                                            </td>
-                                            <td data-th="Net Amount">
-                                                $3,255.49
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-th="Supplier Code">
-                                                BOX5599
-                                            </td>
-                                            <td data-th="Supplier Name">
-                                                BOX Pro West
-                                            </td>
-                                            <td data-th="Invoice Number">
-                                                ASDF43000
-                                            </td>
-                                            <td data-th="Invoice Date">
-                                                6/27/2016
-                                            </td>
-                                            <td data-th="Due Date">
-                                                12/25/2016
-                                            </td>
-                                            <td data-th="Net Amount">
-                                                $45,255.49
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-th="Supplier Code">
-                                                PAN9999
-                                            </td>
-                                            <td data-th="Supplier Name">
-                                                Pan Providers and Co.
-                                            </td>
-                                            <td data-th="Invoice Number">
-                                                ASDF33433
-                                            </td>
-                                            <td data-th="Invoice Date">
-                                                6/29/2016
-                                            </td>
-                                            <td data-th="Due Date">
-                                                12/25/2016
-                                            </td>
-                                            <td data-th="Net Amount">
-                                                $12,335.69
-                                            </td>
-                                        </tr> */}
+                                        {products && products.map(product => (
+                                            <tr>
+                                                <td data-th="Product Id">
+                                                    {product._id}
+                                                </td>
+                                                <td data-th="Product Name">
+                                                    {product.name}
+                                                </td>
+                                                <td data-th="Stock">
+                                                    {product.stock}
+                                                </td>
+                                                <td data-th="Price">
+                                                    {product.price}
+                                                </td>
+                                                <td data-th="Approval">
+                                                    <button onClick={() => handleApproved(product._id)} style={{ backgroundColor: product.approveStatus ? 'blue' : 'red' }}>
+                                                        {product.approveStatus ? 'Approved' : 'Disapproved'}
+                                                    </button>
+                                                </td>
+                                                <td data-th="Availability">
+                                                    <button onClick={handleAvailable} style={{ backgroundColor: isAvailable ? 'blue' : 'red' }}>
+                                                        {/* {isAvailable ? 'Available' : 'Unavailable'} */}
+                                                    </button>
+                                                </td>
+                                                <td className='action' data-th="Actions">
+                                                    <button style={{ backgroundColor: "green" }}><i class="fa-regular fa-pen-to-square"></i></button>
+                                                    <button style={{ backgroundColor: "red" }}><i class="fa-regular fa-trash-can"></i></button>
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
