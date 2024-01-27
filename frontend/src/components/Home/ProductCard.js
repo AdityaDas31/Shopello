@@ -19,36 +19,37 @@ const ProductCard = ({ product }) => {
     return (
         <div>
             {product.approved ? (
-            <Link to={`/product/${product.id}`} className="card">
+                <Link to={`/product/${product.id}`} className="card">
 
-                <div className="imgBox">
-                    <img src={product.images[0].url} alt={product.name} className="mouse" />
-                </div>
+                    <div className="imgBox">
+                        <img src={product.images[0].url} alt={product.name} className="mouse" />
+                    </div>
 
-                <div className="contentBox">
-                    <h3>{product.name}</h3>
-                    <h2 className="price">₹{product.price}</h2>
-                    <a  className="buy">Buy Now</a>
-                </div>
+                    <div className="contentBox">
+                        <h3>{product.name}</h3>
+                        <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
+                        <h2 className="price">₹{product.price}</h2>
+                        <a className="buy">Buy Now</a>
+                    </div>
 
-            </Link>
+                </Link>
             ) : ' '}
         </div>
     )
 }
-        // {/* <div>
-        //     {product.approved ? (
+// {/* <div>
+//     {product.approved ? (
 
-        //         <Link className='productCard' to={`/product/${product.id}`}>
-        //         <img src={product.images[0].url} alt={product.name} />
-        //         <p>{product.name}</p>
-        //         <div>
-        //             <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
-        //         </div>
-        //         <span>{product.price}</span>
-        //     </Link>
-        //         ) : ' '}
-        // </div> */}
+//         <Link className='productCard' to={`/product/${product.id}`}>
+//         <img src={product.images[0].url} alt={product.name} />
+//         <p>{product.name}</p>
+//         <div>
+//             <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
+//         </div>
+//         <span>{product.price}</span>
+//     </Link>
+//         ) : ' '}
+// </div> */}
 //     )
 // }
 
