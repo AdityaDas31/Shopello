@@ -10,6 +10,10 @@ import {
   APPROVE_PRODUCT_REQUEST,
   APPROVE_PRODUCT_SUCCESS,
   APPROVE_PRODUCT_RESET,
+  AVAILABLE_PRODUCT_FAIL,
+  AVAILABLE_PRODUCT_REQUEST,
+  AVAILABLE_PRODUCT_SUCCESS,
+  AVAILABLE_PRODUCT_RESET,
   CLEAR_ERRORS
 } from '../constants/productConstants';
 
@@ -78,23 +82,27 @@ export const productReducers = (state = { product: [] }, action) => {
 export const productReducer = (state = {}, action) => {
   switch (action.type) {
     case APPROVE_PRODUCT_REQUEST:
+    case AVAILABLE_PRODUCT_REQUEST:
       return {
         ...state,
         loading: true,
       };
     case APPROVE_PRODUCT_SUCCESS:
+    case AVAILABLE_PRODUCT_SUCCESS:
       return {
         ...state,
         loading: false,
         isApproved: action.payload.success,
       };
     case APPROVE_PRODUCT_FAIL:
+    case AVAILABLE_PRODUCT_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload
       }
     case APPROVE_PRODUCT_RESET:
+    case AVAILABLE_PRODUCT_RESET:
       return {
         ...state,
         isApproved: false,

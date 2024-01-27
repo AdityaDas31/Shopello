@@ -1,16 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import AdminPage from './AdminPage';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearErrors, getAdminProduct, approveProduct } from '../../actions/productActions';
+import { clearErrors, getAdminProduct, approveProduct, availableProducts } from '../../actions/productActions';
 import { useAlert } from "react-alert";
 import { useNavigate, useParams } from 'react-router-dom';
 import { APPROVE_PRODUCT_RESET } from '../../constants/productConstants';
+import { AVAILABLE_PRODUCT_RESET } from '../../constants/productConstants';
 
 
 const ProductsList = () => {
 
     // const [isApproved, setApproved] = useState(false);
-    const [isAvailable, setIsAvailable] = useState(false);
+    // const [isAvailable, setIsAvailable] = useState(false);
     const [reloadComponent, setReloadComponent] = useState(false);
 
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const ProductsList = () => {
     const params = useParams();
 
     const { error, products } = useSelector((state) => state.products);
-    const { error: approveError, isApproved } = useSelector((state) => state.product);
+    const { error: approveError, isApproved, isAvailable } = useSelector((state) => state.product);
 
 
     const handleApproved = (id) => {
@@ -29,8 +30,9 @@ const ProductsList = () => {
         setReloadComponent(!reloadComponent);
     }
 
-    const handleAvailable = () => {
-        setIsAvailable(!isAvailable)
+    const handleAvailable = (id) => {
+        dispatch(availableProducts(id));
+        setReloadComponent(!reloadComponent);
     }
 
     useEffect(() => {
@@ -96,28 +98,28 @@ const ProductsList = () => {
                                             <th>Availability</th>
                                             <th>Actions</th>
                                         </tr>
-                                        {products && products.map(product => (
+                                        {products && products.map(p => (
                                             <tr>
                                                 <td data-th="Product Id">
-                                                    {product._id}
+                                                    {p._id}
                                                 </td>
                                                 <td data-th="Product Name">
-                                                    {product.name}
+                                                    {p.name}
                                                 </td>
                                                 <td data-th="Stock">
-                                                    {product.stock}
+                                                    {p.stock}
                                                 </td>
                                                 <td data-th="Price">
-                                                    {product.price}
+                                                    {p.price}
                                                 </td>
                                                 <td data-th="Approval">
-                                                    <button onClick={() => handleApproved(product._id)} style={{ backgroundColor: product.approveStatus ? 'blue' : 'red' }}>
-                                                        {product.approveStatus ? 'Approved' : 'Disapproved'}
+                                                    <button onClick={() => handleApproved(p._id)} style={{ backgroundColor: p.approveStatus ? 'blue' : 'red' }}>
+                                                        {p.approveStatus ? 'Approved' : 'Disapproved'}
                                                     </button>
                                                 </td>
                                                 <td data-th="Availability">
-                                                    <button onClick={handleAvailable} style={{ backgroundColor: isAvailable ? 'blue' : 'red' }}>
-                                                        {/* {isAvailable ? 'Available' : 'Unavailable'} */}
+                                                    <button onClick={() => handleAvailable(p._id)} style={{ backgroundColor: p.availableStatus ? 'blue' : 'red' }}>
+                                                        {p.availableStatus ? 'Available' : 'Unavailable'}
                                                     </button>
                                                 </td>
                                                 <td className='action' data-th="Actions">

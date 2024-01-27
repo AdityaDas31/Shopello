@@ -8,6 +8,9 @@ import {
     APPROVE_PRODUCT_FAIL,
     APPROVE_PRODUCT_REQUEST,
     APPROVE_PRODUCT_SUCCESS,
+    AVAILABLE_PRODUCT_FAIL,
+    AVAILABLE_PRODUCT_REQUEST,
+    AVAILABLE_PRODUCT_SUCCESS,
     CLEAR_ERRORS
 } from '../constants/productConstants';
 import axios from 'axios';
@@ -77,6 +80,26 @@ export const approveProduct = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: APPROVE_PRODUCT_FAIL,
+            payload: error.response.data.message,
+        });
+    };
+};
+
+// Available Product -- Admin
+
+export const  availableProducts = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: AVAILABLE_PRODUCT_REQUEST });
+
+        const { data } = await axios.put(`/api/v1/product/admin/available/${id}`);
+
+        dispatch({
+            type: AVAILABLE_PRODUCT_SUCCESS,
+            payload: data.success,
+        });
+    } catch (error) {
+        dispatch({
+            type: AVAILABLE_PRODUCT_FAIL,
             payload: error.response.data.message,
         });
     };
