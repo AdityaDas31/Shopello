@@ -29,6 +29,7 @@ import Users from './components/Admin/Users';
 import Sellers from './components/Admin/Sellers';
 import Dashboard from './components/Admin/Dashboard';
 import ProductsList from './components/Admin/ProductsList';
+import ProtectedRoute from './components/Route/ProtectedRoute';
 
 
 
@@ -38,8 +39,8 @@ function App() {
   const [stripeApiKey, setStriprApiKey] = useState("");
 
   async function getStripeApiKey() {
-    // const { data } = await axios.get("/api/v1/payment/stripeapikey");
-    // setStriprApiKey(data.stripeApiKey);
+    const { data } = await axios.get("/api/v1/payment/stripeapikey");
+    setStriprApiKey(data.stripeApiKey);
   }
 
 
@@ -78,18 +79,23 @@ function App() {
 
             <Route exact path='/product/:id' element={<ProductDetails />} />
             <Route exact path='/cart' element={<Cart />} />
-            <Route exact path='/checkout' element={<Checkout />} />
+            <Route exact path='/checkout' element={isAuthenticated ? <Checkout /> : <LoginSignUp/>} />
             <Route exact path='/success' element={<OrderSuccess />} />
 
-            <Route exact path='/admin' element={<Dashboard/>}/>
-            <Route exact path='/admin/analytics' element={<Analytics/>}/>
-            <Route exact path='/admin/shop' element={<Shop/>}/>
-            <Route exact path='/admin/products' element={<ProductsList/>}/>
-            <Route exact path='/admin/users' element={<Users/>}/>
-            <Route exact path='/admin/sellers' element={<Sellers/>}/>
 
 
-            
+            <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={true} />}>
+              <Route exact path='/admin' element={<Dashboard />} />
+              <Route exact path='/admin/analytics' element={<Analytics />} />
+              <Route exact path='/admin/shop' element={<Shop />} />
+              <Route exact path='/admin/products' element={<ProductsList />} />
+              <Route exact path='/admin/users' element={<Users />} />
+              <Route exact path='/admin/sellers' element={<Sellers />} />
+            </Route>
+
+
+
+
 
 
             {/* <Elements stripe={loadStripe(stripeApiKey)}>
