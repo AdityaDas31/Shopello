@@ -139,16 +139,12 @@ exports.productApproval = catchAsyncError(async (req, res, next) => {
 
     await product.save();
 
-    if(!product.approveStatus){
-        res.status(200).json({
-            success: true,
-            message: "Product Disapprove Successfully",
-        });
-    }
+    const message = product.approveStatus ? "Product Approve Successfully" : "Product Disapprove Successfully";
+
 
     res.status(200).json({
         success: true,
-        message: "Product Approve Successfully",
+        message: message,
     });
 
 });
@@ -168,15 +164,10 @@ exports.productAvailable = catchAsyncError(async(req,res,next)=>{
 
     await product.save();
 
-    if(!product.availableStatus){
-        res.status(200).json({
-            success: true,
-            message: "Product Not Available",
-        });
-    }
+    const message = product.availableStatus ? "Product Available" : "Product Not Available";
 
     res.status(200).json({
         success: true,
-        message: "Product Available",
+        message: message,
     });
 })
