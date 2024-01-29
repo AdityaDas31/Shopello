@@ -46,13 +46,18 @@ const ProductsList = () => {
             dispatch({ type: APPROVE_PRODUCT_RESET });
         }
 
+        if (isAvailable) {
+            alert.success("Product Approver Successfully");
+            dispatch({ type: APPROVE_PRODUCT_RESET });
+        }
+        
         if (approveError) {
             alert.error(approveError);
             dispatch(clearErrors)
         }
         setReloadComponent(false);
         dispatch(getAdminProduct());
-    }, [dispatch, alert, error, reloadComponent, isApproved, approveError])
+    }, [dispatch, alert, error, reloadComponent, isApproved, approveError, isAvailable])
 
     return (
         <Fragment>
