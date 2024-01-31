@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate();
 
     const options = {
-        value: product.rating,
+        value: product.ratings,
         readOnly: true,
         precision: 0.5,
     };
@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
 
     return (
         <div>
-            {product.approved ? (
+            {product.approveStatus ? (
                 <Link to={`/product/${product.id}`} className="card">
 
                     <div className="imgBox">
@@ -38,17 +38,17 @@ const ProductCard = ({ product }) => {
     )
 }
 // {/* <div>
-//     {product.approved ? (
+    // {product.approved ? (
 
-//         <Link className='productCard' to={`/product/${product.id}`}>
-//         <img src={product.images[0].url} alt={product.name} />
-//         <p>{product.name}</p>
-//         <div>
-//             <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
-//         </div>
-//         <span>{product.price}</span>
-//     </Link>
-//         ) : ' '}
+    //     <Link className='productCard' to={`/product/${product.id}`}>
+    //     <img src={product.images[0].url} alt={product.name} />
+    //     <p>{product.name}</p>
+    //     <div>
+    //         <Rating {...options} /> <span className='productCard-span'>(100 Reviews)</span>
+    //     </div>
+    //     <span>{product.price}</span>
+    // </Link>
+    //     ) : ' '}
 // </div> */}
 //     )
 // }

@@ -14,6 +14,9 @@ import {
   AVAILABLE_PRODUCT_REQUEST,
   AVAILABLE_PRODUCT_SUCCESS,
   AVAILABLE_PRODUCT_RESET,
+  ALL_PRODUCT_FAIL,
+  ALL_PRODUCT_REQUEST,
+  ALL_PRODUCT_SUCCESS,
   CLEAR_ERRORS
 } from '../constants/productConstants';
 
@@ -51,18 +54,25 @@ export const newProductReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productReducers = (state = { product: [] }, action) => {
+export const productReducers = (state = { products: [] }, action) => {
   switch (action.type) {
+    case ALL_PRODUCT_REQUEST:
     case ADMIN_PRODUCT_REQUEST:
       return {
         loading: true,
         products: [],
       };
+    case ALL_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products,
+      }
     case ADMIN_PRODUCT_SUCCESS:
       return {
         loading: false,
         products: action.payload,
       };
+    case ALL_PRODUCT_FAIL:
     case ADMIN_PRODUCT_FAIL:
       return {
         loading: false,

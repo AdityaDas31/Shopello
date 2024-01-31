@@ -11,6 +11,9 @@ import {
     AVAILABLE_PRODUCT_FAIL,
     AVAILABLE_PRODUCT_REQUEST,
     AVAILABLE_PRODUCT_SUCCESS,
+    ALL_PRODUCT_FAIL,
+    ALL_PRODUCT_REQUEST,
+    ALL_PRODUCT_SUCCESS,
     CLEAR_ERRORS
 } from '../constants/productConstants';
 import axios from 'axios';
@@ -63,6 +66,26 @@ export const getAdminProduct = () => async (dispatch) => {
         });
     }
 }
+
+// Get All Products
+
+export const getAllProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_PRODUCT_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/product/products`);
+
+        dispatch({
+            type: ALL_PRODUCT_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: ALL_PRODUCT_FAIL,
+            payload: error.response.data.message,
+        });
+    };
+};
 
 // Approve Product -- Admin
 
