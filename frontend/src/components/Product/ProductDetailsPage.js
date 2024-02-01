@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Loader from '../Layout/Loader/Loader';
 import { Rating } from '@material-ui/lab';
-import { Magnifier, GlassMagnifier, SideBySideMagnifier, PictureInPictureMagnifier, MOUSE_ACTIVATION, TOUCH_ACTIVATION } from 'react-image-magnifiers';
+// import { Magnifier, GlassMagnifier, SideBySideMagnifier, PictureInPictureMagnifier, MOUSE_ACTIVATION, TOUCH_ACTIVATION } from 'react-image-magnifiers';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -87,6 +87,8 @@ const ProductDetailsPage = () => {
                     <div className="left">
                         {/* {selectedImage && <img src={selectedImage.url} id="imgs" alt="" />} */}
                         {selectedImage && <img src={selectedImage.url} id="imgs" alt="" />}
+                        <button>Add To Cart</button>
+                        <button>Buy Now</button>
                     </div>
                     <div className="right">
                         <h3>Brand Name</h3>
@@ -97,14 +99,12 @@ const ProductDetailsPage = () => {
                             <span className='rating'>{product.ratings} <i class="fa-solid fa-star"></i></span>
                             <span className='reviews'>{product.numOfReviews} Reviews</span>
                         </div>
-                        <h3>Brand: Name</h3>
+                        <h6>Seller: {product.user.name}</h6>
                         <h4>Available Offer's</h4>
                         <p>: Special PriceGet extra 11% off (price inclusive of cashback/coupon)</p>
                         <p>: Partner OfferPurchase now & get a surprise cashback coupon for January / February 2023</p>
                         <p>: Partner OfferSign up for Flipkart Pay Later and get Flipkart Gift Card worth up to ₹1000*</p>
                         <p>: Bank Offer5% Cashback on Flipkart Axis Bank</p>
-                        <button>Add To Cart</button>
-                        <button>Buy Now</button>
                     </div>
                 </div>
             </Fragment>}

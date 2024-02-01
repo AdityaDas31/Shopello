@@ -77,10 +77,10 @@ function App() {
 
             <Route exact path="/products" element={<Products />} />
 
-            <Route exact path='/test/:id' element={<ProductDetailsPage/>}/>
+            {/* <Route exact path='/test/:id' element={<ProductDetailsPage/>}/> */}
 
 
-            <Route exact path='/product/:id' element={<ProductDetails />} />
+            <Route exact path='/product/:id' element={<ProductDetailsPage/>} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/checkout' element={isAuthenticated ? <Checkout /> : <LoginSignUp/>} />
             <Route exact path='/success' element={<OrderSuccess />} />

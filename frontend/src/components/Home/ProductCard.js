@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
     return (
         <div>
             {product.approveStatus ? (
-                <Link to={`/test/${product._id}`} className="card">
+                <Link to={`/product/${product._id}`} className="card">
 
                     <div className="imgBox">
                         <img src={product.images[0].url} alt={product.name} className="mouse" />
