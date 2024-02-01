@@ -30,6 +30,7 @@ import Sellers from './components/Admin/Sellers';
 import Dashboard from './components/Admin/Dashboard';
 import ProductsList from './components/Admin/ProductsList';
 import ProtectedRoute from './components/Route/ProtectedRoute';
+import ProductDetailsPage from './components/Product/ProductDetailsPage';
 
 
 
@@ -75,6 +76,8 @@ function App() {
 
 
             <Route exact path="/products" element={<Products />} />
+
+            <Route exact path='/test/:id' element={<ProductDetailsPage/>}/>
 
 
             <Route exact path='/product/:id' element={<ProductDetails />} />
