@@ -71,14 +71,9 @@
 .img_container img {
     height: 20vh;
     width: 20vh;
-    /* border: 15px solid rgb(232, 201, 173); */
     border-radius: 50%;
-    /* transition: all 0.5s; */
-    /* padding: 30px; */
     position: relative;
     z-index: 2;
-    /* padding-left: 2px;
-    padding-top: 1px; */
     padding: 1px 0 0 2px;
 }
 

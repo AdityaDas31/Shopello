@@ -30,7 +30,7 @@ import Sellers from './components/Admin/Sellers';
 import Dashboard from './components/Admin/Dashboard';
 import ProductsList from './components/Admin/ProductsList';
 import ProtectedRoute from './components/Route/ProtectedRoute';
-import Notfound from './components/Layout/Others/Notfound';
+import ProductDetailsPage from './components/Product/ProductDetailsPage';
 
 
 
@@ -77,8 +77,10 @@ function App() {
 
             <Route exact path="/products" element={<Products />} />
 
+            {/* <Route exact path='/test/:id' element={<ProductDetailsPage/>}/> */}
 
-            <Route exact path='/product/:id' element={<ProductDetails />} />
+
+            <Route exact path='/product/:id' element={<ProductDetailsPage/>} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/checkout' element={isAuthenticated ? <Checkout /> : <LoginSignUp/>} />
             <Route exact path='/success' element={<OrderSuccess />} />
@@ -108,8 +110,7 @@ function App() {
 
 
             {/* <Route extact path='/profile' element={<Profile/>}/> */}
-
-
+            <Route path='/*' element={<Notfound/>}/>
           </Routes>
         </Router>
       </Fragment>
