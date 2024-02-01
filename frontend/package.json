@@ -28,6 +28,7 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.11.0",
+    "react-image-magnifiers": "^1.4.0",
     "react-redux": "^8.1.2",
     "react-responsive-carousel": "^3.2.23",
     "react-responsive-navbar": "^1.0.11",
