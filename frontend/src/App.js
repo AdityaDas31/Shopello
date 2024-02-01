@@ -31,6 +31,7 @@ import Dashboard from './components/Admin/Dashboard';
 import ProductsList from './components/Admin/ProductsList';
 import ProtectedRoute from './components/Route/ProtectedRoute';
 import ProductDetailsPage from './components/Product/ProductDetailsPage';
+import Notfound from './components/Layout/Others/Notfound';
 
 
 
@@ -109,8 +110,7 @@ function App() {
 
 
             {/* <Route extact path='/profile' element={<Profile/>}/> */}
-
-
+            <Route path='/*' element={<Notfound/>}/>
           </Routes>
         </Router>
       </Fragment>

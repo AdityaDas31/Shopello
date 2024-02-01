@@ -21,11 +21,11 @@ const ProductDetailsPage = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [showLoader, setShowLoader] = useState(true);
 
-    const options = {
-        value: product.ratings,
-        readOnly: true,
-        precision: 0.5,
-    }
+    // const options = {
+    //     value: product.ratings,
+    //     readOnly: true,
+    //     precision: 0.5,
+    // }
 
 
 
