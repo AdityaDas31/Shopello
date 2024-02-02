@@ -31,7 +31,6 @@ import Dashboard from './components/Admin/Dashboard';
 import ProductsList from './components/Admin/ProductsList';
 import ProtectedRoute from './components/Route/ProtectedRoute';
 import ProductDetailsPage from './components/Product/ProductDetailsPage';
-import Notfound from './components/Layout/Others/Notfound';
 
 
 
@@ -41,8 +40,8 @@ function App() {
   const [stripeApiKey, setStriprApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/payment/stripeapikey");
-    setStriprApiKey(data.stripeApiKey);
+    // const { data } = await axios.get("/api/v1/payment/stripeapikey");
+    // setStriprApiKey(data.stripeApiKey);
   }
 
 
@@ -85,6 +84,7 @@ function App() {
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/checkout' element={isAuthenticated ? <Checkout /> : <LoginSignUp/>} />
             <Route exact path='/success' element={<OrderSuccess />} />
+            <Route exact path='/404error' element={<Notfound />} />
 
 
 
