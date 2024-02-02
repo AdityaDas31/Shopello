@@ -112,7 +112,7 @@ const ProductsList = () => {
                                                     {p.name}
                                                 </td>
                                                 <td data-th="Stock">
-                                                    {p.stock}
+                                                    {p.Stock}
                                                 </td>
                                                 <td data-th="Price">
                                                     {p.price}

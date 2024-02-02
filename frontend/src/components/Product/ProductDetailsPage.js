@@ -7,8 +7,12 @@ import Loader from '../Layout/Loader/Loader';
 import { Rating } from '@material-ui/lab';
 // import { Magnifier, GlassMagnifier, SideBySideMagnifier, PictureInPictureMagnifier, MOUSE_ACTIVATION, TOUCH_ACTIVATION } from 'react-image-magnifiers';
 import { useDispatch, useSelector } from 'react-redux';
-
-
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import { ShareSocial } from 'react-share-social';
+import axios from 'axios'
+import Header from '../miscellaneous/Header/Header';
+import Footer from '../miscellaneous/Footer/Footer';
 
 const ProductDetailsPage = () => {
 
@@ -20,6 +24,7 @@ const ProductDetailsPage = () => {
     const { product, loading, error } = useSelector((state) => state.productDetails);
     const [selectedImage, setSelectedImage] = useState(null);
     const [showLoader, setShowLoader] = useState(true);
+    const [show, setShow] = useState(false);
 
     // const options = {
     //     value: product.ratings,
@@ -66,10 +71,17 @@ const ProductDetailsPage = () => {
         console.log(image)
     };
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const shareUrl = window.location.href;
+
+
 
     return (
         <Fragment>
             {showLoader || loading ? <Loader /> : <Fragment>
+                <Header/>
                 <div className="page">
                     <div className="img">
                         {product &&
@@ -87,8 +99,9 @@ const ProductDetailsPage = () => {
                     <div className="left">
                         {/* {selectedImage && <img src={selectedImage.url} id="imgs" alt="" />} */}
                         {selectedImage && <img src={selectedImage.url} id="imgs" alt="" />}
-                        <button>Add To Cart</button>
-                        <button>Buy Now</button>
+                        <div className="button-container">
+                            <button onClick={handleShow}><i class="fa-regular fa-share-from-square"></i></button>
+                        </div>
                     </div>
                     <div className="right">
                         <h3>Brand Name</h3>
@@ -105,9 +118,34 @@ const ProductDetailsPage = () => {
                         <p>: Partner OfferPurchase now & get a surprise cashback coupon for January / February 2023</p>
                         <p>: Partner OfferSign up for Flipkart Pay Later and get Flipkart Gift Card worth up to ₹1000*</p>
                         <p>: Bank Offer5% Cashback on Flipkart Axis Bank</p>
+                        <button>Add To Cart</button>
                     </div>
                 </div>
+                <Footer/>
             </Fragment>}
+
+            <Modal show={show} onHide={handleShow}>
+                <Modal.Header>
+                    <Modal.Title>Share Product Link</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {/* <ShareSocial
+                        url={shortenedUrl}
+                        socialTypes={['facebook', 'twitter', 'whatsapp', 'telegram']}
+                        onSocialButtonClicked={data => console.log(data)}
+                    /> */}
+                            <ShareSocial
+                                url={shareUrl}
+                                socialTypes={['facebook', 'twitter', 'whatsapp', 'telegram']}
+                                onSocialButtonClicked={(data) => console.log(data)}
+                            />
+                </Modal.Body>
+                <Modal.Footer >
+                    <Button variant="danger" onClick={handleClose}>
+                        <i class="fa-solid fa-xmark"></i>
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Fragment>
     )
 }
