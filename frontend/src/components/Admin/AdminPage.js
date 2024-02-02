@@ -45,7 +45,7 @@ const AdminPage = () => {
         <Fragment>
             {/* <!-- Sidebar --> */}
             <div className={`sidebar ${isSidebarClosed ? 'close' : ''}`}>
-                <Link to="#" className="logo">
+                <Link to="/" className="logo">
                     {/* <i className='bx bx-code-alt'></i> */}
                     <i className="fa-solid fa-shop"></i>
                     <div className="logo-name">Shopello</div>

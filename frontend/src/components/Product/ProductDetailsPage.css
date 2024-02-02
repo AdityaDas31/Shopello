@@ -1,7 +1,9 @@
 .page {
     display: flex;
-    margin-top: 22px;
+    /* margin-top: 22px;
     margin-left: 120px;
+    margin-bottom: 22px; */
+    margin: 22px 0px 22px 120px;
 }
 
 .left img {
@@ -21,17 +23,29 @@
     cursor: pointer;
     margin-bottom: 10px;
     /* border: 1px solid #000; */
+   
+}
+
+.page .img img:hover {
+    border: 2px solid  rgb(8, 153, 153);
 }
 
 .page .img {
-    border: 1px solid #000;
-    border-radius: 5px;
+    max-height: 549px;
+    border: 2px solid #0000002f;
+    border-radius: 5px 0px 0px 5px;
+    border-right: 0;
+    display: grid;
+    place-items:  center;
+    padding: 5px;
 }
 
 
 #imgs{
-    border: 1px solid #000;
-    border-radius: 5px;
+    border: 2px solid #0000002f;
+    border-radius: 0px 5px 5px 0px;
+    margin-left: 0;
+    border-left: none;
 }
 
 .page .right {
@@ -89,20 +103,43 @@
     margin-top: 11px;
 }
 
-.left button {
-    width: 200px;
-    height: 50px;
-    background-color: rgb(255, 106, 0);
-    color: white;
-    font-size: 25px;
-    border: none;
-    margin-top: 22px;
-    margin-inline: 22px;
-    font-weight: 600;
-    margin-left: 1px;
+.right button {
+        width: 200px;
+        height: 50px;
+        background-color: rgb(255, 106, 0);
+        color: white;
+        font-size: 25px;
+        border: none;
+        margin-top: 22px;
+        margin-inline: 22px;
+        font-weight: 600;
+        margin-left: 1px;
 }
 
 .right button:hover {
     background-color: rgb(255, 136, 0);
     cursor: pointer;
 }
+
+
+.left {
+    position: relative;
+  }
+  
+  .button-container {
+    position: absolute;
+    top: 8px;
+    right: 40px;
+  }
+  
+  .button-container button {
+    width: 40px;
+    height: 40px;
+    background-color: green;
+    color: #ffffff;
+    font-size: 15px;
+    border: none;
+    border-radius: 50%;
+    margin: 10px;
+    font-weight: 600;
+  }
