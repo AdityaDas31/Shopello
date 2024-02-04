@@ -35,14 +35,15 @@ import Notfound from './components/Layout/Others/Notfound';
 
 
 
+
 function App() {
 
   const { isAuthenticated } = useSelector((state) => state.user);
   const [stripeApiKey, setStriprApiKey] = useState("");
 
   async function getStripeApiKey() {
-    // const { data } = await axios.get("/api/v1/payment/stripeapikey");
-    // setStriprApiKey(data.stripeApiKey);
+    const { data } = await axios.get("/api/v1/payment/stripeapikey");
+    setStriprApiKey(data.stripeApiKey);
   }
 
 
@@ -85,7 +86,6 @@ function App() {
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/checkout' element={isAuthenticated ? <Checkout /> : <LoginSignUp/>} />
             <Route exact path='/success' element={<OrderSuccess />} />
-            <Route exact path='/404error' element={<Notfound />} />
 
 
 
@@ -111,7 +111,7 @@ function App() {
 
 
             {/* <Route extact path='/profile' element={<Profile/>}/> */}
-            <Route path='/*' element={<Notfound/>}/>
+            <Route path='/*' element={<Notfound />}/>
           </Routes>
         </Router>
       </Fragment>
