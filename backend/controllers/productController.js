@@ -2,6 +2,7 @@ const Product = require('../models/productModel');
 const ErrorHandler = require('../utils/errorhandler');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const cloudinary = require("cloudinary");
+const ApiFeatures = require('../utils/apifeatures');
 
 
 
@@ -43,7 +44,10 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 // Get All Product 
 
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
-    const products = await Product.find();
+
+    const resultPerPage = 8;
+    const apiFeatures = new ApiFeatures(Product.find(), req.query).search().filter().pagination(resultPerPage);
+    const products = await apiFeatures.query;
     res.status(200).json({
         success: true,
         products,
@@ -52,7 +56,7 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
 
 // Get All Product -- Admi
 
-exports.getAdminProduct = catchAsyncError(async(req, res, next) =>{
+exports.getAdminProduct = catchAsyncError(async (req, res, next) => {
 
     const products = await Product.find();
 
@@ -69,8 +73,8 @@ exports.getAdminProduct = catchAsyncError(async(req, res, next) =>{
 exports.getProductDetails = catchAsyncError(async (req, res, next) => {
 
     const product = await Product.findById(req.params.id).populate({
-        path:'user',
-        select:'name',
+        path: 'user',
+        select: 'name',
     }).exec();
 
     if (!product) {
@@ -156,7 +160,7 @@ exports.productApproval = catchAsyncError(async (req, res, next) => {
 // Available Product -- Admin
 
 
-exports.productAvailable = catchAsyncError(async(req,res,next)=>{
+exports.productAvailable = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
