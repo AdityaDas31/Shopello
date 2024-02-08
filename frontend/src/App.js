@@ -23,6 +23,16 @@ import Payment from './components/Checkout/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js'
 import OrderSuccess from './components/Checkout/OrderSuccess';
+import Analytics from './components/Admin/Analytics';
+import Shop from './components/Admin/Shop';
+import Users from './components/Admin/Users';
+import Sellers from './components/Admin/Sellers';
+import Dashboard from './components/Admin/Dashboard';
+import ProductsList from './components/Admin/ProductsList';
+import ProtectedRoute from './components/Route/ProtectedRoute';
+import ProductDetailsPage from './components/Product/ProductDetailsPage';
+import Notfound from './components/Layout/Others/Notfound';
+
 
 
 
@@ -57,26 +67,40 @@ function App() {
           )}
           <Routes>
 
-            <Route extact path="/" element={<Home />} />
-            <Route extact path='/profile' element={isAuthenticated ? <Profile /> : <LoginSignUp />} />
-            <Route extact path='/password/update' element={isAuthenticated ? <UpdatePassword /> : <LoginSignUp />} />
-            <Route extact path='/about' element={<About />} />
-            <Route extact path='/loader' element={<Loader />} />
+            <Route exact path="/" element={<Home />} />
+            <Route exact path='/profile' element={isAuthenticated ? <Profile /> : <LoginSignUp />} />
+            <Route exact path='/password/update' element={isAuthenticated ? <UpdatePassword /> : <LoginSignUp />} />
+            <Route exact path='/about' element={<About />} />
+            <Route exact path='/loader' element={<Loader />} />
 
-            <Route extact path='/login' element={<LoginSignUp />} />
-            <Route extact path='/getOtp' element={<LoginWithOtp />} />
-
-
-            <Route extact path="/products" element={<Products />} />
+            <Route exact path='/login' element={<LoginSignUp />} />
+            <Route exact path='/getOtp' element={<LoginWithOtp />} />
 
 
-            <Route extact path='/product/:id' element={<ProductDetails />} />
+            <Route exact path="/products" element={<Products />} />
+
+            {/* <Route exact path='/test/:id' element={<ProductDetailsPage/>}/> */}
+
+
+            <Route exact path='/product/:id' element={<ProductDetailsPage/>} />
             <Route exact path='/cart' element={<Cart />} />
-            <Route exact path='/checkout' element={<Checkout />} />
+            <Route exact path='/checkout' element={isAuthenticated ? <Checkout /> : <LoginSignUp/>} />
             <Route exact path='/success' element={<OrderSuccess />} />
 
 
-            
+
+            <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={true} />}>
+              <Route exact path='/admin' element={<Dashboard />} />
+              <Route exact path='/admin/analytics' element={<Analytics />} />
+              <Route exact path='/admin/shop' element={<Shop />} />
+              <Route exact path='/admin/products' element={<ProductsList />} />
+              <Route exact path='/admin/users' element={<Users />} />
+              <Route exact path='/admin/sellers' element={<Sellers />} />
+            </Route>
+
+
+
+
 
 
             {/* <Elements stripe={loadStripe(stripeApiKey)}>
@@ -87,8 +111,7 @@ function App() {
 
 
             {/* <Route extact path='/profile' element={<Profile/>}/> */}
-
-
+            <Route path='/*' element={<Notfound />}/>
           </Routes>
         </Router>
       </Fragment>

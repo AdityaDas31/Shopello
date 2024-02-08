@@ -71,14 +71,9 @@
 .img_container img {
     height: 20vh;
     width: 20vh;
-    /* border: 15px solid rgb(232, 201, 173); */
     border-radius: 50%;
-    /* transition: all 0.5s; */
-    /* padding: 30px; */
     position: relative;
     z-index: 2;
-    /* padding-left: 2px;
-    padding-top: 1px; */
     padding: 1px 0 0 2px;
 }
 
@@ -124,6 +119,14 @@
 .logout:hover {
     background-color: rgb(255, 71, 71);
 }
+.admin {
+    background-color: #194da0;
+}
+
+.admin:hover {
+    background-color: #2d60b4;
+
+}
 
 .other {
     background-color: #fff;
@@ -165,7 +168,7 @@
     border: 2px solid;
 }
 
-.other td,
+.other .other_info table td,
 th {
     text-align: left;
     padding: 5px;
