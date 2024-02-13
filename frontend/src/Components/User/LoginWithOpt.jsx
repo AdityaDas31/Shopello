@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import BackdropLoader from '../Layouts/BackdropLoader';
+import { clearErrors, sendOtp, loginOtp } from '../../actions/userActions'
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
 
 const LoginWithOpt = () => {
 
@@ -11,6 +15,12 @@ const LoginWithOpt = () => {
     const [timerId, setTimerId] = useState(null);
     const [showFirstForm, setShowFirstForm] = useState(true);
     const [showSecondForm, setShowSecondForm] = useState(false);
+
+    const { error, loading, isAuthenticated } = useSelector((state) => state.user);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const alert = useAlert();
 
     const showFirst = () => {
         setShowFirstForm(true);
@@ -23,6 +33,7 @@ const LoginWithOpt = () => {
 
     const sendotp = (e) => {
         e.preventDefault();
+        dispatch(sendOtp(otpLoginEmail));
         setShowFirstForm(false);
         setShowSecondForm(true);
         setIsButtonDisabled(true);
@@ -50,24 +61,33 @@ const LoginWithOpt = () => {
 
     const otploginsubmit = (e) => {
         e.preventDefault();
-        // dispatch(loginOtp(otpLoginEmail, otpLoginPassword));
-        // alert.success("Welcome Back")
+        dispatch(loginOtp(otpLoginEmail, otpLoginPassword));
+        alert.success("Welcome Back")
     }
 
-    // useEffect(() =>[
+    useEffect(() =>{
 
-    //     return () => {
-    //         if (timerId) {
-    //             clearInterval(timerId);
-    //         }
-    //     };
-    // ])
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+
+        if(isAuthenticated){
+            navigate("/")
+        }
+
+        return () => {
+            if (timerId) {
+                clearInterval(timerId);
+            }
+        };
+},[dispatch, error, alert, navigate, isAuthenticated, timerId]);
 
     return (
         <>
             {/* <MetaData title="Login | Flipkart" /> */}
 
-            {/* {loading && <BackdropLoader />} */}
+            {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">
 
                 {/* <!-- row --> */}
@@ -99,8 +119,6 @@ const LoginWithOpt = () => {
                                             type="email"
                                             value={otpLoginEmail}
                                             onChange={(e) => setOtpLoginEmail(e.target.value)}
-                                            // value={email}
-                                            // onChange={(e) => setEmail(e.target.value)}
                                             required
                                         />
                                         {/* <span className="text-xxs text-red-500 font-medium text-left mt-0.5">Please enter valid Email ID/Mobile number</span> */}
@@ -127,8 +145,6 @@ const LoginWithOpt = () => {
                                             type="text"
                                             value={otpLoginPassword}
                                             onChange={(e) => setOtpLoginPassword(e.target.value)}
-                                            // value={email}
-                                            // onChange={(e) => setEmail(e.target.value)}
                                             required
                                         />
                                         {/* <span className="text-xxs text-red-500 font-medium text-left mt-0.5">Please enter valid Email ID/Mobile number</span> */}
