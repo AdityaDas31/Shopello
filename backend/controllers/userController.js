@@ -155,7 +155,7 @@ The Team Shopello
                     message: "Email sent Successfully",
                 });
             } catch (error) {
-                return next(new ErrorHandler("error", 500));
+                return next(new ErrorHandler(error.message, 500));
             };
         } else {
             return next(new ErrorHandler('this user not exist', 200));

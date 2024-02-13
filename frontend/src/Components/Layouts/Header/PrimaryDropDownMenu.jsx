@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -11,11 +11,31 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../../actions/userActions'
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
+import BackdropLoader from '../BackdropLoader';
 
 const PrimaryDropDownMenu = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const alert = useAlert();
 
-    const handleLogout = () => { }
+    const { isAuthenticated, loading } = useSelector((state) => state.user);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        alert.success("Successfully Logout");
+        setTimeout(() => {
+            window.location.reload();
+        }, 100);
+    }
+
+    useEffect(() => {
+        if (isAuthenticated === false) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate])
 
     const navs = [
         {
@@ -59,8 +79,9 @@ const PrimaryDropDownMenu = () => {
             redirect: "/",
         },
     ]
-  return (
-    <div className="absolute w-60 -left-24 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
+    return (
+
+        <div className="absolute w-60 -left-24 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
 
             {/* {user.role === "admin" &&
                 <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/admin/dashboard">
@@ -106,7 +127,7 @@ const PrimaryDropDownMenu = () => {
                 <div className="arrow_down"></div>
             </div>
         </div>
-  )
+    )
 }
 
 export default PrimaryDropDownMenu

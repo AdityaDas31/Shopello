@@ -7,10 +7,15 @@ import PrimaryDropDownMenu from './PrimaryDropDownMenu';
 import SecondaryDropDownMenu from './SecondaryDropDownMenu';
 import { Link } from 'react-router-dom';
 import logo from '../../../images/logo.png';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+
     const [togglePrimaryDropDown, setTogglePrimaryDropDown] = useState(false);
     const [toggleSecondaryDropDown, setToggleSecondaryDropDown] = useState(false);
+
+    const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+
   return (
     <header className="bg-primary-blue fixed top-0 py-2.5 w-full z-10">
 
@@ -30,17 +35,17 @@ const Header = () => {
                 {/* <!-- right navs --> */}
                 <div className="flex items-center justify-between ml-1 sm:ml-0 gap-0.5 sm:gap-7 relative">
 
-                    {/* {isAuthenticated === false ? */}
+                    {isAuthenticated === false ?
                         <Link to="/login" className="px-3 sm:px-9 py-0.5 text-primary-blue bg-white border font-medium rounded-sm cursor-pointer">Login</Link>
-                        {/* :
+                         :
                         (
-                            <span className="userDropDown flex items-center text-white font-medium gap-1 cursor-pointer" onClick={() => setTogglePrimaryDropDown(!togglePrimaryDropDown)}>{user.name && user.name.split(" ", 1)}
+                            <span className="userDropDown flex items-center text-white font-medium gap-1 cursor-pointer" onClick={() => setTogglePrimaryDropDown(!togglePrimaryDropDown)}>{user.name}
                                 <span>{togglePrimaryDropDown ? <ExpandLessIcon sx={{ fontSize: "16px" }} /> : <ExpandMoreIcon sx={{ fontSize: "16px" }} />}</span>
                             </span>
                         )
-                    } */}
+                    } 
 
-                    {/* {togglePrimaryDropDown && <PrimaryDropDownMenu setTogglePrimaryDropDown={setTogglePrimaryDropDown} user={user} />} */}
+                    {togglePrimaryDropDown && <PrimaryDropDownMenu setTogglePrimaryDropDown={setTogglePrimaryDropDown} user={user} />}
 
                     <span className="moreDropDown hidden sm:flex items-center text-white font-medium gap-1 cursor-pointer" onClick={() => setToggleSecondaryDropDown(!toggleSecondaryDropDown)}>More
                         <span>{toggleSecondaryDropDown ? <ExpandLessIcon sx={{ fontSize: "16px" }} /> : <ExpandMoreIcon sx={{ fontSize: "16px" }} />}</span>
