@@ -10,7 +10,8 @@ import LoginWithOpt from './Components/User/LoginWithOpt';
 import { loadUser } from './actions/userActions';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import Account from './Components/User/Account';
+import Account from './Components/User/Account';
+
 
 
 
@@ -31,7 +32,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
-        {/* <Route path='/account' element={<Account />}/> */}
+        <Route path='/account' element={<Account />}/>
       </Routes>
       <Footer />
     </>
