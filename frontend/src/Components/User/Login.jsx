@@ -6,7 +6,7 @@ import { clearErrors, login } from '../../actions/userActions'
 // import { useSnackbar } from 'notistack';
 import BackdropLoader from '../Layouts/BackdropLoader';
 import { useAlert } from 'react-alert';
-// import MetaData from '../Layouts/MetaData';
+import MetaData from '../Layouts/MetaData';
 
 const Login = () => {
 
@@ -41,7 +41,7 @@ const Login = () => {
 
     return (
         <>
-            {/* <MetaData title="Login | Flipkart" /> */}
+            <MetaData title="Login | Flipkart" />
 
             {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">
