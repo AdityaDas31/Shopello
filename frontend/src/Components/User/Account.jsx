@@ -25,7 +25,7 @@ const Account = () => {
 
     return (
         <>
-            <MetaData title="My Profile" />
+            <MetaData title={`${user.name}'s Profile`}/>
 
             {loading ? <Loader /> :
                 <>
@@ -48,16 +48,16 @@ const Account = () => {
                                         <div className="flex flex-col sm:flex-row items-center gap-3" id="personalInputs">
                                             <div className="flex flex-col gap-0.5 w-64 px-3 py-1.5 rounded-sm border inputs cursor-not-allowed bg-gray-100 focus-within:border-primary-blue">
                                                 <label className="text-xs text-gray-500">First Name</label>
-                                                <input type="text"  className="text-sm outline-none border-none cursor-not-allowed text-gray-500" disabled />
+                                                <input type="text"  className="text-sm outline-none border-none cursor-not-allowed text-gray-500" value={user.name} disabled />
                                             </div>
-                                            <div className="flex flex-col gap-0.5 w-64 px-3 py-1.5 rounded-sm border inputs cursor-not-allowed bg-gray-100 focus-within:border-primary-blue">
+                                            {/* <div className="flex flex-col gap-0.5 w-64 px-3 py-1.5 rounded-sm border inputs cursor-not-allowed bg-gray-100 focus-within:border-primary-blue">
                                                 <label className="text-xs text-gray-500">Last Name</label>
                                                 <input type="text"  className="text-sm outline-none border-none cursor-not-allowed text-gray-500" disabled />
-                                            </div>
+                                            </div> */}
                                         </div>
 
                                         {/* <!-- gender --> */}
-                                        <div className="flex flex-col gap-2">
+                                        {/* <div className="flex flex-col gap-2">
                                             <h2 className="text-sm">Your Gender</h2>
                                             <div className="flex items-center gap-8" id="radioInput">
                                                 <div className="flex items-center gap-4 inputs text-gray-500 cursor-not-allowed">
@@ -69,7 +69,7 @@ const Account = () => {
                                                     <label htmlFor="female" className="cursor-not-allowed">Female</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         {/* <!-- gender --> */}
 
                                     </div>
@@ -85,7 +85,7 @@ const Account = () => {
                                         <div className="flex items-center gap-3">
                                             <div className="flex flex-col gap-0.5 sm:w-64 px-3 py-1.5 rounded-sm border bg-gray-100 cursor-not-allowed focus-within:border-primary-blue">
                                                 <label className="text-xs text-gray-500">Email Address</label>
-                                                <input type="email" className="text-sm outline-none border-none cursor-not-allowed text-gray-500" disabled />
+                                                <input type="email" className="text-sm outline-none border-none cursor-not-allowed text-gray-500" value={user.email} disabled />
                                             </div>
                                         </div>
 

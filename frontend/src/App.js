@@ -9,7 +9,7 @@ import Register from './Components/User/Register';
 import LoginWithOpt from './Components/User/LoginWithOpt';
 import { loadUser } from './actions/userActions';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Account from './Components/User/Account';
 
 
@@ -17,6 +17,8 @@ import Account from './Components/User/Account';
 
 
 function App() {
+
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -32,7 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
-        <Route path='/account' element={<Account />}/>
+        <Route path='/account' element={isAuthenticated ? <Account /> : <Login/>}/>
       </Routes>
       <Footer />
     </>

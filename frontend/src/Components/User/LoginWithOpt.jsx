@@ -5,6 +5,7 @@ import BackdropLoader from '../Layouts/BackdropLoader';
 import { clearErrors, sendOtp, loginOtp } from '../../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import MetaData from '../Layouts/MetaData';
 
 const LoginWithOpt = () => {
 
@@ -85,7 +86,7 @@ const LoginWithOpt = () => {
 
     return (
         <>
-            {/* <MetaData title="Login | Flipkart" /> */}
+            <MetaData title="Login | Flipkart" />
 
             {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">

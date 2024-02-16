@@ -16,16 +16,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import BackdropLoader from '../BackdropLoader';
 
-const PrimaryDropDownMenu = () => {
+const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const alert = useAlert();
 
-    const { isAuthenticated, loading } = useSelector((state) => state.user);
+    const { isAuthenticated } = useSelector((state) => state.user);
 
     const handleLogout = () => {
         dispatch(logout());
+        navigate('/')
         alert.success("Successfully Logout");
+        setTogglePrimaryDropDown(false);
         setTimeout(() => {
             window.location.reload();
         }, 100);
@@ -83,12 +85,12 @@ const PrimaryDropDownMenu = () => {
 
         <div className="absolute w-60 -left-24 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
 
-            {/* {user.role === "admin" &&
+            {user.role === "admin" &&
                 <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/admin/dashboard">
                     <span className="text-primary-blue"><DashboardIcon sx={{ fontSize: "18px" }} /></span>
                     Admin Dashboard
                 </Link>
-            } */}
+            }
 
             <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/account">
                 <span className="text-primary-blue"><AccountCircleIcon sx={{ fontSize: "18px" }} /></span>
@@ -118,8 +120,8 @@ const PrimaryDropDownMenu = () => {
                 )
             })}
 
-            <div className="pl-3 py-3.5 flex gap-3 items-center hover:bg-gray-50 rounded-b cursor-pointer" onClick={handleLogout} >
-                <span className="text-primary-blue"><PowerSettingsNewIcon sx={{ fontSize: "18px" }} /></span>
+            <div className="pl-3 py-3.5 flex gap-3 items-center hover:bg-gray-50 rounded-b cursor-pointer"  onClick={handleLogout}>
+                <span className="text-primary-blue" ><PowerSettingsNewIcon sx={{ fontSize: "18px" }} /></span>
                 Logout
             </div>
 

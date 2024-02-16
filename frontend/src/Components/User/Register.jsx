@@ -9,11 +9,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import FormSidebar from './FormSlidebar';
 import { useAlert } from 'react-alert';
-import  { clearErrors, register } from '../../actions/userActions';
+import { clearErrors, register } from '../../actions/userActions';
 import Profile from '../../images/Profile.png';
 import BackdropLoader from '../Layouts/BackdropLoader';
-// import BackdropLoader from '../Layouts/BackdropLoader';
-// import MetaData from '../Layouts/MetaData';
+import MetaData from '../Layouts/MetaData';
 // import FormSidebar from './FormSidebar';
 
 const Register = () => {
@@ -21,7 +20,6 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const alert = useAlert();
-    const { enqueueSnackbar } = useSnackbar();
 
     const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 
@@ -87,7 +85,7 @@ const Register = () => {
 
     return (
         <>
-            {/* <MetaData title="Register | Flipkart" /> */}
+            <MetaData title="Register | Flipkart" />
 
             {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">
