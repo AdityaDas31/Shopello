@@ -11,6 +11,7 @@ import { loadUser } from './actions/userActions';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Account from './Components/User/Account';
+import NotFound from './Components/NotFound';
 
 
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login/>}/>
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
       <Footer />
     </>
