@@ -11,6 +11,9 @@ import { loadUser } from './actions/userActions';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Account from './Components/User/Account';
+import NotFound from './Components/NotFound';
+import Dashboard from './Components/Admin/Dashboard';
+import MainData from './Components/Admin/MainData'
 
 
 
@@ -35,6 +38,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login/>}/>
+        <Route path="/admin/dashboard" element={
+          <Dashboard activeTab={0}>
+            <MainData />
+          </Dashboard>
+        } ></Route>
+
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
       <Footer />
     </>

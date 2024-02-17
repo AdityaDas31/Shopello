@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Categories from '../Layouts/Categories';
 import Banner from './Banner/Banner';
 // import DealSlider from './DealSlider/DealSlider';
-// import ProductSlider from './ProductSlider/ProductSlider';
+import ProductSlider from './ProductSlider/ProductSlider';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { clearErrors, getSliderProducts } from '../../actions/productAction';
 // import { useSnackbar } from 'notistack';
@@ -35,6 +35,7 @@ const Home = () => {
         {!loading && <ProductSlider title={"You May Also Like..."} tagline={"Based on Your Interest"} />}
         <DealSlider title={"Top Offers On"} />
         {!loading && <ProductSlider title={"Don't Miss These!"} tagline={"Inspired by your order"} />} */}
+        <ProductSlider title={"Suggested for You"} tagline={"Based on Your Activity"} />
       </main>
     </>
   );
