@@ -2,39 +2,39 @@ import { useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { clearErrors, deleteUser, getAllUsers } from '../../actions/userAction';
-import { DELETE_USER_RESET } from '../../constants/userConstants';
-import Actions from './Actions';
+// import { clearErrors, deleteUser, getAllUsers } from '../../actions/userAction';
+// import { DELETE_USER_RESET } from '../../constants/userConstants';
+// import Actions from './Actions';
 // import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
 
 const UserTable = () => {
 
-    const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
+    // const dispatch = useDispatch();
+    // const { enqueueSnackbar } = useSnackbar();
 
-    const { users, error } = useSelector((state) => state.users);
-    const { loading, isDeleted, error: deleteError } = useSelector((state) => state.profile);
+    // const { users, error } = useSelector((state) => state.users);
+    // const { loading, isDeleted, error: deleteError } = useSelector((state) => state.profile);
 
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (deleteError) {
-            enqueueSnackbar(deleteError, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (isDeleted) {
-            enqueueSnackbar("User Deleted Successfully", { variant: "success" });
-            dispatch({ type: DELETE_USER_RESET });
-        }
-        dispatch(getAllUsers());
-    }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
+    // useEffect(() => {
+    //     if (error) {
+    //         enqueueSnackbar(error, { variant: "error" });
+    //         dispatch(clearErrors());
+    //     }
+    //     if (deleteError) {
+    //         enqueueSnackbar(deleteError, { variant: "error" });
+    //         dispatch(clearErrors());
+    //     }
+    //     if (isDeleted) {
+    //         enqueueSnackbar("User Deleted Successfully", { variant: "success" });
+    //         dispatch({ type: DELETE_USER_RESET });
+    //     }
+    //     dispatch(getAllUsers());
+    // }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
 
-    const deleteUserHandler = (id) => {
-        dispatch(deleteUser(id));
-    }
+    // const deleteUserHandler = (id) => {
+    //     dispatch(deleteUser(id));
+    // }
 
     const columns = [
         {
@@ -98,27 +98,27 @@ const UserTable = () => {
             flex: 0.3,
             type: "number",
             sortable: false,
-            renderCell: (params) => {
-                return (
-                    <Actions editRoute={"user"} deleteHandler={deleteUserHandler} id={params.row.id} name={params.row.name} />
-                );
-            },
+            // renderCell: (params) => {
+            //     return (
+            //         <Actions editRoute={"user"} deleteHandler={deleteUserHandler} id={params.row.id} name={params.row.name} />
+            //     );
+            // },
         },
     ];
 
     const rows = [];
 
-    users && users.forEach((item) => {
-        rows.unshift({
-            id: item._id,
-            name: item.name,
-            avatar: item.avatar.url,
-            email: item.email,
-            gender: item.gender.toUpperCase(),
-            role: item.role,
-            registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
-        });
-    });
+    // users && users.forEach((item) => {
+    //     rows.unshift({
+    //         id: item._id,
+    //         name: item.name,
+    //         avatar: item.avatar.url,
+    //         email: item.email,
+    //         gender: item.gender.toUpperCase(),
+    //         role: item.role,
+    //         registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
+    //     });
+    // });
 
     return (
         <>

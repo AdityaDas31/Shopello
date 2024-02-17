@@ -1,15 +1,12 @@
-/*======================
-    404 page
-=======================*/
-
-
 .page_404 {
     padding: 40px 0;
     background: #fff;
     font-family: 'Arvo', serif;
+    margin-top: 50px;
 }
 .container{
-    padding-top: 80px;
+    max-width: 100%;
+    margin: auto;
 }
 
 .page_404 img {
@@ -22,7 +19,6 @@
     height: 400px;
     background-position: center;
     background-repeat: no-repeat;
-    /* mix-blend-mode: color-burn; */
 }
 
 

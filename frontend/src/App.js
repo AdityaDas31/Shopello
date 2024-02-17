@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Account from './Components/User/Account';
 import NotFound from './Components/NotFound';
 import Dashboard from './Components/Admin/Dashboard';
-import MainData from './Components/Admin/MainData'
+import MainData from './Components/Admin/MainData';
+import OrderTable from './Components/Admin/OrderTable';
+import UpdateOrder from './Components/Admin/UpdateOrder';
+import ProductTable from './Components/Admin/ProductTable';
+import UserTable from './Components/Admin/UserTable';
 
 
 
@@ -27,7 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadUser())
-  },[dispatch]);
+  }, [dispatch]);
 
   return (
     <>
@@ -37,14 +41,39 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
-        <Route path='/account' element={isAuthenticated ? <Account /> : <Login/>}/>
+        <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
+
         <Route path="/admin/dashboard" element={
           <Dashboard activeTab={0}>
             <MainData />
           </Dashboard>
         } ></Route>
 
-        <Route path='*' element={<NotFound/>}/>
+        <Route path="/admin/orders" element={
+          <Dashboard activeTab={1}>
+            <OrderTable />
+          </Dashboard>
+        } ></Route>
+
+        <Route path="/admin/orders/:id" element={
+          <Dashboard activeTab={1}>
+            <UpdateOrder />
+          </Dashboard>
+        } ></Route>
+
+        <Route path="/admin/products" element={
+          <Dashboard activeTab={2}>
+            <ProductTable />
+          </Dashboard>
+        } ></Route>
+
+        <Route path="/admin/users" element={
+            <Dashboard activeTab={4}>
+              <UserTable />
+            </Dashboard>
+        } ></Route>
+
+        <Route path='/*' element={<NotFound />} />
       </Routes>
       <Footer />
     </>
