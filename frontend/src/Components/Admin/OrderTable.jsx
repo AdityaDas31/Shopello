@@ -2,40 +2,40 @@ import { useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { clearErrors, deleteOrder, getAllOrders } from '../../actions/orderAction';
-import { DELETE_ORDER_RESET } from '../../constants/orderConstants';
-import Actions from './Actions';
-import { formatDate } from '../../utils/functions';
+// import { clearErrors, deleteOrder, getAllOrders } from '../../actions/orderAction';
+// import { DELETE_ORDER_RESET } from '../../constants/orderConstants';
+// import Actions from './Actions';
+// import { formatDate } from '../../utils/functions';
 // import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
 
 const OrderTable = () => {
 
-    const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
+    // const dispatch = useDispatch();
+    // const { enqueueSnackbar } = useSnackbar();
 
-    const { orders, error } = useSelector((state) => state.allOrders);
-    const { loading, isDeleted, error: deleteError } = useSelector((state) => state.order);
+    // const { orders, error } = useSelector((state) => state.allOrders);
+    // const { loading, isDeleted, error: deleteError } = useSelector((state) => state.order);
 
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (deleteError) {
-            enqueueSnackbar(deleteError, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (isDeleted) {
-            enqueueSnackbar("Deleted Successfully", { variant: "success" });
-            dispatch({ type: DELETE_ORDER_RESET });
-        }
-        dispatch(getAllOrders());
-    }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
+    // useEffect(() => {
+    //     if (error) {
+    //         enqueueSnackbar(error, { variant: "error" });
+    //         dispatch(clearErrors());
+    //     }
+    //     if (deleteError) {
+    //         enqueueSnackbar(deleteError, { variant: "error" });
+    //         dispatch(clearErrors());
+    //     }
+    //     if (isDeleted) {
+    //         enqueueSnackbar("Deleted Successfully", { variant: "success" });
+    //         dispatch({ type: DELETE_ORDER_RESET });
+    //     }
+    //     dispatch(getAllOrders());
+    // }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
 
-    const deleteOrderHandler = (id) => {
-        dispatch(deleteOrder(id));
-    }
+    // const deleteOrderHandler = (id) => {
+    //     dispatch(deleteOrder(id));
+    // }
 
     const columns = [
         {
@@ -98,25 +98,25 @@ const OrderTable = () => {
             flex: 0.3,
             type: "number",
             sortable: false,
-            renderCell: (params) => {
-                return (
-                    <Actions editRoute={"order"} deleteHandler={deleteOrderHandler} id={params.row.id} />
-                );
-            },
+            // renderCell: (params) => {
+            //     return (
+            //         <Actions editRoute={"order"} deleteHandler={deleteOrderHandler} id={params.row.id} />
+            //     );
+            // },
         },
     ];
 
     const rows = [];
 
-    orders && orders.forEach((order) => {
-        rows.unshift({
-            id: order._id,
-            itemsQty: order.orderItems.length,
-            amount: order.totalPrice,
-            orderOn: formatDate(order.createdAt),
-            status: order.orderStatus,
-        });
-    });
+    // orders && orders.forEach((order) => {
+    //     rows.unshift({
+    //         id: order._id,
+    //         itemsQty: order.orderItems.length,
+    //         amount: order.totalPrice,
+    //         orderOn: formatDate(order.createdAt),
+    //         status: order.orderStatus,
+    //     });
+    // });
 
     return (
         <>
