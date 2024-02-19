@@ -3,40 +3,40 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { Link } from 'react-router-dom';
-// import { clearErrors, deleteProduct, getAdminProducts } from '../../actions/productAction';
-// import Rating from '@mui/material/Rating';
-// import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
-// import Actions from './Actions';
+import { clearErrors, deleteProduct, getAdminProducts } from '../../actions/productAction';
+import Rating from '@mui/material/Rating';
+import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
+import Actions from './Actions';
 // import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
 
 const ProductTable = () => {
 
-    // const dispatch = useDispatch();
-    // const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
-    // const { products, error } = useSelector((state) => state.products);
-    // const { loading, isDeleted, error: deleteError } = useSelector((state) => state.product);
+    const { products, error } = useSelector((state) => state.products);
+    const { loading, isDeleted, error: deleteError } = useSelector((state) => state.product);
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (deleteError) {
-    //         enqueueSnackbar(deleteError, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (isDeleted) {
-    //         enqueueSnackbar("Product Deleted Successfully", { variant: "success" });
-    //         dispatch({ type: DELETE_PRODUCT_RESET });
-    //     }
-    //     dispatch(getAdminProducts());
-    // }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
+    useEffect(() => {
+        if (error) {
+            enqueueSnackbar(error, { variant: "error" });
+            dispatch(clearErrors());
+        }
+        if (deleteError) {
+            enqueueSnackbar(deleteError, { variant: "error" });
+            dispatch(clearErrors());
+        }
+        if (isDeleted) {
+            enqueueSnackbar("Product Deleted Successfully", { variant: "success" });
+            dispatch({ type: DELETE_PRODUCT_RESET });
+        }
+        dispatch(getAdminProducts());
+    }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
 
-    // const deleteProductHandler = (id) => {
-    //     dispatch(deleteProduct(id));
-    // }
+    const deleteProductHandler = (id) => {
+        dispatch(deleteProduct(id));
+    }
 
     const columns = [
         {
@@ -125,9 +125,9 @@ const ProductTable = () => {
             flex: 0.1,
             align: "left",
             headerAlign: "left",
-            // renderCell: (params) => {
-            //     return <Rating readOnly value={params.row.rating} size="small" precision={0.5} />
-            // }
+            renderCell: (params) => {
+                return <Rating readOnly value={params.row.rating} size="small" precision={0.5} />
+            }
         },
         {
             field: "actions",
@@ -136,28 +136,28 @@ const ProductTable = () => {
             flex: 0.3,
             type: "number",
             sortable: false,
-            // renderCell: (params) => {
-            //     return (
-            //         <Actions editRoute={"product"} deleteHandler={deleteProductHandler} id={params.row.id} />
-            //     );
-            // },
+            renderCell: (params) => {
+                return (
+                    <Actions editRoute={"product"} deleteHandler={deleteProductHandler} id={params.row.id} />
+                );
+            },
         },
     ];
 
     const rows = [];
 
-    // products && products.forEach((item) => {
-    //     rows.unshift({
-    //         id: item._id,
-    //         name: item.name,
-    //         image: item.images[0].url,
-    //         category: item.category,
-    //         stock: item.stock,
-    //         price: item.price,
-    //         cprice: item.cuttedPrice,
-    //         rating: item.ratings,
-    //     });
-    // });
+    products && products.forEach((item) => {
+        rows.unshift({
+            id: item._id,
+            name: item.name,
+            image: item.images[0].url,
+            category: item.category,
+            stock: item.stock,
+            price: item.price,
+            cprice: item.cuttedPrice,
+            rating: item.ratings,
+        });
+    });
 
     return (
         <>
