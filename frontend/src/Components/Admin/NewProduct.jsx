@@ -5,10 +5,10 @@ import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
-import { createProduct, clearErrors } from '../../actions/productAction';
+// import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
+// import { createProduct, clearErrors } from '../../actions/productAction';
 import ImageIcon from '@mui/icons-material/Image';
-import { categories } from '../../utils/constants';
+// import { categories } from '../../utils/constants';
 // import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
 
@@ -18,7 +18,8 @@ const NewProduct = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
-    const { loading, success, error } = useSelector((state) => state.newProduct);
+    // const { loading, success, error } = useSelector((state) => state.newProduct);
+    
 
     const [highlights, setHighlights] = useState([]);
     const [highlightInput, setHighlightInput] = useState("");
@@ -143,20 +144,20 @@ const NewProduct = () => {
             formData.append("specifications", JSON.stringify(s));
         });
 
-        dispatch(createProduct(formData));
+        // dispatch(createProduct(formData));
     }
 
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (success) {
-            enqueueSnackbar("Product Created", { variant: "success" });
-            dispatch({ type: NEW_PRODUCT_RESET });
-            navigate("/admin/products");
-        }
-    }, [dispatch, error, success, navigate, enqueueSnackbar]);
+    // useEffect(() => {
+    //     if (error) {
+    //         enqueueSnackbar(error, { variant: "error" });
+    //         dispatch(clearErrors());
+    //     }
+    //     if (success) {
+    //         enqueueSnackbar("Product Created", { variant: "success" });
+    //         dispatch({ type: NEW_PRODUCT_RESET });
+    //         navigate("/admin/products");
+    //     }
+    // }, [dispatch, error, success, navigate, enqueueSnackbar]);
 
     return (
         <>
@@ -225,11 +226,11 @@ const NewProduct = () => {
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
-                            {categories.map((el, i) => (
+                            {/* {categories.map((el, i) => (
                                 <MenuItem value={el} key={i}>
                                     {el}
                                 </MenuItem>
-                            ))}
+                            ))} */}
                         </TextField>
                         <TextField
                             label="Stock"

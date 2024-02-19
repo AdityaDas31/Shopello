@@ -18,6 +18,7 @@ import OrderTable from './Components/Admin/OrderTable';
 import UpdateOrder from './Components/Admin/UpdateOrder';
 import ProductTable from './Components/Admin/ProductTable';
 import UserTable from './Components/Admin/UserTable';
+import NewProduct from './Components/Admin/NewProduct';
 
 
 
@@ -66,6 +67,12 @@ function App() {
             <ProductTable />
           </Dashboard>
         } ></Route>
+
+        <Route path='/admin/new_product' element={ 
+          <Dashboard>
+            <NewProduct/>
+          </Dashboard>
+         }></Route>
 
         <Route path="/admin/users" element={
             <Dashboard activeTab={4}>
