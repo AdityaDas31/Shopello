@@ -15,7 +15,8 @@ const sendEmail = async(option)=>{
         from: '"Shopello" <process.env.SMTP_MAIL>',
         to: option.email,
         subject: option.subject,
-        text: option.message,
+        // text: option.message,
+        html: option.message
     };
     await transporter.sendMail(mailOPtions);
 };
