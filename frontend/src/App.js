@@ -43,6 +43,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
+  
 
         <Route path="/admin/dashboard" element={
           <Dashboard activeTab={0}>

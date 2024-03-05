@@ -63,7 +63,7 @@ const LoginWithOpt = () => {
     const otploginsubmit = (e) => {
         e.preventDefault();
         dispatch(loginOtp(otpLoginEmail, otpLoginPassword));
-        alert.success("Welcome Back")
+        
     }
 
     useEffect(() =>{
@@ -74,7 +74,8 @@ const LoginWithOpt = () => {
         }
 
         if(isAuthenticated){
-            navigate("/")
+            navigate("/");
+            alert.success("Welcome Back");
         }
 
         return () => {

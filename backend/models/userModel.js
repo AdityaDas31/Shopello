@@ -27,10 +27,12 @@ const userSchema = new monsgoose.Schema({
         public_id: {
             type: String,
             required: true,
+            default: null
         },
         url: {
             type: String,
             required: true,
+            default: null
         },
     },
     role: {

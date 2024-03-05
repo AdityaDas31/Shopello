@@ -33,6 +33,12 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
     req.body.user = req.user.id;
 
+    let specs = [];
+    req.body.specifications.forEach((s) => {
+        specs.push(JSON.parse(s))
+    });
+    req.body.specifications = specs;
+
     const product = await Product.create(req.body);
 
     res.status(201).json({

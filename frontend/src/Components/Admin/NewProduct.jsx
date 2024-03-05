@@ -3,22 +3,22 @@ import { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSnackbar } from 'notistack';
+import { useAlert } from "react-alert";
 import { useNavigate } from 'react-router-dom';
-// import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
-// import { createProduct, clearErrors } from '../../actions/productAction';
+import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
+import { createProduct, clearErrors } from '../../actions/productActions';
 import ImageIcon from '@mui/icons-material/Image';
 // import { categories } from '../../utils/constants';
-// import MetaData from '../Layouts/MetaData';
-// import BackdropLoader from '../Layouts/BackdropLoader';
+import MetaData from '../Layouts/MetaData';
+import BackdropLoader from '../Layouts/BackdropLoader';
 
 const NewProduct = () => {
 
     const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert();
     const navigate = useNavigate();
 
-    // const { loading, success, error } = useSelector((state) => state.newProduct);
+    const { loading, success, error } = useSelector((state) => state.newProduct);
     
 
     const [highlights, setHighlights] = useState([]);
@@ -36,12 +36,22 @@ const NewProduct = () => {
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState(0);
     const [warranty, setWarranty] = useState(0);
-    const [brand, setBrand] = useState("");
+    // const [brand, setBrand] = useState("");
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
-    const [logo, setLogo] = useState("");
-    const [logoPreview, setLogoPreview] = useState("");
+    const categories = [
+        "Laptop",
+        "Footwear",
+        "Bottom",
+        "Tops",
+        "Attire",
+        "Camera",
+        "SmartPhones",
+    ];
+
+    // const [logo, setLogo] = useState("");
+    // const [logoPreview, setLogoPreview] = useState("");
 
     const handleSpecsChange = (e) => {
         setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
@@ -67,18 +77,18 @@ const NewProduct = () => {
         setSpecs(specs.filter((s, i) => i !== index))
     }
 
-    const handleLogoChange = (e) => {
-        const reader = new FileReader();
+    // const handleLogoChange = (e) => {
+    //     const reader = new FileReader();
 
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setLogoPreview(reader.result);
-                setLogo(reader.result);
-            }
-        };
+    //     reader.onload = () => {
+    //         if (reader.readyState === 2) {
+    //             setLogoPreview(reader.result);
+    //             setLogo(reader.result);
+    //         }
+    //     };
 
-        reader.readAsDataURL(e.target.files[0]);
-    }
+    //     reader.readAsDataURL(e.target.files[0]);
+    // }
 
     const handleProductImageChange = (e) => {
         const files = Array.from(e.target.files);
@@ -104,19 +114,22 @@ const NewProduct = () => {
 
         // required field checks
         if (highlights.length <= 0) {
-            enqueueSnackbar("Add Highlights", { variant: "warning" });
+            // enqueueSnackbar("Add Highlights", { variant: "warning" });
+            alert.info("Add Highlights");
             return;
         }
-        if (!logo) {
-            enqueueSnackbar("Add Brand Logo", { variant: "warning" });
-            return;
-        }
+        // if (!logo) {
+        //     enqueueSnackbar("Add Brand Logo", { variant: "warning" });
+        //     return;
+        // }
         if (specs.length <= 1) {
-            enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
+            // enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
+            alert.info("Add Minimum 2 Specifications");
             return;
         }
         if (images.length <= 0) {
-            enqueueSnackbar("Add Product Images", { variant: "warning" });
+            // enqueueSnackbar("Add Product Images", { variant: "warning" });
+            alert.info("Add Product Images");
             return;
         }
 
@@ -129,8 +142,8 @@ const NewProduct = () => {
         formData.set("category", category);
         formData.set("stock", stock);
         formData.set("warranty", warranty);
-        formData.set("brandname", brand);
-        formData.set("logo", logo);
+        // formData.set("brandname", brand);
+        // formData.set("logo", logo);
 
         images.forEach((image) => {
             formData.append("images", image);
@@ -144,26 +157,26 @@ const NewProduct = () => {
             formData.append("specifications", JSON.stringify(s));
         });
 
-        // dispatch(createProduct(formData));
+        dispatch(createProduct(formData));
     }
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (success) {
-    //         enqueueSnackbar("Product Created", { variant: "success" });
-    //         dispatch({ type: NEW_PRODUCT_RESET });
-    //         navigate("/admin/products");
-    //     }
-    // }, [dispatch, error, success, navigate, enqueueSnackbar]);
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+        if (success) {
+            alert.success("Product Created Successfully");
+            dispatch({ type: NEW_PRODUCT_RESET });
+            navigate("/admin/products");
+        }
+    }, [dispatch, error, success, navigate, alert]);
 
     return (
         <>
-            {/* <MetaData title="Admin: New Product | Flipkart" />
+            <MetaData title="Admin: New Product | Flipkart" />
 
-            {loading && <BackdropLoader />} */}
+            {loading && <BackdropLoader />}
             <form onSubmit={newProductSubmitHandler} encType="multipart/form-data" className="flex flex-col sm:flex-row bg-white rounded-lg shadow p-4" id="mainform">
 
                 <div className="flex flex-col gap-3 m-2 sm:w-1/2">
@@ -226,11 +239,11 @@ const NewProduct = () => {
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
-                            {/* {categories.map((el, i) => (
+                            {categories.map((el, i) => (
                                 <MenuItem value={el} key={i}>
                                     {el}
                                 </MenuItem>
-                            ))} */}
+                            ))}
                         </TextField>
                         <TextField
                             label="Stock"
@@ -280,7 +293,7 @@ const NewProduct = () => {
                         </div>
                     </div>
 
-                    <h2 className="font-medium">Brand Details</h2>
+                    {/* <h2 className="font-medium">Brand Details</h2>
                     <div className="flex justify-between gap-4 items-start">
                         <TextField
                             label="Brand"
@@ -306,7 +319,7 @@ const NewProduct = () => {
                             />
                             Choose Logo
                         </label>
-                    </div>
+                    </div> */}
 
                 </div>
 

@@ -109,7 +109,8 @@ exports.userOtpSend = catchAsyncError(async (req, res, next) => {
     try {
         const user = await User.findOne({ email: email });
         if (user) {
-            const OTP = Math.floor(100000 + Math.random() * 900000);
+            // const OTP = Math.floor(100000 + Math.random() * 900000);
+            const OTP = crypto. randomInt(100000, 1000000);
             const existEmail = await userOTP.findOne({ email: email });
 
             if (existEmail) {

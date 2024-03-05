@@ -7,12 +7,15 @@ const fileUpload = require("express-fileupload");
 const  errorMiddleware = require("./middleware/error");
 
 
+
 dotenv.config({path:"backend/config/config.env"});
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
+
+
 
 // Import Route
 const user = require("./routes/userRoutes");

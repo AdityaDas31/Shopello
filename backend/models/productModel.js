@@ -10,14 +10,33 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a description"],
     },
+    highlights: [
+        {
+            type: String,
+            required: true
+        }
+    ],
+    specifications: [
+        {
+            title: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     price: {
         type: Number,
         required: [true, "Price is required"]
     },
-    ratings: {
+    cuttedPrice: {
         type: Number,
-        default: 0
+        required: [true, "Please enter cutted price"]
     },
+
     images: [
         {
             public_id: {
@@ -34,11 +53,19 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "Pleace Enter product category"]
     },
-    Stock: {
+    stock: {
         type: Number,
         required: [true, "Pleace Enter product Stock"],
         mexLength: [4, "Stock can not exceed 4 characters"],
         default: 1
+    },
+    warranty: {
+        type: Number,
+        default: 1
+    },
+    ratings: {
+        type: Number,
+        default: 0
     },
     numOfReviews: {
         type: Number,

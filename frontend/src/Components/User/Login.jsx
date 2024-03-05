@@ -8,7 +8,16 @@ import BackdropLoader from '../Layouts/BackdropLoader';
 import { useAlert } from 'react-alert';
 import MetaData from '../Layouts/MetaData';
 
+
 const Login = () => {
+
+    const inlineStyles = {
+        background: 'conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat',
+        WebkitBackgroundClip: 'text',
+        backgroundClip: 'text',
+        color: 'transparent',
+        WebkitTextFillColor: 'transparent',
+    };
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,7 +35,10 @@ const Login = () => {
         dispatch(login(email, password));
     }
 
-    // const redirect = location.search ? location.search.split("=")[1] : "account";
+    const loginwithgoogle = ()=>{
+        window.open("http://localhost:5000/auth/google/callback","_self")
+    }
+
 
     useEffect(() => {
         if (error) {
