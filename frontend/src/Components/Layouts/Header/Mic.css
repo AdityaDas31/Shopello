@@ -1,0 +1,15 @@
+#search-input.listening {
+    background: rgba(0, 0, 0, 0.2);
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    padding-left: 2px;
+    animation: pulse 0.5s infinite alternate;
+}
+
+
+@keyframes pulse {
+    to {
+        transform: scale(1.1);
+    }
+}
