@@ -14,74 +14,82 @@ const About = () => {
   }, []);
   return (
     <>
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center bg-gray-100">
-        <div className="w-full lg:w-5/12 lg:order-2">
-          <img src={icon5} alt="Icon" className="w-full rounded-lg" />
-        </div>
-        <div className="w-full lg:w-5/12 lg:order-1 py-8 lg:py-0 px-4 lg:px-12">
-          <h2 className="text-center lg:text-left text-4xl font-bold mb-8">Why Choose Us</h2>
-          <div className="flex flex-wrap justify-center lg:justify-start">
-            <div className="w-full md:w-1/2 lg:w-full mb-8">
-              <div className="flex items-center justify-center lg:justify-start">
+      <div className="why-choose-section font-inter font-normal text-base text-gray-800 py-20 ml-20 pl-10 justify-center">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="col-lg-6">
+            <h2 className="section-title text-3xl font-semibold mb-4">
+              Why Choose Us
+            </h2>
+            <p className="mb-8">
+              Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
+              velit. Aliquam vulputate velit imperdiet dolor tempor tristique.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center">
                 <div className="mr-4">
-                  <img src={icon1} alt="Icon" className="w-16 h-16" />
+                  <img src={icon1} alt="Fast & Free Shipping" className="w-20 h-20" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Fast & Free Shipping</h3>
-                  <p className="text-lg">
-                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac
-                    aliquet velit. Aliquam vulputate.
+                  <h3 className="text-lg font-semibold mb-2">Fast & Free Shipping</h3>
+                  <p>
+                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
+                    velit. Aliquam vulputate.
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-full mb-8">
-              <div className="flex items-center justify-center lg:justify-start">
+              <div className="flex items-center">
                 <div className="mr-4">
-                  <img src={icon2} alt="Icon" className="w-16 h-16" />
+                  <img src={icon2} alt="Easy to Shop" className="w-20 h-20" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Easy to Shop</h3>
-                  <p className="text-lg">
-                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac
-                    aliquet velit. Aliquam vulputate.
+                  <h3 className="text-lg font-semibold mb-2">Easy to Shop</h3>
+                  <p>
+                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
+                    velit. Aliquam vulputate.
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-full mb-8">
-              <div className="flex items-center justify-center lg:justify-start">
+              <div className="flex items-center">
                 <div className="mr-4">
-                  <img src={icon3} alt="Icon" className="w-16 h-16" />
+                  <img src={icon3} alt="24/7 Support" className="w-20 h-20" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">24/7 Support</h3>
-                  <p className="text-lg">
-                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac
-                    aliquet velit. Aliquam vulputate.
+                  <h3 className="text-lg font-semibold mb-2">24/7 Support</h3>
+                  <p>
+                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
+                    velit. Aliquam vulputate.
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-full mb-8">
-              <div className="flex items-center justify-center lg:justify-start">
+              <div className="flex items-center">
                 <div className="mr-4">
-                  <img src={icon4} alt="Icon" className="w-16 h-16" />
+                  <img src={icon4} alt="Hassle Free Returns" className="w-20 h-20" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Hassle Free Returns</h3>
-                  <p className="text-lg">
-                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac
-                    aliquet velit. Aliquam vulputate.
+                  <h3 className="text-lg font-semibold mb-2">Hassle Free Returns</h3>
+                  <p>
+                    Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
+                    velit. Aliquam vulputate.
                   </p>
                 </div>
               </div>
             </div>
           </div>
+          <div className="col-lg-5">
+            <div className="img-wrap relative">
+              <img
+                src={icon5}
+                alt="Why Choose Us"
+                className="rounded-lg object-cover w-4/5"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="py-8">
-        <div className="container mx-auto">
+    </div>
+      <div className="py-8 px-4">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold">Our Team</h2>
           </div>
