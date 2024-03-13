@@ -19,6 +19,7 @@ import UpdateOrder from './Components/Admin/UpdateOrder';
 // import ProductTable from './Components/Admin/ProductTable';
 import UserTable from './Components/Admin/UserTable';
 import NewProduct from './Components/Admin/NewProduct';
+import About from './Components/Layouts/About/About';
 
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
+        <Route path="/about" element={<About />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
   
 
