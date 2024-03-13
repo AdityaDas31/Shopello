@@ -16,7 +16,7 @@ import Dashboard from './Components/Admin/Dashboard';
 import MainData from './Components/Admin/MainData';
 import OrderTable from './Components/Admin/OrderTable';
 import UpdateOrder from './Components/Admin/UpdateOrder';
-import ProductTable from './Components/Admin/ProductTable';
+// import ProductTable from './Components/Admin/ProductTable';
 import UserTable from './Components/Admin/UserTable';
 import NewProduct from './Components/Admin/NewProduct';
 
@@ -63,11 +63,11 @@ function App() {
           </Dashboard>
         } ></Route>
 
-        <Route path="/admin/products" element={
+        {/* <Route path="/admin/products" element={
           <Dashboard activeTab={2}>
             <ProductTable />
           </Dashboard>
-        } ></Route>
+        } ></Route> */}
 
         <Route path='/admin/new_product' element={ 
           <Dashboard>
