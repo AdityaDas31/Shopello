@@ -8,6 +8,7 @@ const sendEmail = require('../utils/sendEmail');
 const userOTP = require('../models/userOtp');
 const cloudinary = require("cloudinary");
 const Subscribe = require("../models/subscribeModel");
+const fs = require('fs');
 
 
 
@@ -27,12 +28,18 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         }
     });
 
-    const message = `Hello ${user.name},
-    
-A big welcome to Shopello! Get ready to discover amazing products, great deals, and a seamless online shopping experience. Happy browsing!
+    const htmlPath = 'backend/mailTemplate/welcome.html';
 
-Best wishes,
-The Team Shopello`;
+    let message = fs.readFileSync(htmlPath, 'utf8');
+
+    message = message.replace(/\$\(NAME\)/g, user.name);
+
+//     const message = `Hello ${user.name},
+    
+// A big welcome to Shopello! Get ready to discover amazing products, great deals, and a seamless online shopping experience. Happy browsing!
+
+// Best wishes,
+// The Team Shopello`;
 
     try {
         await sendEmail({
@@ -62,13 +69,19 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     if (!isPasswordMatched) {
         return next(new ErrorHandler("Invalid Email or Password", 401));
     }
-    const message = `Hello ${user.name},
+    // const message = `Hello ${user.name},
 
-    We're delighted to see you again! Your shopping journey continues, and we're here to make it exceptional. Let's dive in and explore what's new.
+    // We're delighted to see you again! Your shopping journey continues, and we're here to make it exceptional. Let's dive in and explore what's new.
 
-    Happy shopping!
+    // Happy shopping!
 
-    The Team Shopello`
+    // The Team Shopello`
+
+    const htmlPath = 'backend/mailTemplate/welcome.html';
+
+    let message = fs.readFileSync(htmlPath, 'utf8');
+
+    message = message.replace(/\$\(NAME\)/g, user.name);
     try {
         await sendEmail({
             email: user.email,
@@ -96,7 +109,8 @@ exports.userOtpSend = catchAsyncError(async (req, res, next) => {
     try {
         const user = await User.findOne({ email: email });
         if (user) {
-            const OTP = Math.floor(100000 + Math.random() * 900000);
+            // const OTP = Math.floor(100000 + Math.random() * 900000);
+            const OTP = crypto. randomInt(100000, 1000000);
             const existEmail = await userOTP.findOne({ email: email });
 
             if (existEmail) {
@@ -108,13 +122,18 @@ exports.userOtpSend = catchAsyncError(async (req, res, next) => {
                     }
                 );
                 await updateOtp.save();
-                const message = `Hello ${user.name},
 
-This is your OTP:- ${OTP}
+                const htmlPath = 'backend/otp.html';
+                let message = fs.readFileSync(htmlPath, 'utf8');
 
-Happy shopping,
-The Team Shopello
-                `;
+                message = message.replace(/\$\(OTP\)/g, OTP);
+                //                 const message = `Hello ${user.name},
+
+                // This is your OTP:- ${OTP}
+
+                // Happy shopping,
+                // The Team Shopello
+                //                 `;
                 try {
                     await sendEmail({
                         email: user.email,
@@ -136,18 +155,22 @@ The Team Shopello
                 });
                 await seveOtpData.save();
             };
-            const message = `Hello ${user.name},
+            const htmlPath = 'backend/mailTemplate/otp.html';
+            let message = fs.readFileSync(htmlPath, 'utf8');
 
-This is your OTP:- ${OTP}
+            message = message.replace(/\$\(OTP\)/g, OTP);
+            //             const message = `Hello ${user.name},
 
-Happy shopping,
-The Team Shopello
-                `;
+            // This is your OTP:- ${OTP}
+
+            // Happy shopping,
+            // The Team Shopello
+            //                 `;
             try {
                 await sendEmail({
                     email: user.email,
                     to: user.name,
-                    subject: `Shopello - Login OTP :- ${OTP} `,
+                    subject: `Shopello - Login OTP `,
                     message,
                 });
                 res.status(200).json({
@@ -155,7 +178,7 @@ The Team Shopello
                     message: "Email sent Successfully",
                 });
             } catch (error) {
-                return next(new ErrorHandler("error", 500));
+                return next(new ErrorHandler(error.message, 500));
             };
         } else {
             return next(new ErrorHandler('this user not exist', 200));
@@ -178,13 +201,20 @@ exports.userOtpLogin = catchAsyncError(async (req, res, next) => {
         const otpverification = await userOTP.findOne({ email: email });
         if (otpverification.otp === otp) {
             const user = await User.findOne({ email: email });
-            const message = `Hello ${user.name},
-    
-We're delighted to see you again! Your shopping journey continues, and we're here to make it exceptional. Let's dive in and explore what's new.
+            //             const message = `Hello ${user.name},
 
-Happy shopping!
-    
-The Team Shopello`;
+            // We're delighted to see you again! Your shopping journey continues, and we're here to make it exceptional. Let's dive in and explore what's new.
+
+            // Happy shopping!
+
+            // The Team Shopello`;
+
+            const htmlPath = 'backend/mailTemplate/welcome.html';
+
+            let message = fs.readFileSync(htmlPath, 'utf8');
+
+            message = message.replace(/\$\(NAME\)/g, user.name);
+
             const deleteOtp = await userOTP.findOneAndDelete({ otp });
             try {
                 await sendEmail({
@@ -281,18 +311,18 @@ Best wishes,
 The Team Shopello`;
 
 
-try {
-    await sendEmail({
-        email: subscribe.email,
-        subject: "Welcome to Shopello - Your Ultimate Shopping Destination! 🛒",
-        message,
-    })
-    res.status(200).json({
-        success: true,
-        message: "Successfully Subscribe",
-    });
+    try {
+        await sendEmail({
+            email: subscribe.email,
+            subject: "Welcome to Shopello - Your Ultimate Shopping Destination! 🛒",
+            message,
+        })
+        res.status(200).json({
+            success: true,
+            message: "Successfully Subscribe",
+        });
 
-} catch (error) {
-    return next(new ErrorHandler(error.message, 500));
-}
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+    }
 }) 

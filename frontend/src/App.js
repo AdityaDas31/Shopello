@@ -1,98 +1,92 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import 'react-tooltip/dist/react-tooltip.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Products from './components/Product/Products';
-import LoginSignUp from './components/User/LoginSingup'
-import Profile from './components/User/Profile';
-import { loadUser } from './actions/userAction';
-import { Fragment, useEffect, useState } from 'react';
-import store from './store';
-import { useSelector } from 'react-redux';
-import LoginWithOtp from './components/User/LoginWithOtp';
-import UpdatePassword from './components/User/UpdatePassword';
-import ProductDetails from './components/Product/ProductDetails';
-import Cart from './components/Cart/Cart';
-import About from './components/miscellaneous/About/About';
-import { CartProvider } from './CartContext';
-import Loader from './components/Layout/Loader/Loader';
-import Checkout from './components/Checkout/Checkout';
-import axios from 'axios';
-import Payment from './components/Checkout/Payment';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js'
-import OrderSuccess from './components/Checkout/OrderSuccess';
+import Categories from './Components/Layouts/Categories';
+import Header from './Components/Layouts/Header/Header';
+import Home from './Components/Home/Home';
+import Footer from './Components/Layouts/Footer/Footer';
+import Login from './Components/User/Login';
+import Register from './Components/User/Register';
+import LoginWithOpt from './Components/User/LoginWithOpt';
+import { loadUser } from './actions/userActions';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Account from './Components/User/Account';
+import NotFound from './Components/NotFound';
+import Dashboard from './Components/Admin/Dashboard';
+import MainData from './Components/Admin/MainData';
+import OrderTable from './Components/Admin/OrderTable';
+import UpdateOrder from './Components/Admin/UpdateOrder';
+// import ProductTable from './Components/Admin/ProductTable';
+import UserTable from './Components/Admin/UserTable';
+import NewProduct from './Components/Admin/NewProduct';
+import About from './Components/Layouts/About/About';
+
+
 
 
 
 function App() {
 
   const { isAuthenticated } = useSelector((state) => state.user);
-  const [stripeApiKey, setStriprApiKey] = useState("");
 
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/payment/stripeapikey");
-    setStriprApiKey(data.stripeApiKey);
-  }
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    store.dispatch(loadUser());
-    getStripeApiKey();
-  }, [])
+    dispatch(loadUser())
+  }, [dispatch]);
+
   return (
-    <CartProvider>
+    <>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/getotp" element={<LoginWithOpt />} />
+        <Route path="/about" element={<About />} />
+        <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
+  
 
-      <Fragment className="App">
-        <Router>
-          {stripeApiKey && (
-            <Elements stripe={loadStripe(stripeApiKey)}>
-              <Routes>
-                <Route>
-                  <Route exact path='/process/card' element={<Payment />} />
-                </Route>
-              </Routes>
-            </Elements>
-          )}
-          <Routes>
+        <Route path="/admin/dashboard" element={
+          <Dashboard activeTab={0}>
+            <MainData />
+          </Dashboard>
+        } ></Route>
 
-            <Route extact path="/" element={<Home />} />
-            <Route extact path='/profile' element={isAuthenticated ? <Profile /> : <LoginSignUp />} />
-            <Route extact path='/password/update' element={isAuthenticated ? <UpdatePassword /> : <LoginSignUp />} />
-            <Route extact path='/about' element={<About />} />
-            <Route extact path='/loader' element={<Loader />} />
+        <Route path="/admin/orders" element={
+          <Dashboard activeTab={1}>
+            <OrderTable />
+          </Dashboard>
+        } ></Route>
 
-            <Route extact path='/login' element={<LoginSignUp />} />
-            <Route extact path='/getOtp' element={<LoginWithOtp />} />
+        <Route path="/admin/orders/:id" element={
+          <Dashboard activeTab={1}>
+            <UpdateOrder />
+          </Dashboard>
+        } ></Route>
 
+        {/* <Route path="/admin/products" element={
+          <Dashboard activeTab={2}>
+            <ProductTable />
+          </Dashboard>
+        } ></Route> */}
 
-            <Route extact path="/products" element={<Products />} />
+        <Route path='/admin/new_product' element={ 
+          <Dashboard>
+            <NewProduct/>
+          </Dashboard>
+         }></Route>
 
+        <Route path="/admin/users" element={
+            <Dashboard activeTab={4}>
+              <UserTable />
+            </Dashboard>
+        } ></Route>
 
-            <Route extact path='/product/:id' element={<ProductDetails />} />
-            <Route exact path='/cart' element={<Cart />} />
-            <Route exact path='/checkout' element={<Checkout />} />
-            <Route exact path='/success' element={<OrderSuccess />} />
-
-
-            
-
-
-            {/* <Elements stripe={loadStripe(stripeApiKey)}>
-              <Route exact path='/process/payment' element={<Payment />} />
-            </Elements> */}
-
-
-
-
-            {/* <Route extact path='/profile' element={<Profile/>}/> */}
-
-
-          </Routes>
-        </Router>
-      </Fragment>
-    </CartProvider>
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
 
