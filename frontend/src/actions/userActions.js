@@ -29,7 +29,8 @@ export const register = (userData) => async (dispatch) => {
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
         const { data } = await axios.post('http://localhost:5000/api/v1/user/register', userData, config);
-
+        // const { data } = await axios.post('/api/v1/user/register', userData, config);
+        
         dispatch({
             type: REGISTER_USER_SUCCESS,
             payload: data.user,
@@ -52,6 +53,7 @@ export const login = (email, password) => async (dispatch) => {
         const config = { headers: { "Content-Type": "application/json" } };
 
         const { data } = await axios.post(`http://localhost:5000/api/v1/user/login`, { email, password }, config);
+        // const { data } = await axios.post(`/api/v1/user/login`, { email, password }, config);
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -68,7 +70,8 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST });
 
-        const { data } = await axios.get(`http://localhost:5000/api/v1/user/profile`);
+        const { data } = await axios.get(`http://localhost:5000/api/v1/user/profile`, { withCredentials: true });
+        // const { data } = await axios.get(`/api/v1/user/profile`);
 
         dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
     } catch (error) {
@@ -82,6 +85,7 @@ export const loadUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     try {
         await axios.get(`http://localhost:5000/api/v1/user/logout`);
+        // await axios.get(`/api/v1/user/logout`);
 
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
@@ -98,6 +102,7 @@ export const sendOtp = (email) => async(dispatch) => {
         const config = { headers: { "Content-Type": "application/json" } };
 
         const { data } = await axios.post(`http://localhost:5000/api/v1/user/sendotp`, { email }, config);
+        // const { data } = await axios.post(`/api/v1/user/sendotp`, { email }, config);
 
         dispatch({ 
             type: OTP_SEND_SUCCESS, 
@@ -122,6 +127,7 @@ export const loginOtp = (email, otp) => async(dispatch) =>{
         const config = { headers: { "Content-Type": "application/json" } };
 
         const { data } = await axios.post(`http://localhost:5000/api/v1/user/otplogin`, { email, otp }, config);
+        // const { data } = await axios.post(`/api/v1/user/otplogin`, { email, otp }, config);
 
         dispatch({
             type: OTP_LOGIN_SUCCESS,
