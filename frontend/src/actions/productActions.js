@@ -24,7 +24,7 @@ export const createProduct = (productData) => async (dispatch) => {
             headers: { "Content-Type": "application/json" },
         };
 
-        const { data } = await axios.post(`/api/v1/product/admin/product/new`, productData, config);
+        const { data } = await axios.post(`http://localhost:5000/api/v1/product/admin/product/new`, productData, config);
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
@@ -45,7 +45,7 @@ export const getAdminProduct = () => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
-        const { data } = await axios.get('/api/v1/product/admin/products');
+        const { data } = await axios.get('http://localhost:5000/api/v1/product/admin/products');
 
         dispatch({
             type: ADMIN_PRODUCT_SUCCESS,
@@ -65,7 +65,7 @@ export const getProducts = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCTS_REQUEST });
 
-        const { data } = await axios.get(`/api/v1/product/products`);
+        const { data } = await axios.get(`http://localhost:5000/api/v1/product/products`);
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,

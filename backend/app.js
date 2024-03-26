@@ -5,15 +5,24 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const fileUpload = require("express-fileupload");
 const  errorMiddleware = require("./middleware/error");
+const cors = require('cors')
 
 
 
 dotenv.config({path:"backend/config/config.env"});
 
+let corsAllow = {
+    origin: "http://localhost:3000",
+    methods:"GET,POST,PUT,DELETE",
+    credentials:true
+};
+
+app.use(cors(corsAllow))
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
+
 
 
 
