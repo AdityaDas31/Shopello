@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 // import { getRandomProducts } from '../../../utils/functions';

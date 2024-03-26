@@ -14,9 +14,9 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const UpdateOrder = () => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // const { enqueueSnackbar } = useSnackbar();
-    const params = useParams();
+    // const params = useParams();
 
     const [status, setStatus] = useState("");
 

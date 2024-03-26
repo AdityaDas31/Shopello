@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import Categories from '../Layouts/Categories';
 import Banner from './Banner/Banner';
 // import DealSlider from './DealSlider/DealSlider';

@@ -1,18 +1,18 @@
 import SearchIcon from '@mui/icons-material/Search';
 import MicIcon from '@mui/icons-material/Mic';
-import SettingsVoiceIcon from '@mui/icons-material/SettingsVoice';
+// import SettingsVoiceIcon from '@mui/icons-material/SettingsVoice';
 import { MdSettingsVoice } from "react-icons/md";
-import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+// import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './Mic.css';
 
 const Searchbar = () => {
     const [keyword, setKeyword] = useState("");
     const [isListening, setIsListening] = useState(false);
-    const [audioContext, setAudioContext] = useState(null);
+    // const [audioContext, setAudioContext] = useState(null);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const startListening = () => {
         const recognition = new window.webkitSpeechRecognition();

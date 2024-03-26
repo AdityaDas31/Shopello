@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import Chart from 'chart.js/auto';
+// import { useEffect } from 'react';
+// import Chart from 'chart.js/auto';
 import { Doughnut, Line, Pie, Bar } from 'react-chartjs-2';
 // import { getAdminProducts } from '../../actions/productAction';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 // import { getAllOrders } from '../../actions/orderAction';
 // import { getAllUsers } from '../../actions/userAction';
 // import { categories } from '../../utils/constants';
@@ -10,13 +10,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const MainData = () => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     // const { products } = useSelector((state) => state.products);
     // const { orders } = useSelector((state) => state.allOrders);
     // const { users } = useSelector((state) => state.users);
 
-    let outOfStock = 0;
+    // let outOfStock = 0;
 
     // products?.forEach((item) => {
     //     if (item.stock === 0) {
