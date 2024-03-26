@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useAlert } from "react-alert";
 import { Link } from 'react-router-dom';
-
 import { clearErrors, getAdminProduct } from '../../actions/productActions';
 import Rating from '@mui/material/Rating';
 // import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
@@ -10,18 +9,10 @@ import Rating from '@mui/material/Rating';
 import MetaData from '../Layouts/MetaData';
 import BackdropLoader from '../Layouts/BackdropLoader';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrors, deleteProduct, getAdminProducts } from '../../actions/productAction';
-import Rating from '@mui/material/Rating';
-import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
-import Actions from './Actions';
-// import MetaData from '../Layouts/MetaData';
-// import BackdropLoader from '../Layouts/BackdropLoader';
-
 
 const ProductTable = () => {
 
     const dispatch = useDispatch();
-
     const alert = useAlert();
     // const { enqueueSnackbar } = useSnackbar();
 
@@ -44,31 +35,9 @@ const ProductTable = () => {
         dispatch(getAdminProduct());
     }, [dispatch, error, alert]);
 
-    const { enqueueSnackbar } = useSnackbar();
-
-    const { products, error } = useSelector((state) => state.products);
-    const { loading, isDeleted, error: deleteError } = useSelector((state) => state.product);
-
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (deleteError) {
-            enqueueSnackbar(deleteError, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        if (isDeleted) {
-            enqueueSnackbar("Product Deleted Successfully", { variant: "success" });
-            dispatch({ type: DELETE_PRODUCT_RESET });
-        }
-        dispatch(getAdminProducts());
-    }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
-
-
-    const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id));
-    }
+    // const deleteProductHandler = (id) => {
+    //     dispatch(deleteProduct(id));
+    // }
 
     const columns = [
         {
@@ -169,7 +138,6 @@ const ProductTable = () => {
             type: "number",
             sortable: false,
             renderCell: (params) => {
-
                 // return (
                 //     <Actions
                 //         editRoute={"product"}
@@ -177,11 +145,6 @@ const ProductTable = () => {
                 //         id={params.row.id}
                 //     />
                 // );
-
-                return (
-                    <Actions editRoute={"product"} deleteHandler={deleteProductHandler} id={params.row.id} />
-                );
-
             },
         },
     ];
