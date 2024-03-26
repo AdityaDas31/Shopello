@@ -16,9 +16,10 @@ import Dashboard from './Components/Admin/Dashboard';
 import MainData from './Components/Admin/MainData';
 import OrderTable from './Components/Admin/OrderTable';
 import UpdateOrder from './Components/Admin/UpdateOrder';
-import ProductTable from './Components/Admin/ProductTable';
+// import ProductTable from './Components/Admin/ProductTable';
 import UserTable from './Components/Admin/UserTable';
 import NewProduct from './Components/Admin/NewProduct';
+import About from './Components/Layouts/About/About';
 import Products from './Components/Products/Products'
 
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
+        <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
   
@@ -65,11 +67,11 @@ function App() {
           </Dashboard>
         } ></Route>
 
-        <Route path="/admin/products" element={
+        {/* <Route path="/admin/products" element={
           <Dashboard activeTab={2}>
             <ProductTable />
           </Dashboard>
-        } ></Route>
+        } ></Route> */}
 
         <Route path='/admin/new_product' element={ 
           <Dashboard>
