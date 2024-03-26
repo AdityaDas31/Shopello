@@ -14,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import BackdropLoader from '../BackdropLoader';
+// import BackdropLoader from '../BackdropLoader';
 
 const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
     const navigate = useNavigate();

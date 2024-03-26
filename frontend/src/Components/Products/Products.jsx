@@ -8,7 +8,8 @@ import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { clearErrors, getProducts } from '../../actions/productAction';
+// import { clearErrors, getProducts } from '../../actions/productAction';
+import {clearErrors, getProducts} from '../../actions/productActions';
 import Loader from '../Layouts/Loader';
 import MinCategory from '../Layouts/MinCategory';
 import Product from './Product';
@@ -19,6 +20,7 @@ import StarIcon from '@mui/icons-material/Star';
 import MetaData from '../Layouts/MetaData';
 // import { getRandomProducts } from '../../utils/functions';
 import { useLocation } from 'react-router-dom';
+import { useAlert } from 'react-alert';
 
 const Products = () => {
 
@@ -26,6 +28,7 @@ const Products = () => {
     const { enqueueSnackbar } = useSnackbar();
     const params = useParams();
     const location = useLocation();
+    const alert = useAlert();
 
     const [price, setPrice] = useState([0, 200000]);
     const [category, setCategory] = useState(location.search ? location.search.split("=")[1] : "");
@@ -38,7 +41,7 @@ const Products = () => {
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [ratingsToggle, setRatingsToggle] = useState(true);
 
-    const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
+    const { products, loading, error } = useSelector((state) => state.products);
     const keyword = params.keyword;
 
     const priceHandler = (e, newPrice) => {
@@ -51,13 +54,21 @@ const Products = () => {
         setRatings(0);
     }
 
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
-        dispatch(getProducts(keyword, category, price, ratings, currentPage));
-    }, [dispatch, keyword, category, price, ratings, currentPage, error, enqueueSnackbar]);
+        // useEffect(() => {
+        //     if (error) {
+        //         enqueueSnackbar(error, { variant: "error" });
+        //         dispatch(clearErrors());
+        //     }
+        //     dispatch(getProducts(keyword, category, price, ratings, currentPage));
+        // }, [dispatch, keyword, category, price, ratings, currentPage, error, enqueueSnackbar]);
+
+        useEffect(() => {
+            if (error) {
+              alert.error(error);
+              dispatch(clearErrors());
+            }
+            dispatch(getProducts())
+          }, [dispatch,error,alert]);
 
     return (
         <>
@@ -124,9 +135,9 @@ const Products = () => {
                                                     name="category-radio-buttons"
                                                     value={category}
                                                 >
-                                                    {categories.map((el, i) => (
+                                                    {/* {categories.map((el, i) => (
                                                         <FormControlLabel value={el} control={<Radio size="small" />} label={<span className="text-sm" key={i}>{el}</span>} />
-                                                    ))}
+                                                    ))} */}
                                                 </RadioGroup>
                                             </FormControl>
                                         </div>
@@ -194,14 +205,14 @@ const Products = () => {
                                         ))
                                     }
                                 </div>
-                                {filteredProductsCount > resultPerPage && (
+                                {/* {filteredProductsCount > resultPerPage && (
                                     <Pagination
                                         count={Number(((filteredProductsCount + 6) / resultPerPage).toFixed())}
                                         page={currentPage}
                                         onChange={(e, val) => setCurrentPage(val)}
                                         color="primary"
                                     />
-                                )}
+                                )} */}
                             </div>
                         )}
                     </div>

@@ -15,7 +15,7 @@ const Header = () => {
     const [togglePrimaryDropDown, setTogglePrimaryDropDown] = useState(false);
     const [toggleSecondaryDropDown, setToggleSecondaryDropDown] = useState(false);
 
-    const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+    const { user, isAuthenticated } = useSelector((state) => state.user);
 
   return (
     <header className="bg-primary-blue fixed top-0 py-2.5 w-full z-10">
