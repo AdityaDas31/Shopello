@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, login } from '../../actions/userActions'
 // import { useSnackbar } from 'notistack';
@@ -11,19 +11,19 @@ import MetaData from '../Layouts/MetaData';
 
 const Login = () => {
 
-    const inlineStyles = {
-        background: 'conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        color: 'transparent',
-        WebkitTextFillColor: 'transparent',
-    };
+    // const inlineStyles = {
+    //     background: 'conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat',
+    //     WebkitBackgroundClip: 'text',
+    //     backgroundClip: 'text',
+    //     color: 'transparent',
+    //     WebkitTextFillColor: 'transparent',
+    // };
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const alert = useAlert();
     // const { enqueueSnackbar } = useSnackbar();
-    const location = useLocation();
+    // const location = useLocation();
     const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 
 
@@ -35,9 +35,9 @@ const Login = () => {
         dispatch(login(email, password));
     }
 
-    const loginwithgoogle = ()=>{
-        window.open("http://localhost:5000/auth/google/callback","_self")
-    }
+    // const loginwithgoogle = ()=>{
+    //     window.open("http://localhost:5000/auth/google/callback","_self")
+    // }
 
 
     useEffect(() => {

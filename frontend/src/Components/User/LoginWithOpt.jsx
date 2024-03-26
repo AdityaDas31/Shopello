@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BackdropLoader from '../Layouts/BackdropLoader';
 import { clearErrors, sendOtp, loginOtp } from '../../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux';

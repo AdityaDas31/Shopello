@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Categories from './Components/Layouts/Categories';
+// import Categories from './Components/Layouts/Categories';
 import Header from './Components/Layouts/Header/Header';
 import Home from './Components/Home/Home';
 import Footer from './Components/Layouts/Footer/Footer';
@@ -19,6 +19,7 @@ import UpdateOrder from './Components/Admin/UpdateOrder';
 import ProductTable from './Components/Admin/ProductTable';
 import UserTable from './Components/Admin/UserTable';
 import NewProduct from './Components/Admin/NewProduct';
+import Products from './Components/Products/Products'
 
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
+        <Route path="/products" element={<Products />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
   
 

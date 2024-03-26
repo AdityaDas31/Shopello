@@ -1,9 +1,9 @@
 import StarIcon from '@mui/icons-material/Star';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
-import { getDiscount } from '../../utils/functions';
+// import { getDiscount } from '../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
+// import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
 import { useSnackbar } from 'notistack';
 
 const Product = ({ _id, name, images, ratings, numOfReviews, price, cuttedPrice }) => {
@@ -11,18 +11,18 @@ const Product = ({ _id, name, images, ratings, numOfReviews, price, cuttedPrice 
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
-    const { wishlistItems } = useSelector((state) => state.wishlist);
+    // const { wishlistItems } = useSelector((state) => state.wishlist);
 
-    const itemInWishlist = wishlistItems.some((i) => i.product === _id);
+    // const itemInWishlist = wishlistItems.some((i) => i.product === _id);
 
     const addToWishlistHandler = () => {
-        if (itemInWishlist) {
-            dispatch(removeFromWishlist(_id));
-            enqueueSnackbar("Remove From Wishlist", { variant: "success" });
-        } else {
-            dispatch(addToWishlist(_id));
-            enqueueSnackbar("Added To Wishlist", { variant: "success" });
-        }
+        // if (itemInWishlist) {
+        //     // dispatch(removeFromWishlist(_id));
+        //     enqueueSnackbar("Remove From Wishlist", { variant: "success" });
+        // } else {
+        //     // dispatch(addToWishlist(_id));
+        //     enqueueSnackbar("Added To Wishlist", { variant: "success" });
+        // }
     }
 
     return (
@@ -49,14 +49,14 @@ const Product = ({ _id, name, images, ratings, numOfReviews, price, cuttedPrice 
                 <div className="flex items-center gap-1.5 text-md font-medium">
                     <span>₹{price.toLocaleString()}</span>
                     <span className="text-gray-500 line-through text-xs">₹{cuttedPrice.toLocaleString()}</span>
-                    <span className="text-xs text-primary-green">{getDiscount(price, cuttedPrice)}%&nbsp;off</span>
+                    {/* <span className="text-xs text-primary-green">{getDiscount(price, cuttedPrice)}%&nbsp;off</span> */}
                 </div>
                 {/* <!-- price container --> */}
             </div>
             {/* <!-- product description --> */}
 
             {/* <!-- wishlist badge --> */}
-            <span onClick={addToWishlistHandler} className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} absolute top-6 right-6 cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span>
+            {/* <span onClick={addToWishlistHandler} className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} absolute top-6 right-6 cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span> */}
             {/* <!-- wishlist badge --> */}
 
         </div>
