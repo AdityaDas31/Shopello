@@ -12,11 +12,11 @@ const footerLinks = [
         links: [
             {
                 name: "Contact Us",
-                redirect: "https://www.flipkart.com/helpcentre",
+                redirect: "http://localhost:3000/contact",
             },
             {
                 name: "About Us",
-                redirect: "https://www.flipkart.com/about-us",
+                redirect: "http://localhost:3000/about",
             },
             {
                 name: "Careers",
@@ -129,7 +129,7 @@ const Footer = () => {
                                 <div className="w-full sm:w-1/5 flex flex-col gap-2 my-3 sm:my-6 ml-5" key={i}>
                                     <h2 className="text-primary-grey mb-2 uppercase">{el.title}</h2>
                                     {el.links.map((item, i) => (
-                                        <a href={item.redirect} target="_blank" rel="noreferrer" className="hover:underline" key={i}>{item.name}</a>
+                                        <a href={item.redirect} rel="noreferrer" className="hover:underline" key={i}>{item.name}</a>
                                     ))}
 
                                 </div>

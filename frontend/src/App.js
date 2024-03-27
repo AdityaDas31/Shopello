@@ -21,6 +21,7 @@ import UserTable from './Components/Admin/UserTable';
 import NewProduct from './Components/Admin/NewProduct';
 import About from './Components/Layouts/About/About';
 import Products from './Components/Products/Products'
+import Contact from './Components/Layouts/Contact/Contact';
 
 
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
   
