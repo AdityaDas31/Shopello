@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { clearErrors, getAdminProduct } from '../../actions/productActions';
 import Rating from '@mui/material/Rating';
 // import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
-// import Actions from './Actions';
+import Actions from './Actions';
 import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
 import { useDispatch, useSelector } from 'react-redux';
@@ -138,13 +138,13 @@ const ProductTable = () => {
             type: "number",
             sortable: false,
             renderCell: (params) => {
-                // return (
-                //     <Actions
-                //         editRoute={"product"}
-                //         deleteHandler={deleteProductHandler}
-                //         id={params.row.id}
-                //     />
-                // );
+                return (
+                    <Actions
+                        editRoute={"product"}
+                        // deleteHandler={deleteProductHandler}
+                        id={params.row.id}
+                    />
+                );
             },
         },
     ];
