@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import DoneIcon from '@mui/icons-material/Done';
 import { useAlert } from "react-alert";
 import { Link } from 'react-router-dom';
 import { clearErrors, getAdminProduct } from '../../actions/productActions';
@@ -144,6 +146,27 @@ const ProductTable = () => {
                         // deleteHandler={deleteProductHandler}
                         id={params.row.id}
                     />
+                );
+            },
+        },
+        {
+            field: "activity",
+            headerName: "Activity",
+            minWidth: 100,
+            flex: 0.3,
+            type: "number",
+            sortable: false,
+            renderCell: (params) => {
+                return (
+                    <div className='flex justify-between items-center gap-3'>
+                    <button className='text-red-600 hover:bg-red-200 p-1 rounded-full bg-red-100'><ToggleOffIcon fontSize='medium'/></button>
+                    <button className='text-red-600 hover:bg-red-200 p-1 rounded-full bg-red-100'><DoneIcon fontSize='medium'/></button>
+                    </div>
+                    // <Actions
+                    //     editRoute={"product"}
+                    //     deleteHandler={deleteProductHandler}
+                    //     id={params.row.id}
+                    // />
                 );
             },
         },
