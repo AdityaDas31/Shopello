@@ -9,12 +9,20 @@ import {
     ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
+    PRODUCT_APPROVE_REQUEST,
+    PRODUCT_APPROVE_SUCCESS,
+    PRODUCT_APPROVE_RESET,
+    PRODUCT_APPROVE_FAIL,
+    PRODUCT_AVAILABLE_REQUEST,
+    PRODUCT_AVAILABLE_SUCCESS,
+    PRODUCT_AVAILABLE_RESET,
+    PRODUCT_AVAILABLE_FAIL,
     CLEAR_ERRORS,
 } from '../constants/productConstants';
 
 
-export const productReducers = (state = {  product: [] }, action) => {
-    switch(action.type) {
+export const productReducers = (state = { product: [] }, action) => {
+    switch (action.type) {
         case ALL_PRODUCTS_REQUEST:
         case ADMIN_PRODUCT_REQUEST:
             return {
@@ -47,7 +55,7 @@ export const productReducers = (state = {  product: [] }, action) => {
     };
 };
 
-export const newProductReducer = (state = { product : {} }, action) =>{
+export const newProductReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case NEW_PRODUCT_REQUEST:
             return {
@@ -72,13 +80,60 @@ export const newProductReducer = (state = { product : {} }, action) =>{
                 success: false,
             }
 
-            case CLEAR_ERRORS:
-                return {
-                    ...state,
-                    error: null,
-                };
-    
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+
         default:
             return state;
     };
 };
+
+export const productReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_APPROVE_REQUEST:
+        case PRODUCT_AVAILABLE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case PRODUCT_APPROVE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isApprove: action.payload.success,
+            }
+        case PRODUCT_AVAILABLE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isAvailable: action.payload.success,
+            }
+        case PRODUCT_APPROVE_FAIL:
+        case PRODUCT_AVAILABLE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            }
+        case PRODUCT_APPROVE_RESET:
+            return {
+                ...state,
+                isApproved: false,
+            }
+        case PRODUCT_AVAILABLE_RESET:
+            return {
+                ...state,
+                isAvailable: false,
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}

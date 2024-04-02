@@ -8,7 +8,13 @@ import {
     ALL_PRODUCTS_FAIL,
     ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_SUCCESS,
+    PRODUCT_APPROVE_REQUEST,
+    PRODUCT_APPROVE_SUCCESS,
+    PRODUCT_APPROVE_FAIL,
     CLEAR_ERRORS,
+    PRODUCT_AVAILABLE_REQUEST,
+    PRODUCT_AVAILABLE_FAIL,
+    PRODUCT_AVAILABLE_SUCCESS,
 } from '../constants/productConstants';
 import axios from 'axios';
 
@@ -79,6 +85,48 @@ export const getProducts = () => async (dispatch) => {
             type: ALL_PRODUCTS_FAIL,
             payload: error.response.data.message,
         });
+    }
+}
+
+// Approve Product
+
+export const approveProduct = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: PRODUCT_APPROVE_REQUEST });
+
+        const { data } = await axios.put(`/api/v1/product/admin/approve/${id}`);
+
+        dispatch({
+            type: PRODUCT_APPROVE_SUCCESS,
+            payload: data.success,
+        });
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_APPROVE_FAIL,
+            payload: error.response.data.message,
+        })
+    }
+}
+
+// Available Product
+
+export const availableProduct = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: PRODUCT_AVAILABLE_REQUEST });
+
+        const { data } = await axios.put(`/api/v1/product/admin/available/${id}`);
+
+        dispatch({
+            type: PRODUCT_AVAILABLE_SUCCESS,
+            payload: data.success,
+        });
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_AVAILABLE_FAIL,
+            payload: error.response.data.message,
+        })
     }
 }
 
