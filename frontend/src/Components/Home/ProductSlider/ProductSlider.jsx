@@ -1,17 +1,19 @@
 // import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-// import { getRandomProducts } from '../../../utils/functions';
+import { getRandomProducts } from '../../../utils/functions';
 import { settings } from '../DealSlider/DealSlider';
 import Product from './Product';
-import products from '../../../ProductData';
+import { useSelector } from 'react-redux';
+// import products from '../../../ProductData';
 
 const ProductSlider = ({ title, tagline }) => {
 
     // const { loading, products } = useSelector((state) => state.products);
+    const { loading, products } = useSelector((state) => state.products);
 
     return (
-        <section className="bg-white w-full shadow overflow-hidden">
+        <section className="bg-white w-full shadow ">
             {/* <!-- header --> */}
             <div className="flex px-6 py-4 justify-between items-center">
                 <div className="title flex flex-col gap-0.5">
@@ -21,13 +23,13 @@ const ProductSlider = ({ title, tagline }) => {
                 <Link to="/products" className="bg-primary-blue text-xs font-medium text-white px-5 py-2.5 rounded-sm shadow-lg uppercase">view all</Link>
             </div>
             <hr />
-            {/* {loading ? null : */}
+            {loading ? null :
                 <Slider {...settings} className="flex items-center justify-between p-1">
-                    {products.map((product) => (
+                    {products && getRandomProducts(products, 12).map((product) => (
                         <Product {...product} key={product._id} />
                     ))}
                 </Slider>
-            {/* } */}
+            }
 
         </section>
     );

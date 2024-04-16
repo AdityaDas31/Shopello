@@ -15,6 +15,9 @@ import {
     PRODUCT_AVAILABLE_REQUEST,
     PRODUCT_AVAILABLE_FAIL,
     PRODUCT_AVAILABLE_SUCCESS,
+    SLIDER_PRODUCTS_REQUEST,
+    SLIDER_PRODUCTS_SUCCESS,
+    SLIDER_PRODUCTS_FAIL,
 } from '../constants/productConstants';
 import axios from 'axios';
 
@@ -129,6 +132,25 @@ export const availableProduct = (id) => async (dispatch) => {
         })
     }
 }
+
+// Get All Products ---PRODUCT SLIDER
+export const getSliderProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: SLIDER_PRODUCTS_REQUEST });
+
+        const { data } = await axios.get('/api/v1/product/products/all');
+
+        dispatch({
+            type: SLIDER_PRODUCTS_SUCCESS,
+            payload: data.products,
+        });
+    } catch (error) {
+        dispatch({
+            type: SLIDER_PRODUCTS_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
