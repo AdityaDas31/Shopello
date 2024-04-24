@@ -6,13 +6,15 @@ import { MdSettingsVoice } from "react-icons/md";
 import { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import './Mic.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Searchbar = () => {
     const [keyword, setKeyword] = useState("");
     const [isListening, setIsListening] = useState(false);
     // const [audioContext, setAudioContext] = useState(null);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const startListening = () => {
         const recognition = new window.webkitSpeechRecognition();
@@ -37,7 +39,15 @@ const Searchbar = () => {
 
     }
 
-    const handleSubmit = (e) => { }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const path = location.pathname;
+        if(keyword.trim()){
+            navigate(`/products/${keyword}`);
+        }else(
+            navigate(`/products`)
+        )
+     }
 
     useEffect(() => {
         if(isListening){

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
 import { createProduct, clearErrors } from '../../actions/productActions';
 // import ImageIcon from '@mui/icons-material/Image';
-// import { categories } from '../../utils/constants';
+import { categories } from '../../utils/constants';
 import MetaData from '../Layouts/MetaData';
 import BackdropLoader from '../Layouts/BackdropLoader';
 
@@ -40,15 +40,15 @@ const NewProduct = () => {
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
-    const categories = [
-        "Laptop",
-        "Footwear",
-        "Bottom",
-        "Tops",
-        "Attire",
-        "Camera",
-        "SmartPhones",
-    ];
+    // const categories = [
+    //     "Laptop",
+    //     "Footwear",
+    //     "Bottom",
+    //     "Tops",
+    //     "Attire",
+    //     "Camera",
+    //     "SmartPhones",
+    // ];
 
     // const [logo, setLogo] = useState("");
     // const [logoPreview, setLogoPreview] = useState("");

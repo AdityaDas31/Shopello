@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 // import { clearErrors, getProductDetails, getSimilarProducts, newReview } from '../../actions/productAction';
+import { clearErrors, getProductDetails } from '../../actions/productActions';
 import { NextBtn, PreviousBtn } from '../Home/Banner/Banner';
 import ProductSlider from '../Home/ProductSlider/ProductSlider';
 import Loader from '../Layouts/Loader';
@@ -23,16 +24,18 @@ import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 // import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 // import { addItemsToCart } from '../../actions/cartAction';
-// import { getDeliveryDate, getDiscount } from '../../utils/functions';
+import { getDeliveryDate, getDiscount } from '../../utils/functions';
 // import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
 import MinCategory from '../Layouts/MinCategory';
 import MetaData from '../Layouts/MetaData';
 import product from '../../ProductData';
+import { useAlert } from 'react-alert';
 
 const ProductDetails = () => {
 
     const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
+    // const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert();
     const params = useParams();
     const navigate = useNavigate();
 
@@ -42,7 +45,7 @@ const ProductDetails = () => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
-    // const { product, loading, error } = useSelector((state) => state.productDetails);
+    const { product, loading, error } = useSelector((state) => state.productDetails);
     // const { success, error: reviewError } = useSelector((state) => state.newReview);
     // const { cartItems } = useSelector((state) => state.cart);
     // const { wishlistItems } = useSelector((state) => state.wishlist);
@@ -126,6 +129,15 @@ const ProductDetails = () => {
     //     dispatch(getSimilarProducts(product?.category));
     // }, [dispatch, product, product.category]);
 
+    useEffect(() =>{
+        window.scrollTo(0, 0);
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+        dispatch(getProductDetails(productId))
+    },[dispatch, productId, error, alert])
+
     return (
         <>
             {/* {loading ? <Loader /> : ( */}
@@ -193,7 +205,7 @@ const ProductDetails = () => {
                                     <div className="flex items-baseline gap-2 text-3xl font-medium">
                                         <span className="text-gray-800">₹{product.price?.toLocaleString()}</span>
                                         <span className="text-base text-gray-500 line-through">₹{product.cuttedPrice?.toLocaleString()}</span>
-                                        {/* <span className="text-base text-primary-green">{getDiscount(product.price, product.cuttedPrice)}%&nbsp;off</span> */}
+                                        <span className="text-base text-primary-green">{getDiscount(product.price, product.cuttedPrice)}%&nbsp;off</span>
                                     </div>
                                     {product.stock <= 10 && product.stock > 0 && (
                                         <span className="text-red-500 text-sm font-medium">Hurry, Only {product.stock} left!</span>

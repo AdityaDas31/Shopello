@@ -22,7 +22,8 @@ import NewProduct from './Components/Admin/NewProduct';
 import About from './Components/Layouts/About/About';
 import Products from './Components/Products/Products'
 import Contact from './Components/Layouts/Contact/Contact';
-// import Cart from './Components/Cart/Cart';
+import Cart from './Components/Cart/Cart';
+import ProductDetails from './Components/ProductDetails/ProductDetails';
 import { CardTravel } from '@mui/icons-material';
 
 
@@ -50,8 +51,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
-        {/* <Route path="/cart" element={<Cart />} /> */}
+        <Route path="/cart" element={<Cart />} />
   
 
         <Route path="/admin/dashboard" element={

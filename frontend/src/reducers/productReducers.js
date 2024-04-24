@@ -17,10 +17,14 @@ import {
     PRODUCT_AVAILABLE_SUCCESS,
     PRODUCT_AVAILABLE_RESET,
     PRODUCT_AVAILABLE_FAIL,
-    CLEAR_ERRORS,
     SLIDER_PRODUCTS_REQUEST,
     SLIDER_PRODUCTS_SUCCESS,
     SLIDER_PRODUCTS_FAIL,
+    PRODUCT_DETAILS_FAIL,
+    PRODUCT_DETAILS_REQUEST,
+    PRODUCT_DETAILS_SUCCESS,
+    REMOVE_PRODUCT_DETAILS,
+    CLEAR_ERRORS,
 } from '../constants/productConstants';
 
 
@@ -37,6 +41,9 @@ export const productReducers = (state = { product: [] }, action) => {
             return {
                 loading: false,
                 products: action.payload.products,
+                productsCount: action.payload.productsCount,
+                resultPerPage: action.payload.resultPerPage,
+                filteredProductsCount: action.payload.filteredProductsCount,
             };
         case ADMIN_PRODUCT_SUCCESS:
         case SLIDER_PRODUCTS_SUCCESS:
@@ -134,6 +141,38 @@ export const productReducer = (state = {}, action) => {
                 ...state,
                 isAvailable: false,
             }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export const productDetailsReducer = (state = { product: {} }, { type, payload }) => {
+    switch (type) {
+        case PRODUCT_DETAILS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case PRODUCT_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                product: payload,
+            };
+        case PRODUCT_DETAILS_FAIL:
+            return {
+                loading: false,
+                error: payload,
+            };
+        case REMOVE_PRODUCT_DETAILS:
+            return {
+                ...state,
+                product: {},
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,

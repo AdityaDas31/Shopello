@@ -11,13 +11,16 @@ import {
     PRODUCT_APPROVE_REQUEST,
     PRODUCT_APPROVE_SUCCESS,
     PRODUCT_APPROVE_FAIL,
-    CLEAR_ERRORS,
     PRODUCT_AVAILABLE_REQUEST,
     PRODUCT_AVAILABLE_FAIL,
     PRODUCT_AVAILABLE_SUCCESS,
     SLIDER_PRODUCTS_REQUEST,
     SLIDER_PRODUCTS_SUCCESS,
     SLIDER_PRODUCTS_FAIL,
+    PRODUCT_DETAILS_REQUEST,
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_DETAILS_FAIL,
+    CLEAR_ERRORS,
 } from '../constants/productConstants';
 import axios from 'axios';
 
@@ -72,12 +75,18 @@ export const getAdminProduct = () => async (dispatch) => {
 
 // Get All Product
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (keyword="", currentPage = 1, price=[0,200000],category, ratings = 0) => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCTS_REQUEST });
 
         // const { data } = await axios.get(`http://localhost:5000/api/v1/product/products`);
-        const { data } = await axios.get(`/api/v1/product/products`);
+        // const { data } = await axios.get(`/api/v1/product/products`);
+        let link = `/api/v1/product/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+        if(category){
+            link = `/api/v1/product/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        } 
+
+        const { data } = await axios.get(link);
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -147,6 +156,25 @@ export const getSliderProducts = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: SLIDER_PRODUCTS_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+// Get Product Details
+export const getProductDetails = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: PRODUCT_DETAILS_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/product/product/${id}`);
+
+        dispatch({
+            type: PRODUCT_DETAILS_SUCCESS,
+            payload: data.product,
+        });
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_DETAILS_FAIL,
             payload: error.response.data.message,
         });
     }
