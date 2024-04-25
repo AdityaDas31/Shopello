@@ -82,7 +82,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
     });
 });
 
-// Get All Product -- Admi
+// Get All Product -- Admin
 
 exports.getAdminProduct = catchAsyncError(async (req, res, next) => {
 
@@ -102,7 +102,7 @@ exports.getProductDetails = catchAsyncError(async (req, res, next) => {
 
     const product = await Product.findById(req.params.id).populate({
         path: 'user',
-        select: 'name',
+        select: 'name avatar',
     }).exec();
 
     if (!product) {

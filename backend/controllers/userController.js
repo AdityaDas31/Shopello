@@ -326,3 +326,15 @@ The Team Shopello`;
         return next(new ErrorHandler(error.message, 500));
     }
 }) 
+
+
+// Get All Users --ADMIN
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});

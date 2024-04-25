@@ -25,7 +25,7 @@ import TextField from '@mui/material/TextField';
 // import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 // import { addItemsToCart } from '../../actions/cartAction';
 import { getDeliveryDate, getDiscount } from '../../utils/functions';
-// import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
+import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
 import MinCategory from '../Layouts/MinCategory';
 import MetaData from '../Layouts/MetaData';
 import product from '../../ProductData';
@@ -48,7 +48,7 @@ const ProductDetails = () => {
     const { product, loading, error } = useSelector((state) => state.productDetails);
     // const { success, error: reviewError } = useSelector((state) => state.newReview);
     // const { cartItems } = useSelector((state) => state.cart);
-    // const { wishlistItems } = useSelector((state) => state.wishlist);
+    const { wishlistItems } = useSelector((state) => state.wishlist);
 
     const settings = {
         autoplay: true,
@@ -63,16 +63,18 @@ const ProductDetails = () => {
     };
 
     const productId = params.id;
-    // const itemInWishlist = wishlistItems.some((i) => i.product === productId);
+    const itemInWishlist = wishlistItems.some((i) => i.product === productId);
 
     const addToWishlistHandler = () => {
-        // if (itemInWishlist) {
-        //     dispatch(removeFromWishlist(productId));
-        //     enqueueSnackbar("Remove From Wishlist", { variant: "success" });
-        // } else {
-        //     dispatch(addToWishlist(productId));
-        //     enqueueSnackbar("Added To Wishlist", { variant: "success" });
-        // }
+        if (itemInWishlist) {
+            dispatch(removeFromWishlist(productId));
+            // enqueueSnackbar("Remove From Wishlist", { variant: "success" });
+            alert.show("Removed from Wishlist!");
+        } else {
+            dispatch(addToWishlist(productId));
+            // enqueueSnackbar("Added To Wishlist", { variant: "success" });
+            alert.success("Added to Wishlist!");
+        }
     }
 
     const reviewSubmitHandler = () => {
@@ -160,10 +162,11 @@ const ProductDetails = () => {
                                             ))}
                                         </Slider>
                                         <div className="absolute top-4 right-4 shadow-lg bg-white w-9 h-9 border flex items-center justify-center rounded-full">
-                                            {/* <span 
+                                            <span 
                                             onClick={addToWishlistHandler} 
-                                            className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span> */}
+                                            className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span>
                                         </div>
+                                        
                                     </div>
 
                                     <div className="w-full flex gap-3">
@@ -224,7 +227,7 @@ const ProductDetails = () => {
 
                                     {/* <!-- warranty & brand --> */}
                                     <div className="flex gap-8 mt-2 items-center text-sm">
-                                        <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.brand?.logo.url} alt={product.brand && product.brand.name} />
+                                        {/* <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.brand?.logo.url} alt={product.user.name} /> */}
                                         <span>{product.warranty} Year Warranty <Link className="font-medium text-primary-blue" to="/">Know More</Link></span>
                                     </div>
                                     {/* <!-- warranty & brand --> */}
@@ -274,7 +277,7 @@ const ProductDetails = () => {
                                     {/* <!-- seller details --> */}
                                     <div className="flex gap-16 mt-4 items-center text-sm font-medium">
                                         <p className="text-gray-500">Seller</p>
-                                        <Link className="font-medium text-primary-blue ml-3" to="/">{product.brand && product.brand.name}</Link>
+                                        {/* <Link className="font-medium text-primary-blue ml-3" to="/">{product.user.name}</Link> */}
                                     </div>
                                     {/* <!-- seller details --> */}
 

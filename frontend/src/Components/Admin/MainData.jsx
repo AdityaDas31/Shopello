@@ -1,34 +1,35 @@
-// import { useEffect } from 'react';
-// import Chart from 'chart.js/auto';
+import { useEffect } from 'react';
+import Chart from 'chart.js/auto';
 import { Doughnut, Line, Pie, Bar } from 'react-chartjs-2';
 // import { getAdminProducts } from '../../actions/productAction';
-// import { useSelector, useDispatch } from 'react-redux';
+import { getAdminProduct } from '../../actions/productActions';
+import { useSelector, useDispatch } from 'react-redux';
 // import { getAllOrders } from '../../actions/orderAction';
-// import { getAllUsers } from '../../actions/userAction';
-// import { categories } from '../../utils/constants';
+import { getAllUsers } from '../../actions/userActions';
+import { categories } from '../../utils/constants';
 // import MetaData from '../Layouts/MetaData';
 
 const MainData = () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const { products } = useSelector((state) => state.products);
+    const { products } = useSelector((state) => state.products);
     // const { orders } = useSelector((state) => state.allOrders);
-    // const { users } = useSelector((state) => state.users);
+    const { users } = useSelector((state) => state.users);
 
-    // let outOfStock = 0;
+    let outOfStock = 0;
 
-    // products?.forEach((item) => {
-    //     if (item.stock === 0) {
-    //         outOfStock += 1;
-    //     }
-    // });
+    products?.forEach((item) => {
+        if (item.stock === 0) {
+            outOfStock += 1;
+        }
+    });
 
-    // useEffect(() => {
-    //     dispatch(getAdminProducts());
-    //     dispatch(getAllOrders());
-    //     dispatch(getAllUsers());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(getAdminProduct());
+        // dispatch(getAllOrders());
+        dispatch(getAllUsers());
+    }, [dispatch]);
 
     // let totalAmount = orders?.reduce((total, order) => total + order.totalPrice, 0);
 
@@ -71,26 +72,27 @@ const MainData = () => {
         ],
     };
 
+    const productsArray = products || [];
     const doughnutState = {
         labels: ['Out of Stock', 'In Stock'],
         datasets: [
             {
                 backgroundColor: ['#ef4444', '#22c55e'],
                 hoverBackgroundColor: ['#dc2626', '#16a34a'],
-                // data: [outOfStock, products.length - outOfStock],
+                data: [outOfStock, productsArray.length - outOfStock],
             },
         ],
     };
 
     const barState = {
-        // labels: categories,
+        labels: categories,
         datasets: [
             {
                 label: "Products",
                 borderColor: '#9333ea',
                 backgroundColor: '#9333ea',
                 hoverBackgroundColor: '#6b21a8',
-                // data: categories.map((cat) => products?.filter((item) => item.category === cat).length),
+                data: categories.map((cat) => products?.filter((item) => item.category === cat).length),
             },
         ],
     };
@@ -110,11 +112,11 @@ const MainData = () => {
                 </div>
                 <div className="flex flex-col bg-yellow-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">Total Products</h4>
-                    {/* <h2 className="text-2xl font-bold">{products?.length}</h2> */}
+                    <h2 className="text-2xl font-bold">{products?.length}</h2>
                 </div>
                 <div className="flex flex-col bg-green-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">Total Users</h4>
-                    {/* <h2 className="text-2xl font-bold">{users?.length}</h2> */}
+                    <h2 className="text-2xl font-bold">{users?.length}</h2>
                 </div>
             </div>
 
@@ -131,12 +133,12 @@ const MainData = () => {
 
             <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full mb-6">
                 <div className="bg-white rounded-xl h-auto w-full shadow-lg p-2">
-                    {/* <Bar data={barState} /> */}
+                    <Bar data={barState} />
                 </div>
 
                 <div className="bg-white rounded-xl shadow-lg p-4 text-center">
                     <span className="font-medium uppercase text-gray-800">Stock Status</span>
-                    {/* <Doughnut data={doughnutState} /> */}
+                    <Doughnut data={doughnutState} />
                 </div>
             </div>
         </>

@@ -16,6 +16,9 @@ import {
     OTP_LOGIN_REQUEST,
     OTP_LOGIN_SUCCESS,
     OTP_LOGIN_FAIL,
+    ALL_USERS_REQUEST,
+    ALL_USERS_SUCCESS,
+    ALL_USERS_FAIL,
     CLEAR_ERRORS,
 } from '../constants/userConstants';
 import axios from 'axios';
@@ -141,6 +144,25 @@ export const loginOtp = (email, otp) => async(dispatch) =>{
         })
     }
 }
+
+// Get All Users ---ADMIN
+export const getAllUsers = () => async (dispatch) => {
+    try {
+
+        dispatch({ type: ALL_USERS_REQUEST });
+        const { data } = await axios.get('/api/v1/user/admin/users');
+        dispatch({
+            type: ALL_USERS_SUCCESS,
+            payload: data.users,
+        });
+
+    } catch (error) {
+        dispatch({
+            type: ALL_USERS_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 // Clearing Errors
 

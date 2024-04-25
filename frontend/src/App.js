@@ -25,6 +25,8 @@ import Contact from './Components/Layouts/Contact/Contact';
 import Cart from './Components/Cart/Cart';
 import ProductDetails from './Components/ProductDetails/ProductDetails';
 import { CardTravel } from '@mui/icons-material';
+import Wishlist from './Components/Wishlist/Wishlist';
+import ProtectedRoute from './Routes/ProtectedRoute';
 
 
 
@@ -53,44 +55,68 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
+        <Route path="/account" element={
+          <ProtectedRoute>
+            <Account />
+          </ProtectedRoute>
+        } ></Route>
         <Route path="/cart" element={<Cart />} />
-  
+
+        <Route path="/wishlist" element={
+
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+
+        } ></Route>
+
 
         <Route path="/admin/dashboard" element={
-          <Dashboard activeTab={0}>
-            <MainData />
-          </Dashboard>
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={0}>
+              <MainData />
+            </Dashboard>
+          </ProtectedRoute>
         } ></Route>
 
         <Route path="/admin/orders" element={
-          <Dashboard activeTab={1}>
-            <OrderTable />
-          </Dashboard>
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={1}>
+              <OrderTable />
+            </Dashboard>
+          </ProtectedRoute>
         } ></Route>
 
-        <Route path="/admin/orders/:id" element={
-          <Dashboard activeTab={1}>
-            <UpdateOrder />
-          </Dashboard>
+        <Route path="/admin/order/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={1}>
+              <UpdateOrder />
+            </Dashboard>
+          </ProtectedRoute>
         } ></Route>
 
         <Route path="/admin/products" element={
-          <Dashboard activeTab={2}>
-            <ProductTable />
-          </Dashboard>
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={2}>
+              <ProductTable />
+            </Dashboard>
+          </ProtectedRoute>
         } ></Route>
 
-        <Route path='/admin/new_product' element={ 
-          <Dashboard>
-            <NewProduct/>
-          </Dashboard>
-         }></Route>
+        <Route path="/admin/new_product" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={3}>
+              <NewProduct />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
 
         <Route path="/admin/users" element={
+          <ProtectedRoute isAdmin={true}>
             <Dashboard activeTab={4}>
               <UserTable />
             </Dashboard>
+          </ProtectedRoute>
         } ></Route>
 
         <Route path='/*' element={<NotFound />} />
