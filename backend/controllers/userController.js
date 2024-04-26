@@ -354,3 +354,39 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
         success: true
     });
 });
+
+// Update User Role --ADMIN
+exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        gender: req.body.gender,
+        role: req.body.role,
+    }
+
+    await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({
+        success: true,
+    });
+});
+
+// Get Single User Details --ADMIN
+exports.getSingleUser = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if(!user) {
+        return next(new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});

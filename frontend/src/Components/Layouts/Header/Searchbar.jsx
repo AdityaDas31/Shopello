@@ -1,10 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import MicIcon from '@mui/icons-material/Mic';
-// import SettingsVoiceIcon from '@mui/icons-material/SettingsVoice';
 import { MdSettingsVoice } from "react-icons/md";
-// import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import './Mic.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -41,7 +38,7 @@ const Searchbar = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const path = location.pathname;
+        // const path = location.pathname;
         if(keyword.trim()){
             navigate(`/products/${keyword}`);
         }else(

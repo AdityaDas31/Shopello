@@ -27,6 +27,8 @@ import ProductDetails from './Components/ProductDetails/ProductDetails';
 import { CardTravel } from '@mui/icons-material';
 import Wishlist from './Components/Wishlist/Wishlist';
 import ProtectedRoute from './Routes/ProtectedRoute';
+import Shipping from "./Components/Cart/Shipping";
+import UpdateUser from "./Components/Admin/UpdateUser";
 
 
 
@@ -68,6 +70,12 @@ function App() {
             <Wishlist />
           </ProtectedRoute>
 
+        } ></Route>
+
+        <Route path="/shipping" element={
+          <ProtectedRoute>
+            <Shipping />
+          </ProtectedRoute>
         } ></Route>
 
 
@@ -115,6 +123,14 @@ function App() {
           <ProtectedRoute isAdmin={true}>
             <Dashboard activeTab={4}>
               <UserTable />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/admin/user/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={4}>
+              <UpdateUser />
             </Dashboard>
           </ProtectedRoute>
         } ></Route>

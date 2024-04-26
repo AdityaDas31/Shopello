@@ -4,7 +4,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PriceSidebar from './PriceSidebar';
 import Stepper from './Stepper';
 import { useSnackbar } from 'notistack';
@@ -15,7 +15,7 @@ import states from '../../utils/states';
 
 const Shipping = () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const navigate = useNavigate();
     // const { enqueueSnackbar } = useSnackbar();
 
@@ -24,12 +24,12 @@ const Shipping = () => {
 
     const [address, setAddress] = useState(shippingInfo.address);
     const [city, setCity] = useState(shippingInfo.city);
-    // const [country, setCountry] = useState('IN');
+    const [country, setCountry] = useState('IN');
     const [state, setState] = useState(shippingInfo.state);
     const [pincode, setPincode] = useState(shippingInfo.pincode);
     const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
 
-    // const shippingSubmit = (e) => {
+    const shippingSubmit = (e) => {
     //     e.preventDefault();
 
     //     if (phoneNo.length < 10 || phoneNo.length > 10) {
@@ -38,7 +38,7 @@ const Shipping = () => {
     //     }
     //     dispatch(saveShippingInfo({ address, city, country, state, pincode, phoneNo }));
     //     navigate("/order/confirm");
-    // }
+    }
 
     return (
         <>
@@ -112,7 +112,7 @@ const Shipping = () => {
                                                 defaultValue={country}
                                                 disabled
                                                 label="Country"
-                                                // onChange={(e) => setCountry(e.target.value)}
+                                                onChange={(e) => setCountry(e.target.value)}
                                             >
                                                 <MenuItem value={'IN'}>India</MenuItem>
                                             </Select>

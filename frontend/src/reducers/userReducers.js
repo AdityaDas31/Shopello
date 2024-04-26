@@ -24,6 +24,14 @@ import {
     DELETE_USER_FAIL,
     DELETE_USER_RESET,
     CLEAR_ERRORS,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_RESET,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL,
+    REMOVE_USER_DETAILS,
 } from '../constants/userConstants';
 
 // Register 
@@ -131,9 +139,17 @@ export const allUsersReducer = (state = { users: [] }, { type, payload }) => {
 export const profileReducer = (state = {}, { type, payload }) => {
     switch (type) {
         case DELETE_USER_REQUEST:
+        case UPDATE_USER_REQUEST:
             return {
                 ...state,
                 loading: true,
+            };
+
+        case UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: payload,
             };
         case DELETE_USER_SUCCESS:
             return {
@@ -142,10 +158,16 @@ export const profileReducer = (state = {}, { type, payload }) => {
                 isDeleted: payload,
             };
         case DELETE_USER_FAIL:
+        case UPDATE_USER_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: payload,
+            }
+        case UPDATE_USER_RESET:
+            return {
+                ...state,
+                isUpdated: false,
             }
         case DELETE_USER_RESET:
             return {
@@ -161,3 +183,37 @@ export const profileReducer = (state = {}, { type, payload }) => {
             return state;
     }
 }
+
+export const userDetailsReducer = (state = { user: {} }, { type, payload }) => {
+    switch (type) {
+        case USER_DETAILS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case USER_DETAILS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                user: payload,
+            };
+        case USER_DETAILS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+        case REMOVE_USER_DETAILS:
+            return {
+                ...state,
+                user: {},
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};

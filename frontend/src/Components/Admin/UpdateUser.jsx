@@ -2,7 +2,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { clearErrors, getUserDetails, updateUser } from '../../actions/userAction';
+import { clearErrors, getUserDetails, updateUser } from '../../actions/userActions';
 import { UPDATE_USER_RESET, REMOVE_USER_DETAILS } from '../../constants/userConstants';
 import Loading from './Loading';
 import Avatar from '@mui/material/Avatar';
@@ -11,8 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
-// import MetaData from '../Layouts/MetaData';
-// import BackdropLoader from '../Layouts/BackdropLoader';
+import MetaData from '../Layouts/MetaData';
+import BackdropLoader from '../Layouts/BackdropLoader';
 
 const UpdateUser = () => {
 
@@ -26,7 +26,7 @@ const UpdateUser = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [gender, setGender] = useState("");
+    // const [gender, setGender] = useState("");
     const [role, setRole] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("");
 
@@ -38,7 +38,7 @@ const UpdateUser = () => {
         const formData = new FormData();
         formData.set("name", name);
         formData.set("email", email);
-        formData.set("gender", gender);
+        // formData.set("gender", gender);
         formData.set("role", role);
 
         dispatch(updateUser(userId, formData));
@@ -50,7 +50,7 @@ const UpdateUser = () => {
         } else {
             setName(user.name);
             setEmail(user.email);
-            setGender(user.gender);
+            // setGender(user.gender);
             setRole(user.role);
             setAvatarPreview(user.avatar.url);
         }
@@ -72,9 +72,9 @@ const UpdateUser = () => {
 
     return (
         <>
-            {/* <MetaData title="Admin: Update User | Flipkart" />
+            <MetaData title="Admin: Update User | Flipkart" />
 
-            {updateLoading && <BackdropLoader />} */}
+            {updateLoading && <BackdropLoader />}
 
             {loading ? <Loading /> : (
                 <>
@@ -110,7 +110,7 @@ const UpdateUser = () => {
                                 {/* <!-- input container column --> */}
 
                                 {/* <!-- gender input --> */}
-                                <div className="flex gap-4 items-center">
+                                {/* <div className="flex gap-4 items-center">
                                     <h2 className="text-md">Your Gender :</h2>
                                     <div className="flex items-center gap-6" id="radioInput">
                                         <RadioGroup
@@ -122,7 +122,7 @@ const UpdateUser = () => {
                                             <FormControlLabel name="gender" value="female" checked={gender === "female"} onChange={(e) => setGender(e.target.value)} control={<Radio required />} label="Female" />
                                         </RadioGroup>
                                     </div>
-                                </div>
+                                </div> */}
                                 {/* <!-- gender input --> */}
 
                                 <div className="flex flex-col w-full justify-between sm:flex-row gap-3 items-center">
