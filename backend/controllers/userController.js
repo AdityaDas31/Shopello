@@ -338,3 +338,19 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
         users,
     });
 });
+
+// Delete User --ADMIN
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if(!user) {
+        return next(new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404));
+    }
+
+    await User.deleteOne({ _id: user._id });
+
+    res.status(200).json({
+        success: true
+    });
+});

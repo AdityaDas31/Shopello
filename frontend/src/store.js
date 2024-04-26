@@ -1,9 +1,10 @@
 import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux';
 import { thunk } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { allUsersReducer, userReducer } from './reducers/userReducers';
+import { allUsersReducer, profileReducer, userReducer } from './reducers/userReducers';
 import { newProductReducer, productDetailsReducer, productReducer, productReducers } from './reducers/productReducers';
 import { wishlistReducer } from './reducers/wishlistReducer';
+import { cartReducer } from './reducers/cartReducers';
 
 
 const reducer = combineReducers({
@@ -14,6 +15,8 @@ const reducer = combineReducers({
     productDetails: productDetailsReducer,
     wishlist: wishlistReducer,
     users: allUsersReducer,
+    cart: cartReducer,
+    profile: profileReducer,
 });
 
 let initialState = {
@@ -21,6 +24,14 @@ let initialState = {
         wishlistItems: localStorage.getItem('wishlistItems')
             ? JSON.parse(localStorage.getItem('wishlistItems'))
             : [],
+    },
+    cart: {
+        cartItems: localStorage.getItem('cartItems')
+            ? JSON.parse(localStorage.getItem('cartItems'))
+            : [],
+        shippingInfo: localStorage.getItem("shippingInfo")
+            ? JSON.parse(localStorage.getItem("shippingInfo"))
+            : {},
     },
 };
 

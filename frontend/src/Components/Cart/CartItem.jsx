@@ -1,8 +1,8 @@
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
-import { addItemsToCart, removeItemsFromCart } from '../../actions/cartAction';
+import { addItemsToCart, removeItemsFromCart } from '../../actions/cartActions';
 import { getDeliveryDate, getDiscount } from '../../utils/functions';
-import { saveForLater } from '../../actions/saveForLaterAction';
+// import { saveForLater } from '../../actions/saveForLaterAction';
 import { Link } from 'react-router-dom';
 
 const CartItem = ({ product, name, seller, price, cuttedPrice, image, stock, quantity, inCart }) => {
@@ -31,9 +31,9 @@ const CartItem = ({ product, name, seller, price, cuttedPrice, image, stock, qua
     }
 
     const saveForLaterHandler = (id) => {
-        dispatch(saveForLater(id));
-        removeCartItem(id);
-        enqueueSnackbar("Saved For Later", { variant: "success" });
+        // dispatch(saveForLater(id));
+        // removeCartItem(id);
+        // enqueueSnackbar("Saved For Later", { variant: "success" });
     }
 
     return (

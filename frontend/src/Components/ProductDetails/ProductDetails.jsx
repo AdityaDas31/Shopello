@@ -1,4 +1,3 @@
-import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -23,18 +22,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 // import { NEW_REVIEW_RESET } from '../../constants/productConstants';
-// import { addItemsToCart } from '../../actions/cartAction';
+import { addItemsToCart } from '../../actions/cartActions';
 import { getDeliveryDate, getDiscount } from '../../utils/functions';
 import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
 import MinCategory from '../Layouts/MinCategory';
 import MetaData from '../Layouts/MetaData';
-import product from '../../ProductData';
 import { useAlert } from 'react-alert';
 
 const ProductDetails = () => {
 
     const dispatch = useDispatch();
-    // const { enqueueSnackbar } = useSnackbar();
     const alert = useAlert();
     const params = useParams();
     const navigate = useNavigate();
@@ -47,7 +44,7 @@ const ProductDetails = () => {
 
     const { product, loading, error } = useSelector((state) => state.productDetails);
     // const { success, error: reviewError } = useSelector((state) => state.newReview);
-    // const { cartItems } = useSelector((state) => state.cart);
+    const { cartItems } = useSelector((state) => state.cart);
     const { wishlistItems } = useSelector((state) => state.wishlist);
 
     const settings = {
@@ -91,15 +88,16 @@ const ProductDetails = () => {
     }
 
     const addToCartHandler = () => {
-        // dispatch(addItemsToCart(productId));
+        dispatch(addItemsToCart(productId));
         // enqueueSnackbar("Product Added To Cart", { variant: "success" });
+        alert.success('Item added to cart!');
     }
 
     const handleDialogClose = () => {
         setOpen(!open);
     }
 
-    // const itemInCart = cartItems.some((i) => i.product === productId);
+    const itemInCart = cartItems.some((i) => i.product === productId);
 
     const goToCart = () => {
         navigate('/cart');
@@ -142,7 +140,7 @@ const ProductDetails = () => {
 
     return (
         <>
-            {/* {loading ? <Loader /> : ( */}
+            {loading ? <Loader /> : (
                 <>
                     <MetaData title={product.name} />
                     <MinCategory />
@@ -171,12 +169,12 @@ const ProductDetails = () => {
 
                                     <div className="w-full flex gap-3">
                                         {/* <!-- add to cart btn --> */}
-                                        {/* {product.stock > 0 && (
+                                        {product.stock > 0 && (
                                             <button onClick={itemInCart ? goToCart : addToCartHandler} className="p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-yellow rounded-sm shadow hover:shadow-lg">
                                                 <ShoppingCartIcon />
                                                 {itemInCart ? "GO TO CART" : "ADD TO CART"}
                                             </button>
-                                        )} */}
+                                        )}
                                         <button onClick={buyNow} disabled={product.stock < 1 ? true : false} className={product.stock < 1 ? "p-4 w-full flex items-center justify-center gap-2 text-white bg-red-600 cursor-not-allowed rounded-sm shadow hover:shadow-lg" : "p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-orange rounded-sm shadow hover:shadow-lg"}>
                                             <FlashOnIcon />
                                             {product.stock < 1 ? "OUT OF STOCK" : "BUY NOW"}
@@ -227,7 +225,9 @@ const ProductDetails = () => {
 
                                     {/* <!-- warranty & brand --> */}
                                     <div className="flex gap-8 mt-2 items-center text-sm">
-                                        {/* <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.brand?.logo.url} alt={product.user.name} /> */}
+                                        {product.user && (
+                                            <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.user.avatar.url} alt={product.user.name}/>
+                                        )}
                                         <span>{product.warranty} Year Warranty <Link className="font-medium text-primary-blue" to="/">Know More</Link></span>
                                     </div>
                                     {/* <!-- warranty & brand --> */}
@@ -235,7 +235,7 @@ const ProductDetails = () => {
                                     {/* <!-- delivery details --> */}
                                     <div className="flex gap-16 mt-4 items-center text-sm font-medium">
                                         <p className="text-gray-500">Delivery</p>
-                                        {/* <span>Delivery by {getDeliveryDate()}</span> */}
+                                        <span>Delivery by {getDeliveryDate()}</span>
                                     </div>
                                     {/* <!-- delivery details --> */}
 
@@ -277,7 +277,7 @@ const ProductDetails = () => {
                                     {/* <!-- seller details --> */}
                                     <div className="flex gap-16 mt-4 items-center text-sm font-medium">
                                         <p className="text-gray-500">Seller</p>
-                                        {/* <Link className="font-medium text-primary-blue ml-3" to="/">{product.user.name}</Link> */}
+                                        {product.user && <Link className="font-medium text-primary-blue ml-3" to="/">{product.user.name}</Link>}
                                     </div>
                                     {/* <!-- seller details --> */}
 
@@ -400,7 +400,7 @@ const ProductDetails = () => {
 
                     </main>
                 </>
-            {/* )} */}
+            )} 
         </>
     );
 };

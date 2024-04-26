@@ -19,7 +19,11 @@ import {
     ALL_USERS_REQUEST,
     ALL_USERS_SUCCESS,
     ALL_USERS_FAIL,
-    CLEAR_ERRORS
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
+    DELETE_USER_RESET,
+    CLEAR_ERRORS,
 } from '../constants/userConstants';
 
 // Register 
@@ -123,3 +127,37 @@ export const allUsersReducer = (state = { users: [] }, { type, payload }) => {
             return state;
     }
 };
+
+export const profileReducer = (state = {}, { type, payload }) => {
+    switch (type) {
+        case DELETE_USER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case DELETE_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: payload,
+            };
+        case DELETE_USER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            }
+        case DELETE_USER_RESET:
+            return {
+                ...state,
+                isDeleted: false,
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
