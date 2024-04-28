@@ -30,11 +30,13 @@ app.use(fileUpload());
 const user = require("./routes/userRoutes");
 const product = require("./routes/productRoutes");
 const payment = require("./routes/paymentRoutes");
+const order = require("./routes/orderRoute");
 
 // Config api
 app.use("/api/v1/user",user);
 app.use("/api/v1/product",product);
 app.use("/api/v1/payment",payment);
+app.use("/api/v1", order);
 
 
 

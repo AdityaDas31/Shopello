@@ -29,6 +29,8 @@ import Wishlist from './Components/Wishlist/Wishlist';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import Shipping from "./Components/Cart/Shipping";
 import UpdateUser from "./Components/Admin/UpdateUser";
+import OrderConfiem from './Components/Cart/OrderConfirm'
+import Payment from './Components/Cart/Payment';
 
 
 
@@ -75,6 +77,22 @@ function App() {
         <Route path="/shipping" element={
           <ProtectedRoute>
             <Shipping />
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/order/confirm" element={
+          <ProtectedRoute>
+            <OrderConfiem />
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/process/payment" element={
+          <ProtectedRoute>
+            {/* // stripeApiKey && ( */}
+            {/* // <Elements stripe={loadStripe(stripeApiKey)}> */}
+            <Payment />
+            {/* // </Elements> */}
+            {/* ) */}
           </ProtectedRoute>
         } ></Route>
 
