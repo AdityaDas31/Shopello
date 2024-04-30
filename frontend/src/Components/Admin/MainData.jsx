@@ -1,20 +1,19 @@
 import { useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import { Doughnut, Line, Pie, Bar } from 'react-chartjs-2';
-// import { getAdminProducts } from '../../actions/productAction';
 import { getAdminProduct } from '../../actions/productActions';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getAllOrders } from '../../actions/orderAction';
+import { getAllOrders } from '../../actions/orderAction';
 import { getAllUsers } from '../../actions/userActions';
 import { categories } from '../../utils/constants';
-// import MetaData from '../Layouts/MetaData';
+import MetaData from '../Layouts/MetaData';
 
 const MainData = () => {
 
     const dispatch = useDispatch();
 
     const { products } = useSelector((state) => state.products);
-    // const { orders } = useSelector((state) => state.allOrders);
+    const { orders } = useSelector((state) => state.allOrders);
     const { users } = useSelector((state) => state.users);
 
     let outOfStock = 0;
@@ -27,11 +26,11 @@ const MainData = () => {
 
     useEffect(() => {
         dispatch(getAdminProduct());
-        // dispatch(getAllOrders());
+        dispatch(getAllOrders());
         dispatch(getAllUsers());
     }, [dispatch]);
 
-    // let totalAmount = orders?.reduce((total, order) => total + order.totalPrice, 0);
+    let totalAmount = orders?.reduce((total, order) => total + order.totalPrice, 0);
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const date = new Date();
@@ -42,19 +41,19 @@ const MainData = () => {
                 label: `Sales in ${date.getFullYear() - 2}`,
                 borderColor: '#8A39E1',
                 backgroundColor: '#8A39E1',
-                // data: months.map((m, i) => orders?.filter((od) => new Date(od.createdAt).getMonth() === i && new Date(od.createdAt).getFullYear() === date.getFullYear() - 2).reduce((total, od) => total + od.totalPrice, 0)),
+                data: months.map((m, i) => orders?.filter((od) => new Date(od.createdAt).getMonth() === i && new Date(od.createdAt).getFullYear() === date.getFullYear() - 2).reduce((total, od) => total + od.totalPrice, 0)),
             },
             {
                 label: `Sales in ${date.getFullYear() - 1}`,
                 borderColor: 'orange',
                 backgroundColor: 'orange',
-                // data: months.map((m, i) => orders?.filter((od) => new Date(od.createdAt).getMonth() === i && new Date(od.createdAt).getFullYear() === date.getFullYear() - 1).reduce((total, od) => total + od.totalPrice, 0)),
+                data: months.map((m, i) => orders?.filter((od) => new Date(od.createdAt).getMonth() === i && new Date(od.createdAt).getFullYear() === date.getFullYear() - 1).reduce((total, od) => total + od.totalPrice, 0)),
             },
             {
                 label: `Sales in ${date.getFullYear()}`,
                 borderColor: '#4ade80',
                 backgroundColor: '#4ade80',
-                // data: months.map((m, i) => orders?.filter((od) => new Date(od.createdAt).getMonth() === i && new Date(od.createdAt).getFullYear() === date.getFullYear()).reduce((total, od) => total + od.totalPrice, 0)),
+                data: months.map((m, i) => orders?.filter((od) => new Date(od.createdAt).getMonth() === i && new Date(od.createdAt).getFullYear() === date.getFullYear()).reduce((total, od) => total + od.totalPrice, 0)),
             },
         ],
     };
@@ -67,7 +66,7 @@ const MainData = () => {
             {
                 backgroundColor: ['#9333ea', '#facc15', '#4ade80'],
                 hoverBackgroundColor: ['#a855f7', '#fde047', '#86efac'],
-                // data: statuses.map((status) => orders?.filter((item) => item.orderStatus === status).length),
+                data: statuses.map((status) => orders?.filter((item) => item.orderStatus === status).length),
             },
         ],
     };
@@ -99,16 +98,16 @@ const MainData = () => {
 
     return (
         <>
-            {/* <MetaData title="Admin Dashboard | Flipkart" /> */}
+            <MetaData title="Admin Dashboard | Flipkart" />
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-6">
                 <div className="flex flex-col bg-purple-600 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">Total Sales Amount</h4>
-                    {/* <h2 className="text-2xl font-bold">₹{totalAmount?.toLocaleString()}</h2> */}
+                    <h2 className="text-2xl font-bold">₹{totalAmount?.toLocaleString()}</h2>
                 </div>
                 <div className="flex flex-col bg-red-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">Total Orders</h4>
-                    {/* <h2 className="text-2xl font-bold">{orders?.length}</h2> */}
+                    <h2 className="text-2xl font-bold">{orders?.length}</h2>
                 </div>
                 <div className="flex flex-col bg-yellow-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">Total Products</h4>
@@ -122,12 +121,12 @@ const MainData = () => {
 
             <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full">
                 <div className="bg-white rounded-xl h-auto w-full shadow-lg p-2">
-                    {/* <Line data={lineState} /> */}
+                    <Line data={lineState} />
                 </div>
 
                 <div className="bg-white rounded-xl shadow-lg p-4 text-center">
                     <span className="font-medium uppercase text-gray-800">Order Status</span>
-                    {/* <Pie data={pieState} /> */}
+                    <Pie data={pieState} />
                 </div>
             </div>
 

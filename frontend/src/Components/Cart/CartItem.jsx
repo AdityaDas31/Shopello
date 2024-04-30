@@ -1,14 +1,16 @@
 import { useSnackbar } from 'notistack';
+import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { addItemsToCart, removeItemsFromCart } from '../../actions/cartActions';
 import { getDeliveryDate, getDiscount } from '../../utils/functions';
-// import { saveForLater } from '../../actions/saveForLaterAction';
+import { saveForLater } from '../../actions/saveForLaterAction';
 import { Link } from 'react-router-dom';
 
 const CartItem = ({ product, name, seller, price, cuttedPrice, image, stock, quantity, inCart }) => {
 
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert()
 
     const increaseQuantity = (id, quantity, stock) => {
         const newQty = quantity + 1;
@@ -27,12 +29,14 @@ const CartItem = ({ product, name, seller, price, cuttedPrice, image, stock, qua
     
     const removeCartItem = (id) => {
         dispatch(removeItemsFromCart(id));
-        enqueueSnackbar("Product Removed From Cart", { variant: "success" });
+        // enqueueSnackbar("Product Removed From Cart", { variant: "success" });
+        alert.success("Product Removed From Cart");
     }
 
     const saveForLaterHandler = (id) => {
-        // dispatch(saveForLater(id));
-        // removeCartItem(id);
+        dispatch(saveForLater(id));
+        removeCartItem(id);
+        alert.show('Added to Save For Later');
         // enqueueSnackbar("Saved For Later", { variant: "success" });
     }
 

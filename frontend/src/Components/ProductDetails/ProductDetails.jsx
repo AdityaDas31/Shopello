@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 // import { clearErrors, getProductDetails, getSimilarProducts, newReview } from '../../actions/productAction';
-import { clearErrors, getProductDetails } from '../../actions/productActions';
+import { clearErrors, getProductDetails, newReview } from '../../actions/productActions';
 import { NextBtn, PreviousBtn } from '../Home/Banner/Banner';
 import ProductSlider from '../Home/ProductSlider/ProductSlider';
 import Loader from '../Layouts/Loader';
@@ -21,7 +21,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
-// import { NEW_REVIEW_RESET } from '../../constants/productConstants';
+import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 import { addItemsToCart } from '../../actions/cartActions';
 import { getDeliveryDate, getDiscount } from '../../utils/functions';
 import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
@@ -43,7 +43,7 @@ const ProductDetails = () => {
     const [comment, setComment] = useState("");
 
     const { product, loading, error } = useSelector((state) => state.productDetails);
-    // const { success, error: reviewError } = useSelector((state) => state.newReview);
+    const { success, error: reviewError } = useSelector((state) => state.newReview);
     const { cartItems } = useSelector((state) => state.cart);
     const { wishlistItems } = useSelector((state) => state.wishlist);
 
@@ -75,16 +75,17 @@ const ProductDetails = () => {
     }
 
     const reviewSubmitHandler = () => {
-        // if (rating === 0 || !comment.trim()) {
-        //     enqueueSnackbar("Empty Review", { variant: "error" });
-        //     return;
-        // }
-        // const formData = new FormData();
-        // formData.set("rating", rating);
-        // formData.set("comment", comment);
-        // formData.set("productId", productId);
-        // dispatch(newReview(formData));
-        // setOpen(false);
+        if (rating === 0 || !comment.trim()) {
+            // enqueueSnackbar("Empty Review", { variant: "error" });
+            alert.error( "Empty Review" );
+            return;
+        }
+        const formData = new FormData();
+        formData.set("rating", rating);
+        formData.set("comment", comment);
+        formData.set("productId", productId);
+        dispatch(newReview(formData));
+        setOpen(false);
     }
 
     const addToCartHandler = () => {
@@ -108,22 +109,25 @@ const ProductDetails = () => {
         navigate('/shipping');
     }
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (reviewError) {
-    //         enqueueSnackbar(reviewError, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (success) {
-    //         enqueueSnackbar("Review Submitted Successfully", { variant: "success" });
-    //         dispatch({ type: NEW_REVIEW_RESET });
-    //     }
-    //     dispatch(getProductDetails(productId));
-    //     // eslint-disable-next-line
-    // }, [dispatch, productId, error, reviewError, success, enqueueSnackbar]);
+    useEffect(() => {
+        if (error) {
+            // enqueueSnackbar(error, { variant: "error" });
+            alert.error( error );
+            dispatch(clearErrors());
+        }
+        if (reviewError) {
+            // enqueueSnackbar(reviewError, { variant: "error" });
+            alert.error( reviewError );
+            dispatch(clearErrors());
+        }
+        if (success) {
+            // enqueueSnackbar("Review Submitted Successfully", { variant: "success" });
+            alert.success("Review Submitted Successfully");
+            dispatch({ type: NEW_REVIEW_RESET });
+        }
+        dispatch(getProductDetails(productId));
+        // eslint-disable-next-line
+    }, [dispatch, productId, error, reviewError, success, alert]);
 
     // useEffect(() => {
     //     dispatch(getSimilarProducts(product?.category));

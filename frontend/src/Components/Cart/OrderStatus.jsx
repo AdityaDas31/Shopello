@@ -15,38 +15,11 @@ const OrderStatus = () => {
 
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
-    const { loading, txn, error } = useSelector((state) => state.paymentStatus);
     const { loading: orderLoading, order, error: orderError } = useSelector((state) => state.newOrder);
 
     const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    const orderData = {
-        shippingInfo,
-        orderItems: cartItems,
-        totalPrice,
-    }
 
-    useEffect(() => {
-        if (loading === false) {
-            if(txn) {
-                if (txn.status === "TXN_SUCCESS") {
-                    orderData.paymentInfo = {
-                        id: txn.id,
-                        status: txn.status,
-                    };
-    
-                    dispatch(newOrder(orderData));
-    
-                } else {
-                    enqueueSnackbar("Processing Payment Failed!", { variant: "error" });
-                    navigate("/orders/failed");
-                }
-            } else {
-                navigate("/cart");
-            }
-        }
-        // eslint-disable-next-line
-    }, [loading])
 
     useEffect(() => {
         if (orderLoading === false) {
@@ -62,10 +35,6 @@ const OrderStatus = () => {
     }, [orderLoading])
 
     useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
         if (orderError) {
             enqueueSnackbar(orderError, { variant: "error" });
             dispatch(clearErrors());

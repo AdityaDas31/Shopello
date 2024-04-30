@@ -1,7 +1,8 @@
 const catchAsyncError = require('../middleware/catchAsyncError');
 const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
-const ErrorHandler = require('../utils/errorHandler');
+// const ErrorHandler = require('../utils/errorHandler');
+const ErrorHandler = require('../utils/errorhandler');
 const sendEmail = require('../utils/sendEmail');
 
 
@@ -148,7 +149,8 @@ exports.deleteOrder = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("Order Not Found", 404));
     }
 
-    await order.remove();
+    // await order.remove();
+    await order.deleteOne({ _id: order._id });
 
     res.status(200).json({
         success: true,

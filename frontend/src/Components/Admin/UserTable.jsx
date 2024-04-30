@@ -79,13 +79,13 @@ const UserTable = () => {
                 )
             },
         },
-        // {
-        //     field: "registeredOn",
-        //     headerName: "Registered On",
-        //     type: "date",
-        //     minWidth: 150,
-        //     flex: 0.2,
-        // },
+        {
+            field: "registeredOn",
+            headerName: "Registered On",
+            type: "Date",
+            minWidth: 150,
+            flex: 0.2,
+        },
         {
             field: "actions",
             headerName: "Actions",
@@ -110,7 +110,7 @@ const UserTable = () => {
             avatar: item.avatar.url,
             email: item.email,
             role: item.role,
-            // registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
+            registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
         });
     });
 

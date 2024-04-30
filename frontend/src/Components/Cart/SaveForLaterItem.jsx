@@ -1,6 +1,6 @@
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
-import { addItemsToCart } from '../../actions/cartAction';
+import { addItemsToCart } from '../../actions/cartActions';
 import { removeFromSaveForLater } from '../../actions/saveForLaterAction';
 import { getDiscount } from '../../utils/functions';
 

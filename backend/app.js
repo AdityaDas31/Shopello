@@ -35,7 +35,7 @@ const order = require("./routes/orderRoute");
 // Config api
 app.use("/api/v1/user",user);
 app.use("/api/v1/product",product);
-app.use("/api/v1/payment",payment);
+app.use("/api/v1",payment);
 app.use("/api/v1", order);
 
 

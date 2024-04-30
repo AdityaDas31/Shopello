@@ -1,25 +1,36 @@
 import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux';
 import { thunk } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { allUsersReducer, profileReducer, userDetailsReducer, userReducer } from './reducers/userReducers';
-import { newProductReducer, productDetailsReducer, productReducer, productReducers } from './reducers/productReducers';
+import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from './reducers/userReducers';
+import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReducers, productReviewsReducer, reviewReducer } from './reducers/productReducers';
 import { wishlistReducer } from './reducers/wishlistReducer';
 import { cartReducer } from './reducers/cartReducers';
-import { newOrderReducer } from './reducers/orderReducer';
+import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer } from './reducers/orderReducer';
+import { saveForLaterReducer } from './reducers/saveForLaterReducer';
+
 
 
 const reducer = combineReducers({
     user: userReducer,
-    newProduct: newProductReducer,
-    products: productReducers,
-    product: productReducer,
-    productDetails: productDetailsReducer,
-    wishlist: wishlistReducer,
-    users: allUsersReducer,
-    cart: cartReducer,
     profile: profileReducer,
-    userDetails: userDetailsReducer,
+    forgotPassword: forgotPasswordReducer,
+    products: productReducers,
+    productDetails: productDetailsReducer,
+    newReview: newReviewReducer,
+    cart: cartReducer,
+    saveForLater: saveForLaterReducer,
     newOrder: newOrderReducer,
+    myOrders: myOrdersReducer,
+    orderDetails: orderDetailsReducer,
+    allOrders: allOrdersReducer,
+    order: orderReducer,
+    newProduct: newProductReducer,
+    product: productReducer,
+    users: allUsersReducer,
+    userDetails: userDetailsReducer,
+    reviews: productReviewsReducer,
+    review: reviewReducer,
+    wishlist: wishlistReducer,
 });
 
 let initialState = {

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 // import Categories from './Components/Layouts/Categories';
 import Header from './Components/Layouts/Header/Header';
@@ -8,8 +8,8 @@ import Login from './Components/User/Login';
 import Register from './Components/User/Register';
 import LoginWithOpt from './Components/User/LoginWithOpt';
 import { loadUser } from './actions/userActions';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Account from './Components/User/Account';
 import NotFound from './Components/NotFound';
 import Dashboard from './Components/Admin/Dashboard';
@@ -24,31 +24,60 @@ import Products from './Components/Products/Products'
 import Contact from './Components/Layouts/Contact/Contact';
 import Cart from './Components/Cart/Cart';
 import ProductDetails from './Components/ProductDetails/ProductDetails';
-import { CardTravel } from '@mui/icons-material';
 import Wishlist from './Components/Wishlist/Wishlist';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import Shipping from "./Components/Cart/Shipping";
 import UpdateUser from "./Components/Admin/UpdateUser";
 import OrderConfiem from './Components/Cart/OrderConfirm'
 import Payment from './Components/Cart/Payment';
+import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import OrderSuccess from './Components/Cart/OrderSuccess';
+import ReviewsTable from './Components/Admin/ReviewsTable';
+import MyOrders from './Components/Order/MyOrders';
+import OrderDetails from './Components/Order/OrderDetails';
+import UpdateProfile from './Components/User/UpdateProfile';
+import UpdateProduct from './Components/Admin/UpdateProduct';
+import ForgotPassword from './Components/User/ForgotPassword';
+import ResetPassword from './Components/User/ResetPassword';
+import UpdatePassword from './Components/User/UpdatePassword';
 
 
 
 
 
 function App() {
+  const [stripeApiKey, setStriprApiKey] = useState("");
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeApiKey");
+    setStriprApiKey(data.stripeApiKey);
+  }
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadUser())
+    dispatch(loadUser());
+    getStripeApiKey();
   }, [dispatch]);
 
   return (
-    <>
+    <Router>
+
       <Header />
+
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <Routes>
+            <Route path="/process/payment" element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }></Route>
+          </Routes>
+        </Elements>
+      )}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -65,6 +94,15 @@ function App() {
           </ProtectedRoute>
         } ></Route>
         <Route path="/cart" element={<Cart />} />
+
+        <Route path="/password/update" element={
+          <ProtectedRoute>
+            <UpdatePassword />
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         <Route path="/wishlist" element={
 
@@ -86,15 +124,25 @@ function App() {
           </ProtectedRoute>
         } ></Route>
 
-        <Route path="/process/payment" element={
+        <Route path="/orders" element={
           <ProtectedRoute>
-            {/* // stripeApiKey && ( */}
-            {/* // <Elements stripe={loadStripe(stripeApiKey)}> */}
-            <Payment />
-            {/* // </Elements> */}
-            {/* ) */}
+            <MyOrders />
+          </ProtectedRoute>
+        }></Route>
+
+        <Route path="/order_details/:id" element={
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        }></Route>
+
+        <Route path="/account/update" element={
+          <ProtectedRoute>
+            <UpdateProfile />
           </ProtectedRoute>
         } ></Route>
+
+        <Route path="/success" element={<OrderSuccess success={true} />} />
 
 
         <Route path="/admin/dashboard" element={
@@ -137,6 +185,14 @@ function App() {
           </ProtectedRoute>
         } ></Route>
 
+        <Route path="/admin/product/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={2}>
+              <UpdateProduct />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
         <Route path="/admin/users" element={
           <ProtectedRoute isAdmin={true}>
             <Dashboard activeTab={4}>
@@ -153,10 +209,26 @@ function App() {
           </ProtectedRoute>
         } ></Route>
 
+        <Route path="/admin/order/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={1}>
+              <UpdateOrder />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/admin/reviews" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={5}>
+              <ReviewsTable />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
         <Route path='/*' element={<NotFound />} />
       </Routes>
       <Footer />
-    </>
+    </Router>
   );
 }
 

@@ -1,16 +1,15 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PriceSidebar from './PriceSidebar';
 import Stepper from './Stepper';
-// import {
-//     CardNumberElement,
-//     CardCvcElement,
-//     CardExpiryElement,
-//     useStripe,
-//     useElements,
-// } from '@stripe/react-stripe-js';
-import { clearErrors } from '../../actions/orderAction';
+import {
+    CardNumberElement,
+    CardCvcElement,
+    CardExpiryElement,
+    useStripe,
+    useElements,
+} from '@stripe/react-stripe-js';
 import { useSnackbar } from 'notistack';
 import { post } from '../../utils/paytmForm';
 import FormControl from '@mui/material/FormControl';
@@ -21,15 +20,18 @@ import MetaData from '../Layouts/MetaData';
 import { useAlert } from 'react-alert';
 import QRCode from 'qrcode.react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { createOrder, clearErrors } from "../../actions/orderAction"
+import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
 
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const alert = useAlert();
-    // const stripe = useStripe();
-    // const elements = useElements();
-    // const paymentBtn = useRef(null);
+    const stripe = useStripe();
+    const elements = useElements();
+    const payBtn = useRef(null);
+    const navigate = useNavigate();
 
     const [payDisable, setPayDisable] = useState(false);
     const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
@@ -38,13 +40,14 @@ const Payment = () => {
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
     const { error } = useSelector((state) => state.newOrder);
+    // const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
     const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+
+
     const paymentData = {
-        amount: Math.round(totalPrice),
-        email: user.email,
-        phoneNo: shippingInfo.phoneNo,
+        amount: Math.round(totalPrice * 100),
     };
 
     const order = {
@@ -61,7 +64,59 @@ const Payment = () => {
         e.preventDefault();
 
         // paymentBtn.current.disabled = true;
-        setPayDisable(true);
+        payBtn.current.disabled = true;
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+            const { data } = await axios.post(`/api/v1/payment/process`, paymentData, config);
+
+            const client_secret = data.client_secret;
+
+            if (!stripe || !elements) return;
+
+            const result = await stripe.confirmCardPayment(client_secret, {
+                payment_method: {
+                    card: elements.getElement(CardNumberElement),
+                    billing_details: {
+                        name: user.name,
+                        email: user.email,
+                        address: {
+                            line1: shippingInfo.address,
+                            city: shippingInfo.city,
+                            state: shippingInfo.state,
+                            postal_code: shippingInfo.pinCode,
+                            country: shippingInfo.country,
+                        }
+                    }
+                }
+            })
+
+            if (result.error) {
+                payBtn.current.disabled = false;
+                alert.error(result.error.message);
+            } else {
+                if (result.paymentIntent.status === "succeeded") {
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status,
+                    };
+
+                    dispatch(createOrder(order));
+
+                    navigate("/success");
+                } else {
+                    alert.error("There's some issue while processing payment ");
+                }
+            }
+
+        } catch (error) {
+            payBtn.current.disabled = false;
+            alert.error(error.response.data.message);
+        }
+        // setPayDisable(true);
     };
 
     const renderAdditionalContent = () => {
@@ -82,11 +137,11 @@ const Payment = () => {
     const renderPaymentForm = () => {
         if (selectedPaymentMethod === 'card') {
             return (
-                <div className="container mx-auto mt-10">
-                    <form className="max-w-xl mx-auto bg-white p-8 rounded shadow-lg">
+                <div className="container mx-auto mt-10" style={{ width: "500px" }}>
+                    <form className="max-w-xl mx-auto bg-white p-8 rounded shadow-lg" onSubmit={submitHandler}>
                         <div className="mb-4">
                             <label htmlFor="card-number" className="block text-sm font-medium text-gray-700">Enter Card Number:</label>
-                            <input
+                            {/* <input
                                 type="text"
                                 id="card-number"
                                 placeholder="1234 5678 9012 3456"
@@ -94,7 +149,8 @@ const Payment = () => {
                                 className="mt-1 block w-full border border-gray-300 rounded-md h-12 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none"
                             // value={cardNumber}
                             // onChange={(e) => setCardNumber(e.target.value)}
-                            />
+                            /> */}
+                            <CardNumberElement className="mt-1 block w-full border border-gray-300 rounded-md h-8 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none" />
                         </div>
 
 
@@ -103,27 +159,16 @@ const Payment = () => {
                             <div className="col-span-2">
                                 <label htmlFor="expiry-month" className="block text-sm font-medium text-gray-700">Valid thru:</label>
                                 <div className="flex">
-                                    <div className="block w-full border border-gray-300 rounded-l-md h-12 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none">
-                                        <select
+                                    <div className="block w-full border border-gray-300 rounded-md h-8 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none">
+                                        {/* <select
                                             id="expiry-month"
                                             required
                                             className="block w-full bg-white border-0"
                                         // value={expiryMonth}
                                         // onChange={(e) => setExpiryMonth(e.target.value)}
                                         >
-                                            {/* Month options */}
-                                        </select>
-                                    </div>
-                                    <div className="block w-full border-t border-b border-r border-gray-300 rounded-r-md h-12 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none">
-                                        <select
-                                            id="expiry-year"
-                                            required
-                                            className="block w-full bg-white border-0"
-                                        // value={expiryYear}
-                                        // onChange={(e) => setExpiryYear(e.target.value)}
-                                        >
-                                            {/* Year options */}
-                                        </select>
+                                        </select> */}
+                                        <CardExpiryElement className="block w-full bg-white border-0" />
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +177,7 @@ const Payment = () => {
                             {/* CVV Input */}
                             <div>
                                 <label htmlFor="cvv" className="block text-sm font-medium text-gray-700">CVV:</label>
-                                <input
+                                {/* <input
                                     type="text"
                                     id="cvv"
                                     placeholder="123"
@@ -140,10 +185,17 @@ const Payment = () => {
                                     className="block w-full border border-gray-300 rounded-md h-12 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none"
                                 //   value={cvv}
                                 //   onChange={(e) => setCvv(e.target.value)}
-                                />
+                                /> */}
+                                <CardCvcElement className="block w-full border border-gray-300 rounded-md h-8  px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none" />
                             </div>
                         </div>
-                        <button type="submit" className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600">PAY ₹899</button>
+                        {/* <button type="submit" className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600">PAY ₹899</button> */}
+                        <input
+                            type='submit'
+                            value={`Pay - ${totalPrice}`}
+                            className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600"
+                            ref={payBtn}
+                        />
                     </form>
                 </div>
             );
@@ -187,7 +239,7 @@ const Payment = () => {
                         <Stepper activeStep={3}>
                             <div className="w-full bg-white">
 
-                                <form onSubmit={(e) => submitHandler(e)} autoComplete="off" className="flex flex-col justify-start gap-2 w-full mx-8 my-4 overflow-hidden">
+                                <div  autoComplete="off" className="flex flex-col justify-start gap-2 w-full mx-8 my-4 overflow-hidden">
                                     <FormControl>
                                         <RadioGroup
                                             aria-labelledby="payment-radio-group"
@@ -262,9 +314,9 @@ const Payment = () => {
                                         </RadioGroup>
                                     </FormControl>
 
-                                    <input type="submit" value={`Pay ₹${totalPrice.toLocaleString()}`} disabled={payDisable ? true : false} className={`${payDisable ? "bg-primary-grey cursor-not-allowed" : "bg-primary-orange cursor-pointer"} w-1/2 sm:w-1/4 my-2 py-3 font-medium text-white shadow hover:shadow-lg rounded-sm uppercase outline-none`} />
+                                    {/* <input type="submit" value={`Pay ₹${totalPrice.toLocaleString()}`} disabled={payDisable ? true : false} className={`${payDisable ? "bg-primary-grey cursor-not-allowed" : "bg-primary-orange cursor-pointer"} w-1/2 sm:w-1/4 my-2 py-3 font-medium text-white shadow hover:shadow-lg rounded-sm uppercase outline-none`} /> */}
 
-                                </form>
+                                </div>
 
                                 {/* stripe form */}
                                 {/* <form onSubmit={(e) => submitHandler(e)} autoComplete="off" className="flex flex-col justify-start gap-3 w-full sm:w-3/4 mx-8 my-4">

@@ -3,52 +3,57 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-// import { clearErrors, getOrderDetails, updateOrder } from '../../actions/orderAction';
-// import { UPDATE_ORDER_RESET } from '../../constants/orderConstants';
-// import { formatDate } from '../../utils/functions';
-// import TrackStepper from '../Order/TrackStepper';
+import { clearErrors, getOrderDetails, updateOrder } from '../../actions/orderAction';
+import { UPDATE_ORDER_RESET } from '../../constants/orderConstants';
+import { formatDate } from '../../utils/functions';
+import TrackStepper from '../Order/TrackStepper';
 import Loading from './Loading';
 import { Link } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-// import MetaData from '../Layouts/MetaData';
+import MetaData from '../Layouts/MetaData';
+import { useAlert } from 'react-alert';
 
 const UpdateOrder = () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const { enqueueSnackbar } = useSnackbar();
-    // const params = useParams();
+    const alert = useAlert();
+    const params = useParams();
 
     const [status, setStatus] = useState("");
 
     const { order, error, loading } = useSelector((state) => state.orderDetails);
     const { isUpdated, error: updateError } = useSelector((state) => state.order);
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (updateError) {
-    //         enqueueSnackbar(updateError, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (isUpdated) {
-    //         enqueueSnackbar("Order Updates Successfully", { variant: "success" });
-    //         dispatch({ type: UPDATE_ORDER_RESET });
-    //     }
-    //     dispatch(getOrderDetails(params.id));
-    // }, [dispatch, error, params.id, isUpdated, updateError, enqueueSnackbar]);
+    useEffect(() => {
+        if (error) {
+            // enqueueSnackbar(error, { variant: "error" });
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+        if (updateError) {
+            // enqueueSnackbar(updateError, { variant: "error" });
+            alert.error(updateError);
+            dispatch(clearErrors());
+        }
+        if (isUpdated) {
+            // enqueueSnackbar("Order Updates Successfully", { variant: "success" });
+            alert.show('Order Updates Successfully');
+            dispatch({ type: UPDATE_ORDER_RESET });
+        }
+        dispatch(getOrderDetails(params.id));
+    }, [dispatch, error, params.id, isUpdated, updateError]);
 
     const updateOrderSubmitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.set("status", status);
-        // dispatch(updateOrder(params.id, formData));
+        dispatch(updateOrder(params.id, formData));
     }
 
     return (
         <>
-            {/* <MetaData title="Admin: Update Order | Flipkart" /> */}
+            <MetaData title="Admin: Update Order | Flipkart" />
 
             {loading ? <Loading /> : (
                 <>
@@ -78,9 +83,9 @@ const UpdateOrder = () => {
                                     <div className="flex gap-2">
                                         <p className="text-sm font-medium">Current Status:</p>
                                         <p className="text-sm">
-                                            {/* {order.orderStatus === "Shipped" && (`Shipped on ${formatDate(order.shippedAt)}`)} */}
-                                            {/* {order.orderStatus === "Processing" && (`Ordered on ${formatDate(order.createdAt)}`)} */}
-                                            {/* {order.orderStatus === "Delivered" && (`Delivered on ${formatDate(order.deliveredAt)}`)} */}
+                                            {order.orderStatus === "Shipped" && (`Shipped on ${formatDate(order.shippedAt)}`)}
+                                            {order.orderStatus === "Processing" && (`Ordered on ${formatDate(order.createdAt)}`)}
+                                            {order.orderStatus === "Delivered" && (`Delivered on ${formatDate(order.deliveredAt)}`)}
                                         </p>
                                     </div>
                                     <FormControl fullWidth sx={{ marginTop: 1 }}>
@@ -124,14 +129,14 @@ const UpdateOrder = () => {
 
                                         <div className="flex flex-col w-full sm:w-1/2">
                                             <h3 className="font-medium sm:text-center">Order Status</h3>
-                                            {/* <TrackStepper
+                                            <TrackStepper
                                                 orderOn={order.createdAt}
                                                 shippedAt={order.shippedAt}
                                                 deliveredAt={order.deliveredAt}
                                                 activeStep={
                                                     order.orderStatus === "Delivered" ? 2 : order.orderStatus === "Shipped" ? 1 : 0
                                                 }
-                                            /> */}
+                                            />
                                         </div>
 
                                     </div>
