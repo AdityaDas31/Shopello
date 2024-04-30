@@ -9,7 +9,7 @@ import Register from './Components/User/Register';
 import LoginWithOpt from './Components/User/LoginWithOpt';
 import { loadUser } from './actions/userActions';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Account from './Components/User/Account';
 import NotFound from './Components/NotFound';
 import Dashboard from './Components/Admin/Dashboard';
@@ -48,18 +48,20 @@ import UpdatePassword from './Components/User/UpdatePassword';
 
 
 function App() {
+  const { isAuthenticated } = useSelector(state => state.user)
   const [stripeApiKey, setStriprApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeApiKey");
+    const { data } = await axios.get("/api/v1/stripeapikey");
     setStriprApiKey(data.stripeApiKey);
   }
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadUser());
     getStripeApiKey();
+    window.scrollTo(0, 0);
+    dispatch(loadUser());
   }, [dispatch]);
 
   return (
@@ -141,6 +143,7 @@ function App() {
             <UpdateProfile />
           </ProtectedRoute>
         } ></Route>
+        
 
         <Route path="/success" element={<OrderSuccess success={true} />} />
 
@@ -225,7 +228,13 @@ function App() {
           </ProtectedRoute>
         } ></Route>
 
-        <Route path='/*' element={<NotFound />} />
+        {/* <Route path='/*' element={<NotFound />} /> */}
+
+        <Route
+          component={
+            window.location.pathname === "/process/payment" ? null : NotFound
+          }
+        />
       </Routes>
       <Footer />
     </Router>

@@ -105,6 +105,7 @@ const Payment = () => {
                     };
 
                     dispatch(createOrder(order));
+                    localStorage.removeItem('cartItems');
 
                     navigate("/success");
                 } else {
@@ -192,8 +193,8 @@ const Payment = () => {
                         {/* <button type="submit" className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600">PAY ₹899</button> */}
                         <input
                             type='submit'
-                            value={`Pay - ${totalPrice}`}
-                            className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600"
+                            value={`Pay - ₹${totalPrice}`}
+                            className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600 cursor-pointer"
                             ref={payBtn}
                         />
                     </form>

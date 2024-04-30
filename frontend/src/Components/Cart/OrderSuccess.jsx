@@ -10,6 +10,7 @@ const OrderSuccess = ({ success }) => {
     const [time, setTime] = useState(3);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (time === 0) {
             if (success) {
                 navigate("/orders")
