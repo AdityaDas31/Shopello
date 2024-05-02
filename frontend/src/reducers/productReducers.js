@@ -40,6 +40,9 @@ import {
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
     UPDATE_PRODUCT_RESET,
+    ALL_SELLER_PRODUCTS_REQUEST,
+    ALL_SELLER_PRODUCTS_SUCCESS,
+    ALL_SELLER_PRODUCTS_FAIL,
 } from '../constants/productConstants';
 
 
@@ -311,3 +314,32 @@ export const reviewReducer = (state = {}, { type, payload }) => {
             return state;
     }
 }
+
+export const sellerProductReducers = (state = { products: [], loading: false, error: null }, action) => {
+    switch (action.type) {
+        case ALL_SELLER_PRODUCTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ALL_SELLER_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                products: action.payload.products,
+            };
+        case ALL_SELLER_PRODUCTS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    };
+};

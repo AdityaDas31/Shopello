@@ -39,7 +39,7 @@ const ReviewsTable = () => {
             alert.success('Review Deleted Successfully');
             dispatch({ type: DELETE_REVIEW_RESET });
         }
-    }, [dispatch, error, deleteError, isDeleted, productId]);
+    }, [dispatch, error, deleteError, isDeleted, productId, alert]);
 
     const deleteReviewHandler = (id) => {
         dispatch(deleteReview(id, productId));

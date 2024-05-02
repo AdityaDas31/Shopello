@@ -9,7 +9,7 @@ import Register from './Components/User/Register';
 import LoginWithOpt from './Components/User/LoginWithOpt';
 import { loadUser } from './actions/userActions';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Account from './Components/User/Account';
 import NotFound from './Components/NotFound';
 import Dashboard from './Components/Admin/Dashboard';
@@ -42,13 +42,18 @@ import UpdateProduct from './Components/Admin/UpdateProduct';
 import ForgotPassword from './Components/User/ForgotPassword';
 import ResetPassword from './Components/User/ResetPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
-
+import SellerApplyForm from './Components/Seller/SellerApplyForm';
+import SellerApplyTable from './Components/Admin/SellerApplyTable';
+import UpdataApplication from './Components/Admin/UpdataApplication';
+import SellerDashboard from './Components/Seller/SellerDashboard';
+import SellerMainData from './Components/Seller/SellerMainData';
+import SellerProductTable from './Components/Seller/SellerProductTable';
+import SellerOrdersTable from './Components/Seller/SellerOrdersTable';
 
 
 
 
 function App() {
-  const { isAuthenticated } = useSelector(state => state.user)
   const [stripeApiKey, setStriprApiKey] = useState("");
 
   async function getStripeApiKey() {
@@ -83,6 +88,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/seller/apply" element={<SellerApplyForm />} />
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
         <Route path="/about" element={<About />} />
@@ -143,18 +149,19 @@ function App() {
             <UpdateProfile />
           </ProtectedRoute>
         } ></Route>
-        
+
 
         <Route path="/success" element={<OrderSuccess success={true} />} />
 
 
-        <Route path="/admin/dashboard" element={
+
+        <Route path='/admin/dashboard' element={
           <ProtectedRoute isAdmin={true}>
             <Dashboard activeTab={0}>
               <MainData />
             </Dashboard>
           </ProtectedRoute>
-        } ></Route>
+        }></Route>
 
         <Route path="/admin/orders" element={
           <ProtectedRoute isAdmin={true}>
@@ -225,6 +232,55 @@ function App() {
             <Dashboard activeTab={5}>
               <ReviewsTable />
             </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/admin/seller-apply" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={7}>
+              <SellerApplyTable />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/admin/seller/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={7}>
+              <UpdataApplication />
+            </Dashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+
+        <Route path="/seller/dashboard" element={
+          <ProtectedRoute isSeller={true}>
+            <SellerDashboard activeTab={0}>
+              <SellerMainData />
+            </SellerDashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/seller/new_product" element={
+          <ProtectedRoute isSeller={true}>
+            <SellerDashboard activeTab={3}>
+              <NewProduct />
+            </SellerDashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/seller/products" element={
+          <ProtectedRoute isSeller={true}>
+            <SellerDashboard activeTab={2}>
+              <SellerProductTable />
+            </SellerDashboard>
+          </ProtectedRoute>
+        } ></Route>
+
+        <Route path="/seller/orders" element={
+          <ProtectedRoute isSeller={true}>
+            <SellerDashboard activeTab={1}>
+              <SellerOrdersTable />
+            </SellerDashboard>
           </ProtectedRoute>
         } ></Route>
 

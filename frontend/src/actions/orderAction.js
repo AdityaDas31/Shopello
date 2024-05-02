@@ -18,6 +18,9 @@ import {
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
     CLEAR_ERRORS,
+    ALL_SELLER_ORDERS_REQUEST,
+    ALL_SELLER_ORDERS_SUCCESS,
+    ALL_SELLER_ORDERS_FAIL,
   } from "../constants/orderConstants";
   
   import axios from "axios";
@@ -131,6 +134,23 @@ import {
       });
     }
   };
+
+  // Get User Orders
+export const getAllsellerOrders = () => async (dispatch) => {
+  try {
+      dispatch({ type: ALL_SELLER_ORDERS_REQUEST });
+
+      const { data } = await axios.get("/api/v1/seller/orders"); // Assuming this endpoint fetches orders specific to the user who created the product
+
+      dispatch({ type: ALL_SELLER_ORDERS_SUCCESS, payload: data.orders });
+  } catch (error) {
+      dispatch({
+          type: ALL_SELLER_ORDERS_FAIL,
+          payload: error.response.data.message,
+      });
+  }
+};
+
   
   // Clearing Errors
   export const clearErrors = () => async (dispatch) => {

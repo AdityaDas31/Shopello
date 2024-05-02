@@ -20,6 +20,9 @@ import {
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
     CLEAR_ERRORS,
+    ALL_SELLER_ORDERS_REQUEST,
+    ALL_SELLER_ORDERS_SUCCESS,
+    ALL_SELLER_ORDERS_FAIL,
   } from "../constants/orderConstants";
   
   export const newOrderReducer = (state = {}, action) => {
@@ -192,3 +195,35 @@ import {
   };
 
   
+  export const sellerOrdersReducer = (state = { orders: [], loading: false, error: null }, action) => {
+    switch (action.type) {
+        case ALL_SELLER_ORDERS_REQUEST: // Update the action type
+            return {
+                ...state,
+                loading: true,
+            };
+
+        case ALL_SELLER_ORDERS_SUCCESS: // Update the action type
+            return {
+                loading: false,
+                orders: action.payload,
+                error: null,
+            };
+
+        case ALL_SELLER_ORDERS_FAIL: // Update the action type
+            return {
+                loading: false,
+                orders: [],
+                error: action.payload,
+            };
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+
+        default:
+            return state;
+    }
+};

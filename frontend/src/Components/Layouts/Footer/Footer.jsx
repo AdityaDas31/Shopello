@@ -113,14 +113,17 @@ const Footer = () => {
 
     const location = useLocation();
     const [adminRoute, setAdminRoute] = useState(false);
+    const [sellerRoute, setSellerRoute] = useState(false);
 
     useEffect(() => {
-        setAdminRoute(location.pathname.split("/", 2).includes("admin"))
+        const pathSegments = location.pathname.split("/");
+        setAdminRoute(pathSegments.includes("admin"));
+        setSellerRoute(pathSegments.includes("seller"));
     }, [location]);
 
     return (
         <>
-            {!adminRoute && (
+            {!adminRoute && !sellerRoute && (
                 <>
                     <footer className="mt-0 w-full py-1 sm:py-4 px-4 sm:px-12 bg-primary-darkBlue text-white text-xs border-b border-gray-600 flex flex-col sm:flex-row overflow-hidden">
                         <div className="w-full sm:w-7/12 flex flex-col sm:flex-row">
@@ -172,7 +175,7 @@ const Footer = () => {
                             <form action="" >
                                 <div
                                     class="gird-cols-1 grid items-center justify-center gap-4 md:grid-cols-3">
-                                
+
 
                                     {/* <!-- Newsletter sign-up input field --> */}
                                     <div class="relative md:mb-6" data-te-input-wrapper-init>
@@ -181,7 +184,7 @@ const Footer = () => {
                                             class="peer block min-h-[auto] w-full rounded bg-white text-black placeholder-gray-500 px-3 py-[0.32rem] leading-[1.6] text-neutral-200 outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
                                             id="exampleFormControlInput1"
                                             placeholder="Email address" />
-                                        
+
                                     </div>
 
                                     {/* <!-- Newsletter sign-up submit button --> */}

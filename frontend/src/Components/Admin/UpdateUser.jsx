@@ -142,6 +142,7 @@ const UpdateUser = () => {
                                     >
                                         <MenuItem value={"user"}>User</MenuItem>
                                         <MenuItem value={"admin"}>Admin</MenuItem>
+                                        <MenuItem value={"seller"}>Seller</MenuItem>
                                     </TextField>
                                 </div>
                                 

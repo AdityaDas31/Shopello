@@ -496,3 +496,19 @@ exports.getSingleUser = catchAsyncError(async (req, res, next) => {
         user,
     });
 });
+
+// Get user -- Admin
+
+exports.getUser = catchAsyncError(async (req, res, next) => {
+    // Assuming your Product model contains an 'email' field
+    const user = await User.findOne({ email: req.query.email });
+
+    if (!user) {
+        return next(new ErrorHandler("Product Not Found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    });
+});

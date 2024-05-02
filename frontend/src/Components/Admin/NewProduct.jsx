@@ -19,6 +19,7 @@ const NewProduct = () => {
     const navigate = useNavigate();
 
     const { loading, success, error } = useSelector((state) => state.newProduct);
+    const {user} = useSelector((state) => state.user)
     
 
     const [highlights, setHighlights] = useState([]);
@@ -169,6 +170,7 @@ const NewProduct = () => {
             alert.success("Product Created Successfully");
             dispatch({ type: NEW_PRODUCT_RESET });
             navigate("/admin/products");
+            {user.role === "admin" ? navigate("/admin/products") : navigate("/seller/products"); }
         }
     }, [dispatch, error, success, navigate, alert]);
 

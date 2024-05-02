@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from "react-alert";
@@ -13,6 +13,7 @@ const UserTable = () => {
     const dispatch = useDispatch();
     // const { enqueueSnackbar } = useSnackbar();
     const alert = useAlert();
+    const [searchQuery, setSearchQuery] = useState('');
 
     const { users, error } = useSelector((state) => state.users);
     const { loading, isDeleted, error: deleteError } = useSelector((state) => state.profile);
@@ -36,6 +37,14 @@ const UserTable = () => {
     const deleteUserHandler = (id) => {
         dispatch(deleteUser(id));
     }
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const filteredUsers = users.filter(user =>
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const columns = [
         {
@@ -71,6 +80,8 @@ const UserTable = () => {
                         {
                             params.row.role === "admin" ? (
                                 <span className="text-sm bg-green-100 p-1 px-2 font-medium rounded-full text-green-800 capitalize">{params.row.role}</span>
+                            ) : params.row.role === "seller" ? (
+                                <span className="text-sm bg-blue-200 p-1 px-2 font-medium rounded-full text-blue-800 capitalize">{params.row.role}</span>
                             ) : (
                                 <span className="text-sm bg-purple-100 p-1 px-2 font-medium rounded-full text-purple-800 capitalize">{params.row.role}</span>
                             )
@@ -101,9 +112,21 @@ const UserTable = () => {
         },
     ];
 
-    const rows = [];
 
-    users && users.forEach((item) => {
+    const rows = searchQuery ? (
+        filteredUsers.map((item) => ({
+            id: item._id,
+            name: item.name,
+            avatar: item.avatar.url,
+            email: item.email,
+            role: item.role,
+            registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
+        }))
+    ) : (
+        []
+    );
+
+    !searchQuery && users && users.forEach((item) => {
         rows.unshift({
             id: item._id,
             name: item.name,
@@ -120,7 +143,11 @@ const UserTable = () => {
 
             {loading && <BackdropLoader />}
 
-            <h1 className="text-lg font-medium uppercase">users</h1>
+            {/* <h1 className="text-lg font-medium uppercase">users</h1> */}
+            <div className="flex justify-between items-center gap-2 sm:gap-12">
+                <h1 className="text-lg font-medium uppercase">user</h1>
+                <input type="text" placeholder="User Email" value={searchQuery} onChange={handleSearchChange}  className="outline-none border-0 rounded p-2 w-full shadow hover:shadow-lg" />
+            </div>
             <div className="bg-white rounded-xl shadow-lg w-full" style={{ height: 470 }}>
 
                 <DataGrid

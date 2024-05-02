@@ -82,6 +82,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
     });
 });
 
+
 // Get All Product -- Admin
 
 exports.getAdminProduct = catchAsyncError(async (req, res, next) => {
@@ -304,5 +305,20 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+    });
+});
+
+// Get All product --- seller
+
+exports.getProductsCreatedByUser = catchAsyncError(async (req, res, next) => {
+    // Retrieve the user ID from the authenticated user's information
+    const userId = req.user._id; // Assuming you have user information stored in req.user after authentication
+
+    // Find products created by the specified user
+    const products = await Product.find({ user: userId });
+
+    res.status(200).json({
+        success: true,
+        products,
     });
 });

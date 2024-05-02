@@ -33,6 +33,9 @@ import {
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
+    ALL_SELLER_PRODUCTS_REQUEST,
+    ALL_SELLER_PRODUCTS_SUCCESS,
+    ALL_SELLER_PRODUCTS_FAIL,
 } from '../constants/productConstants';
 import axios from 'axios';
 
@@ -265,6 +268,25 @@ export const updateProduct = (id, productData) => async (dispatch) => {
         });
     }
 }
+
+// Get All Product -- seller
+export const getSellerProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_SELLER_PRODUCTS_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/product/seller/getallproducts`); // Assuming this endpoint fetches products created by the authenticated user
+
+        dispatch({
+            type: ALL_SELLER_PRODUCTS_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: ALL_SELLER_PRODUCTS_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

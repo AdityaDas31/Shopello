@@ -41,6 +41,9 @@ import {
     UPDATE_PASSWORD_REQUEST,
     UPDATE_PASSWORD_SUCCESS,
     UPDATE_PASSWORD_FAIL,
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
+    GET_USER_FAILD,
 } from '../constants/userConstants';
 import axios from 'axios';
 
@@ -382,6 +385,24 @@ export const updatePassword = (passwords) => async (dispatch) => {
         });
     }
 };
+
+// Get User ---ADMIN
+export const getUser = (email) => async (dispatch) => {
+    try {
+        dispatch({ type: GET_USER_REQUEST });
+        const { data } = await axios.get(`/api/v1/product/admin/getuser?email=${email}`);
+
+        dispatch({
+            type: GET_USER_SUCCESS,
+            payload: data.user,
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_USER_FAILD,
+            payload: error.response.data.message,
+        });
+    }
+}
 
 // Clearing Errors
 

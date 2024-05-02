@@ -2,11 +2,12 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import { thunk } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from './reducers/userReducers';
-import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReducers, productReviewsReducer, reviewReducer } from './reducers/productReducers';
+import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReducers, productReviewsReducer, reviewReducer, sellerProductReducers } from './reducers/productReducers';
 import { wishlistReducer } from './reducers/wishlistReducer';
 import { cartReducer } from './reducers/cartReducers';
-import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer } from './reducers/orderReducer';
+import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer, sellerOrdersReducer } from './reducers/orderReducer';
 import { saveForLaterReducer } from './reducers/saveForLaterReducer';
+import { applicationDetailsReducer, applicationReducer, applicationStatusReducer, applySellerReducer, getUserReducer } from './reducers/sellerReducers';
 
 
 
@@ -31,6 +32,13 @@ const reducer = combineReducers({
     reviews: productReviewsReducer,
     review: reviewReducer,
     wishlist: wishlistReducer,
+    newSeller: applySellerReducer,
+    applications: applicationReducer,
+    applicationDelails: applicationDetailsReducer,
+    applicationStatus: applicationStatusReducer,
+    sellerProducts: sellerProductReducers,
+    sellerOrders: sellerOrdersReducer,
+    getUser: getUserReducer,
 });
 
 let initialState = {

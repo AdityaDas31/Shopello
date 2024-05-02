@@ -31,13 +31,14 @@ const user = require("./routes/userRoutes");
 const product = require("./routes/productRoutes");
 const payment = require("./routes/paymentRoutes");
 const order = require("./routes/orderRoute");
+const seller = require("./routes/sellerRoute");
 
 // Config api
 app.use("/api/v1/user",user);
 app.use("/api/v1/product",product);
 app.use("/api/v1",payment);
 app.use("/api/v1", order);
-
+app.use('/api/v1/seller',seller)
 
 
 

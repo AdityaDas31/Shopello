@@ -15,7 +15,7 @@ const SecondaryDropDownMenu = () => {
         {
             title: "Sell on Flipkart",
             icon: <BusinessCenterIcon sx={{ fontSize: "18px" }} />,
-            redirect: "https://seller.flipkart.com/sell-online",
+            redirect: "/seller/apply",
         },
         {
             title: "24x7 Customer Care",

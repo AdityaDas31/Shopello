@@ -156,3 +156,36 @@ exports.deleteOrder = catchAsyncError(async (req, res, next) => {
         success: true,
     });
 });
+
+
+// Get all order -- Seller
+
+exports.getAllSellerOrders = catchAsyncError(async (req, res, next) => {
+    // Assuming req.user contains the current authenticated user
+    const creatorId = req.user._id; // Assuming _id is used to uniquely identify users
+
+    // Step 1: Find products created by the specified user
+    const products = await Product.find({ user: creatorId });
+
+    // Extract product IDs from the found products
+    const productIds = products.map(product => product._id);
+
+    // Step 2: Find orders containing any of these products
+    const orders = await Order.find({ "orderItems.product": { $in: productIds } });
+
+    if (!orders || orders.length === 0) {
+        return next(new ErrorHandler("Orders Not Found for this Creator", 404));
+    }
+
+    // Calculate total amount for orders of the specific creator
+    let totalAmount = 0;
+    orders.forEach((order) => {
+        totalAmount += order.totalPrice;
+    });
+
+    res.status(200).json({
+        success: true,
+        orders,
+        totalAmount,
+    });
+});
