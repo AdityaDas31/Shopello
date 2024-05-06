@@ -19,7 +19,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import MetaData from '../Layouts/MetaData';
 import { useAlert } from 'react-alert';
 import QRCode from 'qrcode.react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { createOrder, clearErrors } from "../../actions/orderAction"
 import { useNavigate } from 'react-router-dom';
 
@@ -37,6 +36,11 @@ const Payment = () => {
     const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+
+    const [verificationCode, setVerificationCode] = useState('');
+    const [enteredVerificationCode, setEnteredVerificationCode] = useState('');
+    const [verificationSuccess, setVerificationSuccess] = useState(false);
+
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
     const { error } = useSelector((state) => state.newOrder);
@@ -130,8 +134,6 @@ const Payment = () => {
                 </div>
             );
         }
-
-        // Add conditions for other payment methods if needed
         return null;
     };
 
@@ -142,15 +144,6 @@ const Payment = () => {
                     <form className="max-w-xl mx-auto bg-white p-8 rounded shadow-lg" onSubmit={submitHandler}>
                         <div className="mb-4">
                             <label htmlFor="card-number" className="block text-sm font-medium text-gray-700">Enter Card Number:</label>
-                            {/* <input
-                                type="text"
-                                id="card-number"
-                                placeholder="1234 5678 9012 3456"
-                                required
-                                className="mt-1 block w-full border border-gray-300 rounded-md h-12 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none"
-                            // value={cardNumber}
-                            // onChange={(e) => setCardNumber(e.target.value)}
-                            /> */}
                             <CardNumberElement className="mt-1 block w-full border border-gray-300 rounded-md h-8 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none" />
                         </div>
 
@@ -161,14 +154,6 @@ const Payment = () => {
                                 <label htmlFor="expiry-month" className="block text-sm font-medium text-gray-700">Valid thru:</label>
                                 <div className="flex">
                                     <div className="block w-full border border-gray-300 rounded-md h-8 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none">
-                                        {/* <select
-                                            id="expiry-month"
-                                            required
-                                            className="block w-full bg-white border-0"
-                                        // value={expiryMonth}
-                                        // onChange={(e) => setExpiryMonth(e.target.value)}
-                                        >
-                                        </select> */}
                                         <CardExpiryElement className="block w-full bg-white border-0" />
                                     </div>
                                 </div>
@@ -178,19 +163,9 @@ const Payment = () => {
                             {/* CVV Input */}
                             <div>
                                 <label htmlFor="cvv" className="block text-sm font-medium text-gray-700">CVV:</label>
-                                {/* <input
-                                    type="text"
-                                    id="cvv"
-                                    placeholder="123"
-                                    required
-                                    className="block w-full border border-gray-300 rounded-md h-12 px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none"
-                                //   value={cvv}
-                                //   onChange={(e) => setCvv(e.target.value)}
-                                /> */}
                                 <CardCvcElement className="block w-full border border-gray-300 rounded-md h-8  px-3 py-2 focus:ring-red-500 focus:border-blue-500 outline-none" />
                             </div>
                         </div>
-                        {/* <button type="submit" className="w-full bg-primary-orange text-white p-3 rounded hover:bg-orange-600">PAY ₹899</button> */}
                         <input
                             type='submit'
                             value={`Pay - ₹${totalPrice}`}
@@ -204,19 +179,9 @@ const Payment = () => {
         return null;
     };
 
-    const renderCaptcha = () => {
-        if (selectedPaymentMethod === 'cod') {
-            return (
-                <div className="mt-4">
-                    <ReCAPTCHA
-                        sitekey="YOUR_SITE_KEY"
-                        onChange={handleCaptchaChange}
-                    />
-                </div>
-            );
-        }
-        return null;
-    };
+    
+
+
     useEffect(() => {
         if (error) {
             dispatch(clearErrors());
@@ -240,7 +205,7 @@ const Payment = () => {
                         <Stepper activeStep={3}>
                             <div className="w-full bg-white">
 
-                                <div  autoComplete="off" className="flex flex-col justify-start gap-2 w-full mx-8 my-4 overflow-hidden">
+                                <div autoComplete="off" className="flex flex-col justify-start gap-2 w-full mx-8 my-4 overflow-hidden">
                                     <FormControl>
                                         <RadioGroup
                                             aria-labelledby="payment-radio-group"
@@ -308,7 +273,6 @@ const Payment = () => {
                                                     <div className="flex items-center gap-4">
                                                         {/* <img draggable="false" className="h-6 w-6 object-contain" src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/batman-returns/logos/Wallets.gif" alt="Paytm Logo" /> */}
                                                         <span>Cash on Delivery</span>
-                                                        {renderCaptcha()}
                                                     </div>
                                                 }
                                             />

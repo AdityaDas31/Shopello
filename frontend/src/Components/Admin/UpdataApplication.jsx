@@ -69,7 +69,7 @@ const UpdataApplication = () => {
             alert.success("User Updates Successfully");
             dispatch({ type: UPDATE_APPLICATION_STATUS_RESET });
             dispatch({ type: REMOVE_APPLICATION_DETAILS });
-            navigate("/admin/seller-apply");
+            navigate("/admin/users");
         }
     }, [dispatch, error, applicationId, application, alert,updateError, navigate, isUpdated])
 

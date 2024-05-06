@@ -18,6 +18,7 @@ const SellerApplyForm = () => {
     const alert = useAlert();
 
     const { loading, success, error } = useSelector((state) => state.newSeller);
+    const { user } = useSelector(state => state.user)
 
    
     const [name, setName] = useState("");
@@ -51,8 +52,8 @@ const SellerApplyForm = () => {
         const formData = new  FormData();
 
         formData.set("name", name);
-        formData.set("email", email);
-        formData.set("owner", owner);
+        formData.set("email", user.email);
+        formData.set("owner", user.name);
         formData.set("gst", gst);
         formData.set("contact", contact);
         formData.set("type", type);
@@ -60,6 +61,8 @@ const SellerApplyForm = () => {
         images.forEach((image) => {
             formData.append("images", image)
         });
+
+        console.log(formData)
 
         dispatch(applyForSelling(formData));
 
@@ -122,16 +125,19 @@ const SellerApplyForm = () => {
                                         label="Business Email"
                                         type="email"
                                         name="email"
-                                        value={email}
+                                        value={user.email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
                                     />
                                     <TextField
                                         fullWidth
                                         id="owner"
                                         label="Business Owner"
                                         name="owner"
-                                        value={owner}
+                                        value={user.name}
                                         onChange={(e) => setOwner(e.target.value)}
                                         // onChange={handleDataChange}
                                         required

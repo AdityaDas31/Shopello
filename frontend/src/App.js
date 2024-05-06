@@ -9,7 +9,7 @@ import Register from './Components/User/Register';
 import LoginWithOpt from './Components/User/LoginWithOpt';
 import { loadUser } from './actions/userActions';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Account from './Components/User/Account';
 import NotFound from './Components/NotFound';
 import Dashboard from './Components/Admin/Dashboard';
@@ -56,10 +56,29 @@ import SellerOrdersTable from './Components/Seller/SellerOrdersTable';
 function App() {
   const [stripeApiKey, setStriprApiKey] = useState("");
 
+  // const { isAuthenticated } = useSelector(state => state.user);
+
+  // async function getStripeApiKey() {
+  //   if (isAuthenticated) { // Replace isLoggedIn with your actual authentication check
+  //     try {
+  //       const { data } = await axios.get("/api/v1/stripeapikey");
+  //       setStriprApiKey(data.stripeApiKey);
+  //     } catch (error) {
+  //       console.error("Error fetching the Stripe API key:", error);
+  //       // Handle the error appropriately
+  //     }
+  //   } else {
+  //     // Maybe redirect to login or show a message
+  //   }
+  // }
+
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");
     setStriprApiKey(data.stripeApiKey);
   }
+
+
+
 
   const dispatch = useDispatch();
 
@@ -77,18 +96,16 @@ function App() {
       {stripeApiKey && (
         <Elements stripe={loadStripe(stripeApiKey)}>
           <Routes>
-            <Route path="/process/payment" element={
-              <ProtectedRoute>
-                <Payment />
-              </ProtectedRoute>
-            }></Route>
+            {/* <ProtectedRoute>  */}
+            <Route path="/process/payment" element={<Payment />}/>
+              {/* </ProtectedRoute> */}
           </Routes>
         </Elements>
       )}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/seller/apply" element={<SellerApplyForm />} />
+        {/* <Route path="/seller/apply" element={<SellerApplyForm />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/getotp" element={<LoginWithOpt />} />
         <Route path="/about" element={<About />} />
@@ -96,6 +113,11 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path='/seller/apply' element={
+          <ProtectedRoute>
+            <SellerApplyForm />
+          </ProtectedRoute>
+        }></Route>
         <Route path="/account" element={
           <ProtectedRoute>
             <Account />

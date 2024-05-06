@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -18,6 +18,23 @@ const Header = () => {
     const { user, isAuthenticated } = useSelector((state) => state.user);
 
     const { cartItems } = useSelector(state => state.cart);
+
+    useEffect(() => {
+        const closeDropDowns = (event) => {
+            if (togglePrimaryDropDown && !event.target.closest('.userDropDown')) {
+                setTogglePrimaryDropDown(false);
+            }
+            if (toggleSecondaryDropDown && !event.target.closest('.moreDropDown')) {
+                setToggleSecondaryDropDown(false);
+            }
+        };
+
+        document.body.addEventListener('click', closeDropDowns);
+
+        return () => {
+            document.body.removeEventListener('click', closeDropDowns);
+        };
+    }, [togglePrimaryDropDown, toggleSecondaryDropDown]);
 
   return (
     <header className="bg-primary-blue fixed top-0 py-2.5 w-full z-10">

@@ -17,9 +17,7 @@ const userOtpSchema = new monsgoose.Schema({
         default: Date.now,
     },
 },
-// {
-//     timestamps: true,
-// }
+
 );
 
 

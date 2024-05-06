@@ -11,6 +11,10 @@ const OrderConfirm = () => {
     const { cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
 
+    const proceedToPayment = () => {
+        navigate("/process/payment");
+      };
+
     return (
         <>
         <MetaData title="Flipkart: Order Confirmation" />
@@ -31,7 +35,7 @@ const OrderConfirm = () => {
                         </div>
                         <div className="flex justify-between items-center mt-4 bg-white px-6 py-3 rounded-b-sm">
                             <p className="text-sm">Order confirmation email will be sent to <span className="font-medium">{user.email}</span></p>
-                            <button onClick={() => { navigate('/process/payment') }} className="bg-primary-orange px-6 py-2 text-white font-medium rounded-sm shadow hover:shadow-lg uppercase">continue</button>
+                            <button onClick={proceedToPayment} className="bg-primary-orange px-6 py-2 text-white font-medium rounded-sm shadow hover:shadow-lg uppercase">continue</button>
                         </div>
                     </Stepper>
                 </div>
