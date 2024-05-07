@@ -171,7 +171,7 @@ const UpdataApplication = () => {
 
                 <div className="flex flex-col gap-2 m-2 sm:w-1/2">
 
-                    <h2 className="font-medium">Product Images</h2>
+                    <h2 className="font-medium">ID Images</h2>
                     <div className="flex gap-2 overflow-x-auto h-32 border rounded">
                         {oldImages && oldImages.map((image, i) => (
                                 <img draggable="false" src={image.url} alt="Product" key={i} className="w-full h-full object-contain" />
