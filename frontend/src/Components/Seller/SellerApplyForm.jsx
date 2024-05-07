@@ -226,7 +226,7 @@ const SellerApplyForm = () => {
                                             onChange={handleSellerImageChange}
                                             className="hidden"
                                         />
-                                        Choose File
+                                        Choose Your ID
                                     </label>
                                 </div>
                                 <button type="submit" className="text-white py-3 w-full bg-primary-orange shadow hover:shadow-lg rounded-sm font-medium">Apply</button>
