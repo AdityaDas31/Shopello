@@ -63,8 +63,8 @@ const SellerOrdersTable = () => {
             field: "amount",
             headerName: "Amount",
             type: "number",
-            minWidth: 200,
-            flex: 0.2,
+            minWidth: 170,
+            flex: 0.3,
             renderCell: (params) => {
                 return (
                     <span>₹{params.row.amount.toLocaleString()}</span>
@@ -75,8 +75,8 @@ const SellerOrdersTable = () => {
             field: "orderOn",
             headerName: "Order On",
             type: "Date",
-            minWidth: 200,
-            flex: 0.5,
+            minWidth: 150,
+            flex: 0.2,
         },
         // {
         //     field: "actions",
