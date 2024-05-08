@@ -10,6 +10,9 @@ import BackdropLoader from '../Layouts/BackdropLoader';
 import MetaData from '../Layouts/MetaData';
 import { APPLY_SELLER_RESET } from '../../constants/sellerConstants';
 import { clearErrors, applyForSelling } from '../../actions/sellerActions';
+import { categories } from '../../utils/constants';
+import MenuItem from '@mui/material/MenuItem';
+import LocationOnIcon from '@mui/icons-material/LocationOn'; 
 
 const SellerApplyForm = () => {
 
@@ -20,25 +23,43 @@ const SellerApplyForm = () => {
     const { loading, success, error } = useSelector((state) => state.newSeller);
     const { user } = useSelector(state => state.user)
 
-   
+
     const [name, setName] = useState("");
-    const[email,setEmail] = useState('');
-    const[owner, setOwner] = useState("");
-    const[gst, setGst] = useState("");
-    const[contact, setContact] = useState("");
-    const[type, setType] = useState("");
+    const [email, setEmail] = useState('');
+    const [owner, setOwner] = useState("");
+    const [gst, setGst] = useState("");
+    const [contact, setContact] = useState("");
+    const [type, setType] = useState("");
+    const [address, setAddress] = useState("");
+    const [location, setLocation] = useState('');
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
-    const handleSellerImageChange = (e) =>{
+
+    const handleLocationButtonClick  = (e) => {
+        e.preventDefault();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                setLocation(`Latitude: ${latitude}, Longitude: ${longitude}`);
+            }, () => {
+                alert.error("Geolocation is not supported by this browser.");
+            });
+        } else {
+            alert.error("Geolocation is not supported by this browser.");
+        }
+    }
+
+    const handleSellerImageChange = (e) => {
         const files = Array.from(e.target.files);
         setImages([]);
         setImagesPreview([]);
 
-        files.forEach((file) =>{
+        files.forEach((file) => {
             const reader = new FileReader()
-            reader.onload = () =>{
-                if(reader.readyState === 2){
+            reader.onload = () => {
+                if (reader.readyState === 2) {
                     setImagesPreview((oldImages) => [...oldImages, reader.result]);
                     setImages((oldImages) => [...oldImages, reader.result]);
                 }
@@ -47,9 +68,9 @@ const SellerApplyForm = () => {
         })
     }
 
-    const applySellerHandler = (e) =>{
+    const applySellerHandler = (e) => {
         e.preventDefault();
-        const formData = new  FormData();
+        const formData = new FormData();
 
         formData.set("name", name);
         formData.set("email", user.email);
@@ -57,6 +78,8 @@ const SellerApplyForm = () => {
         formData.set("gst", gst);
         formData.set("contact", contact);
         formData.set("type", type);
+        formData.set("address", address);
+        formData.set("location", location);
 
         images.forEach((image) => {
             formData.append("images", image)
@@ -69,14 +92,18 @@ const SellerApplyForm = () => {
 
     }
 
-    useEffect(() =>{
-        if(error){
+    useEffect(() => {
+        if (error) {
             alert.error(error);
             dispatch(clearErrors);
         }
-        if(success){
+        if (success) {
             alert.success("Applied Successfully");
             dispatch({ type: APPLY_SELLER_RESET });
+            navigate('/')
+        }
+        if(user.role==="seller"){
+            alert.error("You Already Apply For a Seller");
             navigate('/')
         }
     }, [dispatch, error, success, navigate, alert])
@@ -162,8 +189,10 @@ const SellerApplyForm = () => {
                                         // onChange={handleDataChange}
                                         required
                                     />
+
                                     <TextField
                                         fullWidth
+                                        select
                                         id="product"
                                         label="Product Type"
                                         name="type"
@@ -171,6 +200,39 @@ const SellerApplyForm = () => {
                                         onChange={(e) => setType(e.target.value)}
                                         // onChange={handleDataChange}
                                         required
+                                    >
+                                        {categories.map((el, i) => (
+                                            <MenuItem value={el} key={i}>
+                                                {el}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+
+                                    <TextField
+                                        fullWidth
+                                        id="adderss"
+                                        label="Business Address"
+                                        name="address"
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                        // onChange={handleDataChange}
+                                        required
+                                    />
+                                    <TextField
+                                        fullWidth
+                                        id="location"
+                                        label="Business Location"
+                                        name="location"
+                                        value={location}
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        // onChange={handleDataChange}
+                                        required
+                                        InputProps={{
+                                            readOnly: true,
+                                            endAdornment: (
+                                              <LocationOnIcon className='cursor-pointer' color="action" onClick={handleLocationButtonClick} /> // Rendering the icon
+                                            ),
+                                          }}
                                     />
                                 </div>
                                 {/* <!-- input container column --> */}

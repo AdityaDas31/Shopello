@@ -7,6 +7,7 @@ const sellerSchema = new mongoose.Schema({
     },
     email:{
         type: String,
+        unique: true,
         required: true
     },
     owner:{
@@ -24,6 +25,14 @@ const sellerSchema = new mongoose.Schema({
         required: true
     },
     type:{
+        type: String,
+        required: true
+    },
+    address:{
+        type: String,
+        required: true
+    },
+    location:{
         type: String,
         required: true
     },

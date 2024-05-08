@@ -25,6 +25,8 @@ const UpdataApplication = () => {
     const [gst, setGst] = useState("");
     const [contact, setContact] = useState("");
     const [type, setType] = useState("");
+    const [address, setAdderss] = useState("");
+    const [location, setLocation] = useState("");
     const [oldImages, setOldImages] = useState([]);
     const [status, setStatus] = useState("");
 
@@ -49,6 +51,8 @@ const UpdataApplication = () => {
             setGst(application.gst);
             setContact(application.contact);
             setType(application.type);
+            setAdderss(application.address);
+            setLocation(application.location);
             setOldImages(application.images);
             setStatus(application.status);
 
@@ -166,6 +170,29 @@ const UpdataApplication = () => {
                         <MenuItem value={"active"}>Active</MenuItem>
                         <MenuItem value={"dismissed"}>Dismissed</MenuItem>
                     </TextField>
+
+                    <TextField
+                        label="Business Address"
+                        variant="outlined"
+                        size="small"
+                        required
+                        value={address}
+                        onChange={(e) => setAdderss(e.target.value)}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <TextField
+                        label="Business Location"
+                        variant="outlined"
+                        size="small"
+                        required
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
 
                 </div>
 
