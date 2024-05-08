@@ -117,7 +117,7 @@ const SellerProductTable = () => {
             headerName: "Rating",
             type: "number",
             minWidth: 100,
-            flex: 0.1,
+            flex: 0.3,
             align: "left",
             headerAlign: "left",
             renderCell: (params) => {
