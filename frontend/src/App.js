@@ -59,17 +59,12 @@ function App() {
   const { isAuthenticated } = useSelector(state => state.user);
 
   async function getStripeApiKey() {
-    if (isAuthenticated) { // Replace isLoggedIn with your actual authentication check
       try {
         const { data } = await axios.get("/api/v1/stripeapikey");
         setStriprApiKey(data.stripeApiKey);
       } catch (error) {
         console.error("Error fetching the Stripe API key:", error);
-        // Handle the error appropriately
       }
-    } else {
-      // Maybe redirect to login or show a message
-    }
   }
 
   // async function getStripeApiKey() {
