@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import { formatDate } from '../../utils/functions';
 import MetaData from '../Layouts/MetaData';
-import BackdropLoader from '../Layouts/BackdropLoader';
+// import BackdropLoader from '../Layouts/BackdropLoader';
 import { clearErrors, getAllsellerOrders } from "../../actions/orderAction";
 
 const SellerOrdersTable = () => {

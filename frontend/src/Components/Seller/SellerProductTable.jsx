@@ -1,25 +1,17 @@
 import { useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import ToggleOffIcon from '@mui/icons-material/ToggleOff';
-import ToggleOnIcon from '@mui/icons-material/ToggleOn';
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
-import Tooltip from '@mui/material/Tooltip';
 import { useAlert } from "react-alert";
-import { Link, useNavigate } from 'react-router-dom';
-import { clearErrors, getSellerProducts, approveProduct, availableProduct } from '../../actions/productActions';
+import { Link } from 'react-router-dom';
+import { clearErrors, getSellerProducts } from '../../actions/productActions';
 import Rating from '@mui/material/Rating';
 // import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
 import MetaData from '../Layouts/MetaData';
 import BackdropLoader from '../Layouts/BackdropLoader';
 import { useDispatch, useSelector } from 'react-redux';
-import { PRODUCT_APPROVE_RESET, PRODUCT_AVAILABLE_RESET } from '../../constants/productConstants'
 
 const SellerProductTable = () => {
     const dispatch = useDispatch();
     const alert = useAlert();
-    const navigate = useNavigate();
-    // const { enqueueSnackbar } = useSnackbar();
 
     const {  products, error, loading } = useSelector((state) => state.sellerProducts);
 
