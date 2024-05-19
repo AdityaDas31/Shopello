@@ -37,11 +37,13 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         if (password.length < 8) {
-            alert("Password length must be atleast 8 characters", { variant: "warning" });
+            // alert("Password length must be atleast 8 characters", { variant: "warning" });
+            alert.error("Password length must be atleast 8 characters")
             return;
         }
         if (!avatar) {
-            alert("Select Avatar", { variant: "error" });
+            // alert("Select Avatar", { variant: "error" });
+            alert.error("Select Avatar")
             return;
         }
 
