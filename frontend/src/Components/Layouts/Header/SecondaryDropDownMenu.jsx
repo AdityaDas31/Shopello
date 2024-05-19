@@ -13,7 +13,7 @@ const SecondaryDropDownMenu = () => {
             redirect: "https://www.flipkart.com/communication-preferences/push",
         },
         {
-            title: "Sell on Flipkart",
+            title: "Sell on Shopello",
             icon: <BusinessCenterIcon sx={{ fontSize: "18px" }} />,
             redirect: "/seller/apply",
         },

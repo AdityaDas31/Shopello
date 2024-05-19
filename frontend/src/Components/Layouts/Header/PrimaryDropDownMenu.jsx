@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+// import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -45,11 +45,11 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
             icon: <OfflineBoltIcon sx={{ fontSize: "18px" }} />,
             redirect: "/",
         },
-        {
-            title: "Flipkart Plus Zone",
-            icon: <AddCircleIcon sx={{ fontSize: "18px" }} />,
-            redirect: "/",
-        },
+        // {
+        //     title: "Flipkart Plus Zone",
+        //     icon: <AddCircleIcon sx={{ fontSize: "18px" }} />,
+        //     redirect: "/",
+        // },
         {
             title: "Orders",
             icon: <ShoppingBagIcon sx={{ fontSize: "18px" }} />,
