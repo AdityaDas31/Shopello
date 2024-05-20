@@ -65,7 +65,7 @@ const Products = () => {
 
     return (
         <>
-            <MetaData title="All Products | Flipkart" />
+            <MetaData title="All Products | Shopello" />
 
             <MinCategory />
             <main className="w-full mt-14 sm:mt-0">

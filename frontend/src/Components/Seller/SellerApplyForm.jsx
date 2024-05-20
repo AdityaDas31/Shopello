@@ -110,7 +110,7 @@ const SellerApplyForm = () => {
 
     return (
         <>
-            <MetaData title="Register | Flipkart" />
+            <MetaData title="Register | Shopello" />
 
             {loading && <BackdropLoader />}
 

@@ -36,7 +36,7 @@ const Contact = () => {
         <div className="contact-info">
           <h3 className="title">Let's get in touch</h3>
           <p className="text">
-            You can receive immediate support and solutions to any questions or problems you have while shopping on Flipkart.
+            You can receive immediate support and solutions to any questions or problems you have while shopping on Shopello.
           </p>
 
           <div className="info">
