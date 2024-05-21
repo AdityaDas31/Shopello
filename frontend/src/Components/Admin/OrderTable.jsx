@@ -125,7 +125,7 @@ const OrderTable = () => {
 
     return (
         <>
-            <MetaData title="Admin Orders | Flipkart" />
+            <MetaData title="Admin Orders | Shopello" />
 
             {loading && <BackdropLoader />}
 

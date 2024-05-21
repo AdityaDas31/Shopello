@@ -87,7 +87,7 @@ const LoginWithOpt = () => {
 
     return (
         <>
-            <MetaData title="Login | Flipkart" />
+            <MetaData title="Login | Shopello" />
 
             {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">

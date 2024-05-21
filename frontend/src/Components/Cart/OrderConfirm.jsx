@@ -17,7 +17,7 @@ const OrderConfirm = () => {
 
     return (
         <>
-        <MetaData title="Flipkart: Order Confirmation" />
+        <MetaData title="Shopello: Order Confirmation" />
 
         <main className="w-full mt-20">
 

@@ -80,7 +80,7 @@ const UpdataApplication = () => {
 
     return (
         <>
-            <MetaData title="Admin: Update Product | Flipkart" />
+            <MetaData title="Admin: Update Product | Shopello" />
 
             {loading && <BackdropLoader />}
 
