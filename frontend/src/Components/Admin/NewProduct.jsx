@@ -7,8 +7,8 @@ import { useAlert } from "react-alert";
 import { useNavigate } from 'react-router-dom';
 import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
 import { createProduct, clearErrors } from '../../actions/productActions';
-import ImageIcon from '@mui/icons-material/Image';
-// import { categories } from '../../utils/constants';
+// import ImageIcon from '@mui/icons-material/Image';
+import { categories } from '../../utils/constants';
 import MetaData from '../Layouts/MetaData';
 import BackdropLoader from '../Layouts/BackdropLoader';
 
@@ -19,6 +19,7 @@ const NewProduct = () => {
     const navigate = useNavigate();
 
     const { loading, success, error } = useSelector((state) => state.newProduct);
+    const {user} = useSelector((state) => state.user)
     
 
     const [highlights, setHighlights] = useState([]);
@@ -40,15 +41,15 @@ const NewProduct = () => {
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
-    const categories = [
-        "Laptop",
-        "Footwear",
-        "Bottom",
-        "Tops",
-        "Attire",
-        "Camera",
-        "SmartPhones",
-    ];
+    // const categories = [
+    //     "Laptop",
+    //     "Footwear",
+    //     "Bottom",
+    //     "Tops",
+    //     "Attire",
+    //     "Camera",
+    //     "SmartPhones",
+    // ];
 
     // const [logo, setLogo] = useState("");
     // const [logoPreview, setLogoPreview] = useState("");
@@ -169,12 +170,13 @@ const NewProduct = () => {
             alert.success("Product Created Successfully");
             dispatch({ type: NEW_PRODUCT_RESET });
             navigate("/admin/products");
+            {user.role === "admin" ? navigate("/admin/products") : navigate("/seller/products"); }
         }
     }, [dispatch, error, success, navigate, alert]);
 
     return (
         <>
-            <MetaData title="Admin: New Product | Flipkart" />
+            <MetaData title="Admin: New Product | Shopello" />
 
             {loading && <BackdropLoader />}
             <form onSubmit={newProductSubmitHandler} encType="multipart/form-data" className="flex flex-col sm:flex-row bg-white rounded-lg shadow p-4" id="mainform">

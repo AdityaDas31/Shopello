@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -15,7 +15,26 @@ const Header = () => {
     const [togglePrimaryDropDown, setTogglePrimaryDropDown] = useState(false);
     const [toggleSecondaryDropDown, setToggleSecondaryDropDown] = useState(false);
 
-    const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+    const { user, isAuthenticated } = useSelector((state) => state.user);
+
+    const { cartItems } = useSelector(state => state.cart);
+
+    useEffect(() => {
+        const closeDropDowns = (event) => {
+            if (togglePrimaryDropDown && !event.target.closest('.userDropDown')) {
+                setTogglePrimaryDropDown(false);
+            }
+            if (toggleSecondaryDropDown && !event.target.closest('.moreDropDown')) {
+                setToggleSecondaryDropDown(false);
+            }
+        };
+
+        document.body.addEventListener('click', closeDropDowns);
+
+        return () => {
+            document.body.removeEventListener('click', closeDropDowns);
+        };
+    }, [togglePrimaryDropDown, toggleSecondaryDropDown]);
 
   return (
     <header className="bg-primary-blue fixed top-0 py-2.5 w-full z-10">
@@ -26,7 +45,7 @@ const Header = () => {
                 {/* <!-- logo & search container --> */}
                 <div className="flex items-center flex-1">
                     <Link className="h-7 mr-1 sm:mr-4" to="/">
-                        <img draggable="false" className="h-full w-full object-contain" src={logo} alt="Flipkart Logo" />
+                        <img draggable="false" className="h-full w-full object-contain" src={logo} alt="Shopello Logo" />
                     </Link>
 
                     <Searchbar />
@@ -56,11 +75,11 @@ const Header = () => {
 
                     <Link to="/cart" className="flex items-center text-white font-medium gap-2 relative">
                         <span><ShoppingCartIcon /></span>
-                        {/* {cartItems.length > 0 &&
+                        {cartItems.length > 0 &&
                             <div className="w-5 h-5 p-2 bg-red-500 text-xs rounded-full absolute -top-2 left-3 flex justify-center items-center border">
                                 {cartItems.length}
                             </div>
-                        } */}
+                        }
                         Cart
                     </Link>
                 </div>

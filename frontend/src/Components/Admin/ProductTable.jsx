@@ -1,43 +1,73 @@
 import { useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
+import Tooltip from '@mui/material/Tooltip';
 import { useAlert } from "react-alert";
-import { Link } from 'react-router-dom';
-import { clearErrors, getAdminProduct } from '../../actions/productActions';
+import { Link, useNavigate } from 'react-router-dom';
+import { clearErrors, getAdminProduct, approveProduct, availableProduct } from '../../actions/productActions';
 import Rating from '@mui/material/Rating';
 // import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
-// import Actions from './Actions';
+import Actions from './Actions';
 import MetaData from '../Layouts/MetaData';
 import BackdropLoader from '../Layouts/BackdropLoader';
 import { useDispatch, useSelector } from 'react-redux';
+import { PRODUCT_APPROVE_RESET, PRODUCT_AVAILABLE_RESET } from '../../constants/productConstants'
 
 const ProductTable = () => {
 
     const dispatch = useDispatch();
     const alert = useAlert();
+    const navigate = useNavigate();
     // const { enqueueSnackbar } = useSnackbar();
 
     const { products, error } = useSelector((state) => state.products);
+    const { error: approveError, isApproved, loading, isAvailable } = useSelector((state) => state.product);
     // const { loading, isDeleted, error: deleteError } = useSelector((state) => state.product);
+
+    const approveProductHandler = (id) => {
+        dispatch(approveProduct(id));
+        window.location.reload();
+    }
+
+    const availableProductHandler = (id) => {
+        dispatch(availableProduct(id));
+        window.location.reload();
+    }
 
     useEffect(() => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
-        // if (deleteError) {
-        //     enqueueSnackbar(deleteError, { variant: "error" });
-        //     dispatch(clearErrors());
-        // }
-        // if (isDeleted) {
-        //     enqueueSnackbar("Product Deleted Successfully", { variant: "success" });
-        //     dispatch({ type: DELETE_PRODUCT_RESET });
-        // }
-        dispatch(getAdminProduct());
-    }, [dispatch, error, alert]);
 
-    // const deleteProductHandler = (id) => {
-    //     dispatch(deleteProduct(id));
-    // }
+        if (approveError) {
+            alert.error(approveError);
+            dispatch(clearErrors);
+        }
+
+        if (isApproved) {
+            alert.success("Product Approve Successfully");
+            navigate("/admin/products");
+            dispatch({ type: PRODUCT_APPROVE_RESET });
+
+        }
+
+        if (isAvailable) {
+            alert.success("Product Available Successfully");
+            navigate("/admin/products");
+            dispatch({ type: PRODUCT_AVAILABLE_RESET });
+
+        }
+
+        dispatch(getAdminProduct());
+    }, [dispatch, error, alert, isApproved, navigate, approveError, isAvailable]);
+
+
+
+
 
     const columns = [
         {
@@ -138,13 +168,53 @@ const ProductTable = () => {
             type: "number",
             sortable: false,
             renderCell: (params) => {
-                // return (
-                //     <Actions
-                //         editRoute={"product"}
-                //         deleteHandler={deleteProductHandler}
-                //         id={params.row.id}
-                //     />
-                // );
+                return (
+                    <Actions
+                        editRoute={"product"}
+                        // deleteHandler={deleteProductHandler}
+                        id={params.row.id}
+                    />
+                );
+            },
+        },
+        {
+            field: "activity",
+            headerName: "Activity",
+            minWidth: 100,
+            flex: 0.3,
+            type: "number",
+            sortable: false,
+            renderCell: (params) => {
+                return (
+                    <div className='flex justify-between items-center gap-3'>
+                        {/* <button className='text-red-600 hover:bg-red-200 p-1 rounded-full bg-red-100' onClick={() => approveProductHandler(params.id)}
+                        >
+                        {params.row.isApproved ? <DoneIcon fontSize='medium' /> : <CloseIcon fontSize='medium' />}
+                        </button> */}
+
+                        {
+                            params.row.isApproved ?
+                                <Tooltip title="Product Approved" placement="top-start" arrow>
+                                    <button className='text-green-600 hover:bg-green-200 p-1 rounded-full bg-green-100' onClick={() => approveProductHandler(params.id)}><DoneIcon fontSize='medium' /></button>
+                                </Tooltip> :
+                                <Tooltip title="Product Not Approved" placement="top-start" arrow>
+                                    <button className='text-red-600 hover:bg-red-200 p-1 rounded-full bg-red-100' onClick={() => approveProductHandler(params.id)}><CloseIcon fontSize='medium' /></button>
+                                </Tooltip>
+                        }
+
+                        {
+                            params.row.isAvailable ?
+                                <Tooltip title="Product Available" placement="top-start" arrow>
+                                    <button className='text-green-600 hover:bg-green-200 p-1 rounded-full bg-green-100' onClick={() => availableProductHandler(params.id)}><ToggleOnIcon fontSize='medium' /></button>
+                                </Tooltip> :
+                                <Tooltip title="Product Available" placement="top-start" arrow>
+                                    <button className='text-red-600 hover:bg-red-200 p-1 rounded-full bg-red-100' onClick={() => availableProductHandler(params.id)}><ToggleOffIcon fontSize='medium' /></button>
+                                </Tooltip>
+                        }
+
+                        {/* <button className='text-red-600 hover:bg-red-200 p-1 rounded-full bg-red-100'><ToggleOffIcon fontSize='medium' /></button> */}
+                    </div>
+                );
             },
         },
     ];
@@ -161,14 +231,16 @@ const ProductTable = () => {
             price: item.price,
             cprice: item.cuttedPrice,
             rating: item.ratings,
+            isApproved: item.approveStatus,
+            isAvailable: item.availableStatus,
         });
     });
 
     return (
         <>
-            <MetaData title="Admin Products | Flipkart" />
+            <MetaData title="Admin Products | Shopello" />
 
-            {/* {loading && <BackdropLoader />} */}
+            {loading && <BackdropLoader />}
 
             <div className="flex justify-between items-center">
                 <h1 className="text-lg font-medium uppercase">products</h1>

@@ -9,10 +9,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import CloseIcon from '@mui/icons-material/Close';
 import Avatar from '@mui/material/Avatar';
+import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
 import { useDispatch, useSelector } from 'react-redux';
 import './Sidebar.css';
-import { useSnackbar } from 'notistack';
-// import { logoutUser } from '../../../actions/userAction';
+import { logout } from '../../../actions/userActions';
+import { useAlert } from 'react-alert';
 
 const navMenu = [
     {
@@ -51,6 +52,11 @@ const navMenu = [
         ref: "/account",
     },
     {
+        icon: <SensorOccupiedIcon />,
+        label: "Seller Applications",
+        ref: "/admin/seller-apply",
+    },
+    {
         icon: <LogoutIcon />,
         label: "Logout",
     },
@@ -60,13 +66,13 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert();
 
-    // const { user } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
 
     const handleLogout = () => {
-        // dispatch(logoutUser());
-        enqueueSnackbar("Logout Successfully", { variant: "success" });
+        dispatch(logout());
+        alert.success("Logout  Successfully");
         navigate("/login");
     }
 
@@ -75,14 +81,14 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
             <div className="flex items-center gap-3 bg-gray-700 p-2 rounded-lg shadow-lg my-4 mx-3.5">
                 <Avatar
                     alt="Avatar"
-                    // src={user.avatar.url}
+                    src={user.avatar.url}
                 />
                 <div className="flex flex-col gap-0">
                     <span className="font-medium text-lg">
-                        {/* {user.name} */}
+                        {user.name}
                         </span>
                     <span className="text-gray-300 text-sm">
-                        {/* {user.email}     */}
+                        {user.email}    
                         </span>
                 </div>
                 <button onClick={()=>setToggleSidebar(false)} className="sm:hidden bg-gray-800 ml-auto rounded-full w-10 h-10 flex items-center justify-center">

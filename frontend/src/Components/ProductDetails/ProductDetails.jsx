@@ -1,9 +1,9 @@
-import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 // import { clearErrors, getProductDetails, getSimilarProducts, newReview } from '../../actions/productAction';
+import { clearErrors, getProductDetails, newReview } from '../../actions/productActions';
 import { NextBtn, PreviousBtn } from '../Home/Banner/Banner';
 import ProductSlider from '../Home/ProductSlider/ProductSlider';
 import Loader from '../Layouts/Loader';
@@ -21,18 +21,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
-// import { NEW_REVIEW_RESET } from '../../constants/productConstants';
-// import { addItemsToCart } from '../../actions/cartAction';
-// import { getDeliveryDate, getDiscount } from '../../utils/functions';
-// import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
+import { NEW_REVIEW_RESET } from '../../constants/productConstants';
+import { addItemsToCart } from '../../actions/cartActions';
+import { getDeliveryDate, getDiscount } from '../../utils/functions';
+import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
 import MinCategory from '../Layouts/MinCategory';
 import MetaData from '../Layouts/MetaData';
-import product from '../../ProductData';
+import { useAlert } from 'react-alert';
 
 const ProductDetails = () => {
 
     const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert();
     const params = useParams();
     const navigate = useNavigate();
 
@@ -42,10 +42,10 @@ const ProductDetails = () => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
-    // const { product, loading, error } = useSelector((state) => state.productDetails);
-    // const { success, error: reviewError } = useSelector((state) => state.newReview);
-    // const { cartItems } = useSelector((state) => state.cart);
-    // const { wishlistItems } = useSelector((state) => state.wishlist);
+    const { product, loading, error } = useSelector((state) => state.productDetails);
+    const { success, error: reviewError } = useSelector((state) => state.newReview);
+    const { cartItems } = useSelector((state) => state.cart);
+    const { wishlistItems } = useSelector((state) => state.wishlist);
 
     const settings = {
         autoplay: true,
@@ -60,41 +60,45 @@ const ProductDetails = () => {
     };
 
     const productId = params.id;
-    // const itemInWishlist = wishlistItems.some((i) => i.product === productId);
+    const itemInWishlist = wishlistItems.some((i) => i.product === productId);
 
     const addToWishlistHandler = () => {
-        // if (itemInWishlist) {
-        //     dispatch(removeFromWishlist(productId));
-        //     enqueueSnackbar("Remove From Wishlist", { variant: "success" });
-        // } else {
-        //     dispatch(addToWishlist(productId));
-        //     enqueueSnackbar("Added To Wishlist", { variant: "success" });
-        // }
+        if (itemInWishlist) {
+            dispatch(removeFromWishlist(productId));
+            // enqueueSnackbar("Remove From Wishlist", { variant: "success" });
+            alert.show("Removed from Wishlist!");
+        } else {
+            dispatch(addToWishlist(productId));
+            // enqueueSnackbar("Added To Wishlist", { variant: "success" });
+            alert.success("Added to Wishlist!");
+        }
     }
 
     const reviewSubmitHandler = () => {
-        // if (rating === 0 || !comment.trim()) {
-        //     enqueueSnackbar("Empty Review", { variant: "error" });
-        //     return;
-        // }
-        // const formData = new FormData();
-        // formData.set("rating", rating);
-        // formData.set("comment", comment);
-        // formData.set("productId", productId);
-        // dispatch(newReview(formData));
-        // setOpen(false);
+        if (rating === 0 || !comment.trim()) {
+            // enqueueSnackbar("Empty Review", { variant: "error" });
+            alert.error( "Empty Review" );
+            return;
+        }
+        const formData = new FormData();
+        formData.set("rating", rating);
+        formData.set("comment", comment);
+        formData.set("productId", productId);
+        dispatch(newReview(formData));
+        setOpen(false);
     }
 
     const addToCartHandler = () => {
-        // dispatch(addItemsToCart(productId));
+        dispatch(addItemsToCart(productId));
         // enqueueSnackbar("Product Added To Cart", { variant: "success" });
+        alert.success('Item added to cart!');
     }
 
     const handleDialogClose = () => {
         setOpen(!open);
     }
 
-    // const itemInCart = cartItems.some((i) => i.product === productId);
+    const itemInCart = cartItems.some((i) => i.product === productId);
 
     const goToCart = () => {
         navigate('/cart');
@@ -105,30 +109,42 @@ const ProductDetails = () => {
         navigate('/shipping');
     }
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (reviewError) {
-    //         enqueueSnackbar(reviewError, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (success) {
-    //         enqueueSnackbar("Review Submitted Successfully", { variant: "success" });
-    //         dispatch({ type: NEW_REVIEW_RESET });
-    //     }
-    //     dispatch(getProductDetails(productId));
-    //     // eslint-disable-next-line
-    // }, [dispatch, productId, error, reviewError, success, enqueueSnackbar]);
+    useEffect(() => {
+        if (error) {
+            // enqueueSnackbar(error, { variant: "error" });
+            alert.error( error );
+            dispatch(clearErrors());
+        }
+        if (reviewError) {
+            // enqueueSnackbar(reviewError, { variant: "error" });
+            alert.error( reviewError );
+            dispatch(clearErrors());
+        }
+        if (success) {
+            // enqueueSnackbar("Review Submitted Successfully", { variant: "success" });
+            alert.success("Review Submitted Successfully");
+            dispatch({ type: NEW_REVIEW_RESET });
+        }
+        dispatch(getProductDetails(productId));
+        // eslint-disable-next-line
+    }, [dispatch, productId, error, reviewError, success, alert]);
 
     // useEffect(() => {
     //     dispatch(getSimilarProducts(product?.category));
     // }, [dispatch, product, product.category]);
 
+    useEffect(() =>{
+        window.scrollTo(0, 0);
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+        dispatch(getProductDetails(productId))
+    },[dispatch, productId, error, alert])
+
     return (
         <>
-            {/* {loading ? <Loader /> : ( */}
+            {loading ? <Loader /> : (
                 <>
                     <MetaData title={product.name} />
                     <MinCategory />
@@ -148,20 +164,21 @@ const ProductDetails = () => {
                                             ))}
                                         </Slider>
                                         <div className="absolute top-4 right-4 shadow-lg bg-white w-9 h-9 border flex items-center justify-center rounded-full">
-                                            {/* <span 
+                                            <span 
                                             onClick={addToWishlistHandler} 
-                                            className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span> */}
+                                            className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span>
                                         </div>
+                                        
                                     </div>
 
                                     <div className="w-full flex gap-3">
                                         {/* <!-- add to cart btn --> */}
-                                        {/* {product.stock > 0 && (
+                                        {product.stock > 0 && (
                                             <button onClick={itemInCart ? goToCart : addToCartHandler} className="p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-yellow rounded-sm shadow hover:shadow-lg">
                                                 <ShoppingCartIcon />
                                                 {itemInCart ? "GO TO CART" : "ADD TO CART"}
                                             </button>
-                                        )} */}
+                                        )}
                                         <button onClick={buyNow} disabled={product.stock < 1 ? true : false} className={product.stock < 1 ? "p-4 w-full flex items-center justify-center gap-2 text-white bg-red-600 cursor-not-allowed rounded-sm shadow hover:shadow-lg" : "p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-orange rounded-sm shadow hover:shadow-lg"}>
                                             <FlashOnIcon />
                                             {product.stock < 1 ? "OUT OF STOCK" : "BUY NOW"}
@@ -193,7 +210,7 @@ const ProductDetails = () => {
                                     <div className="flex items-baseline gap-2 text-3xl font-medium">
                                         <span className="text-gray-800">₹{product.price?.toLocaleString()}</span>
                                         <span className="text-base text-gray-500 line-through">₹{product.cuttedPrice?.toLocaleString()}</span>
-                                        {/* <span className="text-base text-primary-green">{getDiscount(product.price, product.cuttedPrice)}%&nbsp;off</span> */}
+                                        <span className="text-base text-primary-green">{getDiscount(product.price, product.cuttedPrice)}%&nbsp;off</span>
                                     </div>
                                     {product.stock <= 10 && product.stock > 0 && (
                                         <span className="text-red-500 text-sm font-medium">Hurry, Only {product.stock} left!</span>
@@ -205,14 +222,16 @@ const ProductDetails = () => {
                                     {Array(3).fill("").map((el, i) => (
                                         <p className="text-sm flex items-center gap-1" key={i}>
                                             <span className="text-primary-lightGreen"><LocalOfferIcon sx={{ fontSize: "20px" }} /></span>
-                                            <span className="font-medium ml-2">Bank Offer</span> 15% Instant discount on first Flipkart Pay Later order of 500 and above <Link className="text-primary-blue font-medium" to="/">T&C</Link>
+                                            <span className="font-medium ml-2">Bank Offer</span> 15% Instant discount on first Shopello Pay Later order of 500 and above <Link className="text-primary-blue font-medium" to="/">T&C</Link>
                                         </p>
                                     ))}
                                     {/* <!-- banks offers --> */}
 
                                     {/* <!-- warranty & brand --> */}
                                     <div className="flex gap-8 mt-2 items-center text-sm">
-                                        <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.brand?.logo.url} alt={product.brand && product.brand.name} />
+                                        {product.user && (
+                                            <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.user.avatar.url} alt={product.user.name}/>
+                                        )}
                                         <span>{product.warranty} Year Warranty <Link className="font-medium text-primary-blue" to="/">Know More</Link></span>
                                     </div>
                                     {/* <!-- warranty & brand --> */}
@@ -220,7 +239,7 @@ const ProductDetails = () => {
                                     {/* <!-- delivery details --> */}
                                     <div className="flex gap-16 mt-4 items-center text-sm font-medium">
                                         <p className="text-gray-500">Delivery</p>
-                                        {/* <span>Delivery by {getDeliveryDate()}</span> */}
+                                        <span>Delivery by {getDeliveryDate()}</span>
                                     </div>
                                     {/* <!-- delivery details --> */}
 
@@ -262,15 +281,15 @@ const ProductDetails = () => {
                                     {/* <!-- seller details --> */}
                                     <div className="flex gap-16 mt-4 items-center text-sm font-medium">
                                         <p className="text-gray-500">Seller</p>
-                                        <Link className="font-medium text-primary-blue ml-3" to="/">{product.brand && product.brand.name}</Link>
+                                        {product.user && <Link className="font-medium text-primary-blue ml-3" to="/">{product.user.name}</Link>}
                                     </div>
                                     {/* <!-- seller details --> */}
 
-                                    {/* <!-- flipkart plus banner --> */}
+                                    {/* <!-- Shopello plus banner --> */}
                                     <div className="sm:w-1/2 mt-4 border">
                                         <img draggable="false" className="w-full h-full object-contain" src="https://rukminim1.flixcart.com/lockin/763/305/images/promotion_banner_v2_active.png" alt="" />
                                     </div>
-                                    {/* <!-- flipkart plus banner --> */}
+                                    {/* <!-- Shopello plus banner --> */}
 
                                     {/* <!-- description details --> */}
                                     <div className="flex flex-col sm:flex-row gap-1 sm:gap-14 mt-4 items-stretch text-sm">
@@ -385,7 +404,7 @@ const ProductDetails = () => {
 
                     </main>
                 </>
-            {/* )} */}
+            )} 
         </>
     );
 };

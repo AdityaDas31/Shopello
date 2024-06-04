@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BackdropLoader from '../Layouts/BackdropLoader';
 import { clearErrors, sendOtp, loginOtp } from '../../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux';
@@ -87,7 +87,7 @@ const LoginWithOpt = () => {
 
     return (
         <>
-            <MetaData title="Login | Flipkart" />
+            <MetaData title="Login | Shopello" />
 
             {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">

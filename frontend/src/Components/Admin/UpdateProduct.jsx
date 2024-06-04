@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { useNavigate, useParams } from 'react-router-dom';
 import { REMOVE_PRODUCT_DETAILS, UPDATE_PRODUCT_RESET } from '../../constants/productConstants';
-import { clearErrors, getProductDetails, updateProduct } from '../../actions/productAction';
-import ImageIcon from '@mui/icons-material/Image';
-// import BackdropLoader from '../Layouts/BackdropLoader';
+import { clearErrors, getProductDetails, updateProduct } from '../../actions/productActions';
+// import ImageIcon from '@mui/icons-material/Image';
+import BackdropLoader from '../Layouts/BackdropLoader';
 import { categories } from '../../utils/constants';
-// import MetaData from '../Layouts/MetaData';
+import MetaData from '../Layouts/MetaData';
 
 const UpdateProduct = () => {
 
@@ -37,13 +37,13 @@ const UpdateProduct = () => {
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState(0);
     const [warranty, setWarranty] = useState(0);
-    const [brand, setBrand] = useState("");
+    // const [brand, setBrand] = useState("");
     const [images, setImages] = useState([]);
     const [oldImages, setOldImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
-    const [logo, setLogo] = useState("");
-    const [logoPreview, setLogoPreview] = useState("");
+    // const [logo, setLogo] = useState("");
+    // const [logoPreview, setLogoPreview] = useState("");
 
     const handleSpecsChange = (e) => {
         setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
@@ -69,21 +69,21 @@ const UpdateProduct = () => {
         setSpecs(specs.filter((s, i) => i !== index))
     }
 
-    const handleLogoChange = (e) => {
-        const reader = new FileReader();
+    // const handleLogoChange = (e) => {
+    //     const reader = new FileReader();
 
-        setLogo("");
-        setLogoPreview("");
+    //     setLogo("");
+    //     setLogoPreview("");
 
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setLogoPreview(reader.result);
-                setLogo(reader.result);
-            }
-        };
+    //     reader.onload = () => {
+    //         if (reader.readyState === 2) {
+    //             setLogoPreview(reader.result);
+    //             setLogo(reader.result);
+    //         }
+    //     };
 
-        reader.readAsDataURL(e.target.files[0]);
-    }
+    //     reader.readAsDataURL(e.target.files[0]);
+    // }
 
     const handleProductImageChange = (e) => {
         const files = Array.from(e.target.files);
@@ -127,8 +127,8 @@ const UpdateProduct = () => {
         formData.set("category", category);
         formData.set("stock", stock);
         formData.set("warranty", warranty);
-        formData.set("brandname", brand);
-        formData.set("logo", logo);
+        // formData.set("brandname", brand);
+        // formData.set("logo", logo);
 
         images.forEach((image) => {
             formData.append("images", image);
@@ -159,11 +159,11 @@ const UpdateProduct = () => {
             setCategory(product.category);
             setStock(product.stock);
             setWarranty(product.warranty);
-            setBrand(product.brand.name);
+            // setBrand(product.brand.name);
             setHighlights(product.highlights);
             setSpecs(product.specifications);
             setOldImages(product.images);
-            setLogoPreview(product.brand.logo.url);
+            // setLogoPreview(product.brand.logo.url);
         }
         if (error) {
             enqueueSnackbar(error, { variant: "error" });
@@ -183,10 +183,10 @@ const UpdateProduct = () => {
 
     return (
         <>
-            {/* <MetaData title="Admin: Update Product | Flipkart" />
+            <MetaData title="Admin: Update Product | Shopello" />
 
             {loading && <BackdropLoader />}
-            {updateLoading && <BackdropLoader />} */}
+            {updateLoading && <BackdropLoader />}
             <form onSubmit={newProductSubmitHandler} encType="multipart/form-data" className="flex flex-col sm:flex-row bg-white rounded-lg shadow p-4" id="mainform">
 
                 <div className="flex flex-col gap-3 m-2 sm:w-1/2">
@@ -303,7 +303,7 @@ const UpdateProduct = () => {
                         </div>
                     </div>
 
-                    <h2 className="font-medium">Brand Details</h2>
+                    {/* <h2 className="font-medium">Brand Details</h2>
                     <div className="flex justify-between gap-4 items-start">
                         <TextField
                             label="Brand"
@@ -329,7 +329,7 @@ const UpdateProduct = () => {
                             />
                             Choose Logo
                         </label>
-                    </div>
+                    </div> */}
 
                 </div>
 

@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, login } from '../../actions/userActions'
 // import { useSnackbar } from 'notistack';
@@ -11,19 +11,19 @@ import MetaData from '../Layouts/MetaData';
 
 const Login = () => {
 
-    const inlineStyles = {
-        background: 'conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        color: 'transparent',
-        WebkitTextFillColor: 'transparent',
-    };
+    // const inlineStyles = {
+    //     background: 'conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat',
+    //     WebkitBackgroundClip: 'text',
+    //     backgroundClip: 'text',
+    //     color: 'transparent',
+    //     WebkitTextFillColor: 'transparent',
+    // };
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const alert = useAlert();
     // const { enqueueSnackbar } = useSnackbar();
-    const location = useLocation();
+    // const location = useLocation();
     const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 
 
@@ -35,9 +35,9 @@ const Login = () => {
         dispatch(login(email, password));
     }
 
-    const loginwithgoogle = ()=>{
-        window.open("http://localhost:5000/auth/google/callback","_self")
-    }
+    // const loginwithgoogle = ()=>{
+    //     window.open("http://localhost:5000/auth/google/callback","_self")
+    // }
 
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const Login = () => {
 
     return (
         <>
-            <MetaData title="Login | Flipkart" />
+            <MetaData title="Login | Shopello" />
 
             {loading && <BackdropLoader />}
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">
@@ -100,7 +100,7 @@ const Login = () => {
 
                                     {/* <!-- button container --> */}
                                     <div className="flex flex-col gap-2.5 mt-2 mb-32">
-                                        <p className="text-xs text-primary-grey text-left">By continuing, you agree to Flipkart's <a href="https://www.flipkart.com/pages/terms" className="text-primary-blue"> Terms of Use</a> and <a href="https://www.flipkart.com/pages/privacypolicy" className="text-primary-blue"> Privacy Policy.</a></p>
+                                        <p className="text-xs text-primary-grey text-left">By continuing, you agree to Shopello's <a href="https://www.Shopello.com/pages/terms" className="text-primary-blue"> Terms of Use</a> and <a href="https://www.Shopello.com/pages/privacypolicy" className="text-primary-blue"> Privacy Policy.</a></p>
                                         <p className="text-xs text-primary-grey text-left">Login With OTP <Link to='/getotp' className="text-primary-blue"> Click Here</Link></p>
                                         <button type="submit" className="text-white py-3 w-full bg-primary-orange shadow hover:shadow-lg rounded-sm font-medium">Login</button>
                                         <Link to="/password/forgot" className="hover:bg-gray-50 text-primary-blue text-center py-3 w-full shadow border rounded-sm font-medium">Forgot Password?</Link>
@@ -111,7 +111,7 @@ const Login = () => {
                             </form>
                             {/* <!-- input container --> */}
 
-                            <Link to="/register" className="font-medium text-sm text-primary-blue">New to Flipkart? Create an account</Link>
+                            <Link to="/register" className="font-medium text-sm text-primary-blue">New to Shopello? Create an account</Link>
                         </div>
                         {/* <!-- edit info container --> */}
 

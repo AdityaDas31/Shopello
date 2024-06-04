@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSnackbar } from 'notistack';
-import { clearErrors, deleteReview, getAllReviews } from '../../actions/productAction';
+// import { useSnackbar } from 'notistack';
+import { useAlert } from 'react-alert';
+import { clearErrors, deleteReview, getAllReviews } from '../../actions/productActions';
 import Rating from '@mui/material/Rating';
 import Actions from './Actions';
 import { DELETE_REVIEW_RESET } from '../../constants/productConstants';
-// import MetaData from '../Layouts/MetaData';
-// import BackdropLoader from '../Layouts/BackdropLoader';
+import MetaData from '../Layouts/MetaData';
+import BackdropLoader from '../Layouts/BackdropLoader';
 
 const ReviewsTable = () => {
 
     const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
+    // const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert()
     const [productId, setProductId] = useState("");
 
     const { reviews, error } = useSelector((state) => state.reviews);
@@ -23,18 +25,21 @@ const ReviewsTable = () => {
             dispatch(getAllReviews(productId));
         }
         if (error) {
-            enqueueSnackbar(error, { variant: "error" });
+            // enqueueSnackbar(error, { variant: "error" });
+            alert.error(error)
             dispatch(clearErrors());
         }
         if (deleteError) {
-            enqueueSnackbar(deleteError, { variant: "error" });
+            // enqueueSnackbar(deleteError, { variant: "error" });
+            alert.error(deleteError)
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            enqueueSnackbar("Review Deleted Successfully", { variant: "success" });
+            // enqueueSnackbar("Review Deleted Successfully", { variant: "success" });
+            alert.success('Review Deleted Successfully');
             dispatch({ type: DELETE_REVIEW_RESET });
         }
-    }, [dispatch, error, deleteError, isDeleted, productId, enqueueSnackbar]);
+    }, [dispatch, error, deleteError, isDeleted, productId, alert]);
 
     const deleteReviewHandler = (id) => {
         dispatch(deleteReview(id, productId));
@@ -99,9 +104,9 @@ const ReviewsTable = () => {
 
     return (
         <>
-            {/* <MetaData title="Admin Reviews | Flipkart" /> */}
+            <MetaData title="Admin Reviews | Shopello" />
 
-            {/* {loading && <BackdropLoader />} */}
+            {loading && <BackdropLoader />}
             <div className="flex justify-between items-center gap-2 sm:gap-12">
                 <h1 className="text-lg font-medium uppercase">reviews</h1>
                 <input type="text" placeholder="Product ID" value={productId} onChange={(e) => setProductId(e.target.value)} className="outline-none border-0 rounded p-2 w-full shadow hover:shadow-lg" />

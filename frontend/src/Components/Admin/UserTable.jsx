@@ -1,40 +1,50 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSnackbar } from 'notistack';
-// import { clearErrors, deleteUser, getAllUsers } from '../../actions/userAction';
-// import { DELETE_USER_RESET } from '../../constants/userConstants';
-// import Actions from './Actions';
-// import MetaData from '../Layouts/MetaData';
-// import BackdropLoader from '../Layouts/BackdropLoader';
+import { useAlert } from "react-alert";
+import { clearErrors, getAllUsers, deleteUser } from '../../actions/userActions';
+import { DELETE_USER_RESET } from '../../constants/userConstants';
+import Actions from './Actions';
+import MetaData from '../Layouts/MetaData';
+import BackdropLoader from '../Layouts/BackdropLoader';
 
 const UserTable = () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const { enqueueSnackbar } = useSnackbar();
+    const alert = useAlert();
+    const [searchQuery, setSearchQuery] = useState('');
 
-    // const { users, error } = useSelector((state) => state.users);
-    // const { loading, isDeleted, error: deleteError } = useSelector((state) => state.profile);
+    const { users, error } = useSelector((state) => state.users);
+    const { loading, isDeleted, error: deleteError } = useSelector((state) => state.profile);
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (deleteError) {
-    //         enqueueSnackbar(deleteError, { variant: "error" });
-    //         dispatch(clearErrors());
-    //     }
-    //     if (isDeleted) {
-    //         enqueueSnackbar("User Deleted Successfully", { variant: "success" });
-    //         dispatch({ type: DELETE_USER_RESET });
-    //     }
-    //     dispatch(getAllUsers());
-    // }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+        if (deleteError) {
+            alert.error(deleteError);
+            dispatch(clearErrors());
+        }
+        if (isDeleted) {
+            alert.success("User Deleted Successfully");
+            dispatch({ type: DELETE_USER_RESET });
+        }
+        dispatch(getAllUsers());
+    }, [dispatch, error, alert, deleteError, isDeleted]);
 
-    // const deleteUserHandler = (id) => {
-    //     dispatch(deleteUser(id));
-    // }
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id));
+    }
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const filteredUsers = users.filter(user =>
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const columns = [
         {
@@ -60,12 +70,6 @@ const UserTable = () => {
             flex: 0.2,
         },
         {
-            field: "gender",
-            headerName: "Gender",
-            minWidth: 100,
-            flex: 0.1,
-        },
-        {
             field: "role",
             headerName: "Role",
             minWidth: 100,
@@ -76,6 +80,8 @@ const UserTable = () => {
                         {
                             params.row.role === "admin" ? (
                                 <span className="text-sm bg-green-100 p-1 px-2 font-medium rounded-full text-green-800 capitalize">{params.row.role}</span>
+                            ) : params.row.role === "seller" ? (
+                                <span className="text-sm bg-blue-200 p-1 px-2 font-medium rounded-full text-blue-800 capitalize">{params.row.role}</span>
                             ) : (
                                 <span className="text-sm bg-purple-100 p-1 px-2 font-medium rounded-full text-purple-800 capitalize">{params.row.role}</span>
                             )
@@ -87,7 +93,7 @@ const UserTable = () => {
         {
             field: "registeredOn",
             headerName: "Registered On",
-            type: "date",
+            type: "Date",
             minWidth: 150,
             flex: 0.2,
         },
@@ -98,35 +104,50 @@ const UserTable = () => {
             flex: 0.3,
             type: "number",
             sortable: false,
-            // renderCell: (params) => {
-            //     return (
-            //         <Actions editRoute={"user"} deleteHandler={deleteUserHandler} id={params.row.id} name={params.row.name} />
-            //     );
-            // },
+            renderCell: (params) => {
+                return (
+                    <Actions editRoute={"user"} deleteHandler={deleteUserHandler} id={params.row.id} name={params.row.name} />
+                );
+            },
         },
     ];
 
-    const rows = [];
 
-    // users && users.forEach((item) => {
-    //     rows.unshift({
-    //         id: item._id,
-    //         name: item.name,
-    //         avatar: item.avatar.url,
-    //         email: item.email,
-    //         gender: item.gender.toUpperCase(),
-    //         role: item.role,
-    //         registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
-    //     });
-    // });
+    const rows = searchQuery ? (
+        filteredUsers.map((item) => ({
+            id: item._id,
+            name: item.name,
+            avatar: item.avatar.url,
+            email: item.email,
+            role: item.role,
+            registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
+        }))
+    ) : (
+        []
+    );
+
+    !searchQuery && users && users.forEach((item) => {
+        rows.unshift({
+            id: item._id,
+            name: item.name,
+            avatar: item.avatar.url,
+            email: item.email,
+            role: item.role,
+            registeredOn: new Date(item.createdAt).toISOString().substring(0, 10),
+        });
+    });
 
     return (
         <>
-            {/* <MetaData title="Admin Users | Flipkart" />
+            <MetaData title="Admin Users | Shopello" />
 
-            {loading && <BackdropLoader />} */}
+            {loading && <BackdropLoader />}
 
-            <h1 className="text-lg font-medium uppercase">users</h1>
+            {/* <h1 className="text-lg font-medium uppercase">users</h1> */}
+            <div className="flex justify-between items-center gap-2 sm:gap-12">
+                <h1 className="text-lg font-medium uppercase">user</h1>
+                <input type="text" placeholder="User Email" value={searchQuery} onChange={handleSearchChange}  className="outline-none border-0 rounded p-2 w-full shadow hover:shadow-lg" />
+            </div>
             <div className="bg-white rounded-xl shadow-lg w-full" style={{ height: 470 }}>
 
                 <DataGrid

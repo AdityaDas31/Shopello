@@ -8,17 +8,19 @@ import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { clearErrors, getProducts } from '../../actions/productAction';
+// import { clearErrors, getProducts } from '../../actions/productAction';
+import { clearErrors, getProducts } from '../../actions/productActions';
 import Loader from '../Layouts/Loader';
 import MinCategory from '../Layouts/MinCategory';
 import Product from './Product';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import StarIcon from '@mui/icons-material/Star';
-// import { categories } from '../../utils/constants';
+import { categories } from '../../utils/constants';
 import MetaData from '../Layouts/MetaData';
 // import { getRandomProducts } from '../../utils/functions';
 import { useLocation } from 'react-router-dom';
+import { useAlert } from 'react-alert';
 
 const Products = () => {
 
@@ -26,6 +28,7 @@ const Products = () => {
     const { enqueueSnackbar } = useSnackbar();
     const params = useParams();
     const location = useLocation();
+    const alert = useAlert();
 
     const [price, setPrice] = useState([0, 200000]);
     const [category, setCategory] = useState(location.search ? location.search.split("=")[1] : "");
@@ -52,16 +55,17 @@ const Products = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (error) {
-            enqueueSnackbar(error, { variant: "error" });
+            alert.error(error);
             dispatch(clearErrors());
         }
-        dispatch(getProducts(keyword, category, price, ratings, currentPage));
-    }, [dispatch, keyword, category, price, ratings, currentPage, error, enqueueSnackbar]);
+        dispatch(getProducts(keyword, currentPage,price,category,ratings));
+    }, [dispatch, keyword, currentPage,price,error,alert,category,ratings]);
 
     return (
         <>
-            <MetaData title="All Products | Flipkart" />
+            <MetaData title="All Products | Shopello" />
 
             <MinCategory />
             <main className="w-full mt-14 sm:mt-0">
@@ -190,8 +194,8 @@ const Products = () => {
 
                                 <div className="grid grid-cols-1 sm:grid-cols-4 w-full place-content-start overflow-hidden pb-4 border-b">
                                     {products?.map((product) => (
-                                            <Product {...product} key={product._id} />
-                                        ))
+                                        <Product {...product} key={product._id} />
+                                    ))
                                     }
                                 </div>
                                 {filteredProductsCount > resultPerPage && (

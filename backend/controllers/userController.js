@@ -260,6 +260,44 @@ exports.getUserProfile = catchAsyncError(async (req, res, next) => {
     });
 });
 
+// Update User Profile
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+    }
+
+    if(req.body.avatar !== "") {
+        const user = await User.findById(req.user.id);
+
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.v2.uploader.destroy(imageId);
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 150,
+            crop: "scale",
+        });
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+        }
+    }
+
+    await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: true,
+    });
+
+    res.status(200).json({
+        success: true,
+    });
+});
+
 // Update Password
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id).select("+password");
@@ -294,6 +332,74 @@ The Team Shopello`
     //sendToken(user, 200, res);
 });
 
+// Forgot Password
+exports.forgotPassword = catchAsyncError(async (req, res, next) => {
+    
+    const user = await User.findOne({email: req.body.email});
+
+    if(!user) {
+        return next(new ErrorHandler("User Not Found", 404));
+    }
+
+    const resetToken = await user.getResetPasswordToken();
+
+    await user.save({ validateBeforeSave: false });
+
+    // const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
+    // const resetPasswordUrl = `https://${req.get("host")}/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+
+    // const message = `Youe password reset token is :- \n\n ${ resetPasswordUrl } \n\nif you have not requested this email then, please ignore it.`;
+
+    const htmlPath = 'backend/mailTemplate/resetPassword.html';
+    let message = fs.readFileSync(htmlPath, 'utf8');
+    message = message.replace(/\$\(LINK\)/g, resetPasswordUrl);
+    try{
+        await sendEmail({
+            email:user.email,
+            subject: 'Shopello Password Recovery',
+            message,
+        });
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email} successfully.Check Spam also`,
+        });
+    } catch(error){
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        const user = await User.findOne({ email: req.body.email });
+        return next(new ErrorHander(error.message,500));
+
+    }
+
+});
+
+// Reset Password
+exports.resetPassword = catchAsyncError(async (req, res, next) => {
+
+    // create hash token
+    const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+
+    const user = await User.findOne({ 
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if(!user) {
+        return next(new ErrorHandler("Invalid reset password token", 404));
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+    sendToken(user, 200, res);
+});
+
+
+
 // Subscribe
 
 exports.subscribe = catchAsyncError(async (req, res, next) => {
@@ -326,3 +432,83 @@ The Team Shopello`;
         return next(new ErrorHandler(error.message, 500));
     }
 }) 
+
+
+// Get All Users --ADMIN
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});
+
+// Delete User --ADMIN
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if(!user) {
+        return next(new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404));
+    }
+
+    await User.deleteOne({ _id: user._id });
+
+    res.status(200).json({
+        success: true
+    });
+});
+
+// Update User Role --ADMIN
+exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        gender: req.body.gender,
+        role: req.body.role,
+    }
+
+    await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({
+        success: true,
+    });
+});
+
+// Get Single User Details --ADMIN
+exports.getSingleUser = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if(!user) {
+        return next(new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
+// Get user -- Admin
+
+exports.getUser = catchAsyncError(async (req, res, next) => {
+    // Assuming your Product model contains an 'email' field
+    const user = await User.findOne({ email: req.query.email });
+
+    if (!user) {
+        return next(new ErrorHandler("Product Not Found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    });
+});

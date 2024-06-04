@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+// import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -14,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import BackdropLoader from '../BackdropLoader';
+// import BackdropLoader from '../BackdropLoader';
 
 const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
     const navigate = useNavigate();
@@ -45,11 +45,11 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
             icon: <OfflineBoltIcon sx={{ fontSize: "18px" }} />,
             redirect: "/",
         },
-        {
-            title: "Flipkart Plus Zone",
-            icon: <AddCircleIcon sx={{ fontSize: "18px" }} />,
-            redirect: "/",
-        },
+        // {
+        //     title: "Shopello Plus Zone",
+        //     icon: <AddCircleIcon sx={{ fontSize: "18px" }} />,
+        //     redirect: "/",
+        // },
         {
             title: "Orders",
             icon: <ShoppingBagIcon sx={{ fontSize: "18px" }} />,
@@ -89,6 +89,13 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
                 <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/admin/dashboard">
                     <span className="text-primary-blue"><DashboardIcon sx={{ fontSize: "18px" }} /></span>
                     Admin Dashboard
+                </Link>
+            }
+
+            {user.role === "seller" &&
+                <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/seller/dashboard">
+                    <span className="text-primary-blue"><DashboardIcon sx={{ fontSize: "18px" }} /></span>
+                    Seller Dashboard
                 </Link>
             }
 
